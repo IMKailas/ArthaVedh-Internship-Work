@@ -1,0 +1,91 @@
+2024-11-17 19:18:26.930036 - 
+Opened Buy position at 25084.75
+2024-11-17 19:18:26.931554 - Stop Loss: 24959.33, Target: 25210.17
+2024-11-17 19:18:26.950584 - 
+Closed Buy position: Technical Exit
+2024-11-17 19:18:26.951755 - Entry: 25084.75, Exit: 25071.50
+2024-11-17 19:18:26.954944 - Profit/Loss: -13.25, New Balance: 9986.75
+2024-11-17 19:18:26.960598 - 
+Opened Sell position at 25076.50
+2024-11-17 19:18:26.962583 - Stop Loss: 25201.88, Target: 24951.12
+2024-11-17 19:18:27.154502 - 
+Closed Sell position: Technical Exit
+2024-11-17 19:18:27.157491 - Entry: 25076.50, Exit: 25073.20
+2024-11-17 19:18:27.157491 - Profit/Loss: 3.30, New Balance: 9990.05
+2024-11-17 19:18:27.183234 - 
+Opened Sell position at 25052.40
+2024-11-17 19:18:27.183234 - Stop Loss: 25177.66, Target: 24927.14
+2024-11-17 19:18:27.187752 - 
+Closed Sell position: Technical Exit
+2024-11-17 19:18:27.191704 - Entry: 25052.40, Exit: 25058.60
+2024-11-17 19:18:27.191704 - Profit/Loss: -6.20, New Balance: 9983.85
+2024-11-17 19:18:27.196178 - 
+Opened Buy position at 25054.35
+2024-11-17 19:18:27.197101 - Stop Loss: 24929.08, Target: 25179.62
+2024-11-17 19:18:27.201399 - 
+Closed Buy position: Technical Exit
+2024-11-17 19:18:27.202961 - Entry: 25054.35, Exit: 25041.15
+2024-11-17 19:18:27.204369 - Profit/Loss: -13.20, New Balance: 9970.65
+2024-11-17 19:18:27.211222 - 
+Opened Buy position at 25053.25
+2024-11-17 19:18:27.211222 - Stop Loss: 24927.98, Target: 25178.52
+2024-11-17 19:18:27.251444 - 
+Closed Buy position: Technical Exit
+2024-11-17 19:18:27.253331 - Entry: 25053.25, Exit: 25084.20
+2024-11-17 19:18:27.254374 - Profit/Loss: 30.95, New Balance: 10001.60
+2024-11-17 19:18:27.275899 - 
+Opened Sell position at 25075.00
+2024-11-17 19:18:27.275899 - Stop Loss: 25200.37, Target: 24949.62
+2024-11-17 19:18:27.367331 - 
+Closed Sell position: Technical Exit
+2024-11-17 19:18:27.369069 - Entry: 25075.00, Exit: 25069.65
+2024-11-17 19:18:27.370936 - Profit/Loss: 5.35, New Balance: 10006.95
+2024-11-17 19:18:27.390449 - 
+Opened Buy position at 25069.85
+2024-11-17 19:18:27.391730 - Stop Loss: 24944.50, Target: 25195.20
+2024-11-17 19:18:27.433127 - 
+Closed Buy position: Technical Exit
+2024-11-17 19:18:27.434770 - Entry: 25069.85, Exit: 25066.10
+2024-11-17 19:18:27.434770 - Profit/Loss: -3.75, New Balance: 10003.20
+2024-11-17 19:18:27.497091 - 
+Opened Buy position at 25030.00
+2024-11-17 19:18:27.500470 - Stop Loss: 24904.85, Target: 25155.15
+2024-11-17 19:18:27.632167 - 
+Closed Buy position: Technical Exit
+2024-11-17 19:18:27.634329 - Entry: 25030.00, Exit: 25055.70
+2024-11-17 19:18:27.634329 - Profit/Loss: 25.70, New Balance: 10028.90
+2024-11-17 19:18:27.648699 - 
+Opened Sell position at 25048.15
+2024-11-17 19:18:27.650323 - Stop Loss: 25173.39, Target: 24922.91
+2024-11-17 19:18:27.712351 - 
+Closed Sell position: Technical Exit
+2024-11-17 19:18:27.713408 - Entry: 25048.15, Exit: 25045.00
+2024-11-17 19:18:27.715742 - Profit/Loss: 3.15, New Balance: 10032.05
+2024-11-17 19:18:27.752734 - 
+Opened Buy position at 25060.10
+2024-11-17 19:18:27.753914 - Stop Loss: 24934.80, Target: 25185.40
+2024-11-17 19:18:27.783464 - 
+Closed Buy position: Technical Exit
+2024-11-17 19:18:27.785122 - Entry: 25060.10, Exit: 25057.30
+2024-11-17 19:18:27.787873 - Profit/Loss: -2.80, New Balance: 10029.25
+2024-11-17 19:18:27.827181 - 
+Opened Sell position at 25041.15
+2024-11-17 19:18:27.828323 - Stop Loss: 25166.36, Target: 24915.94
+2024-11-17 19:18:27.833693 - 
+Closed Sell position: Technical Exit
+2024-11-17 19:18:27.836242 - Entry: 25041.15, Exit: 25044.00
+2024-11-17 19:18:27.837654 - Profit/Loss: -2.85, New Balance: 10026.40
+2024-11-17 19:18:27.855809 - 
+Opened Buy position at 25047.05
+2024-11-17 19:18:27.858428 - Stop Loss: 24921.81, Target: 25172.29
+2024-11-17 19:18:27.867463 - 
+Closed Buy position: Technical Exit
+2024-11-17 19:18:27.870874 - Entry: 25047.05, Exit: 25028.95
+2024-11-17 19:18:27.870874 - Profit/Loss: -18.10, New Balance: 10008.30
+2024-11-17 19:18:27.879035 - 
+Opened Buy position at 25056.20
+2024-11-17 19:18:27.881277 - Stop Loss: 24930.92, Target: 25181.48
+2024-11-17 19:18:27.973290 - 
+Closed Buy position: Technical Exit
+2024-11-17 19:18:27.976868 - Entry: 25056.20, Exit: 25065.15
+2024-11-17 19:18:27.977909 - Profit/Loss: 8.95, New Balance: 10017.25
