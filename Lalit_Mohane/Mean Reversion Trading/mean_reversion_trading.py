@@ -9,7 +9,7 @@ def load_market_data(csv_file):
     df['SMA_50'] = df['close'].rolling(window=50).mean()
     df['SMA_200'] = df['close'].rolling(window=200).mean()
     df['RSI'] = compute_rsi(df['close'])
-    df['Volume_MA'] = df['volume'].rolling(window=20).mean()
+    df['Volume_MA'] = df['Volume'].rolling(window=20).mean()
     
     # More sophisticated Bollinger Bands
     rolling_window = 20
@@ -103,7 +103,7 @@ def run_advanced_mean_reversion_strategy(csv_file, initial_balance,
     for i in range(len(df)):
         market_data = {
             "close": df.iloc[i]['close'],
-            "volume": df.iloc[i]['volume'],
+            "volume": df.iloc[i]['Volume'],
             "rsi": df.iloc[i]['RSI'],
             "sma_50": df.iloc[i]['SMA_50'],
             "sma_200": df.iloc[i]['SMA_200'],
@@ -164,16 +164,12 @@ def run_advanced_mean_reversion_strategy(csv_file, initial_balance,
     win_trades = [trade for trade in trades if trade['profit'] > 0]
     loss_trades = [trade for trade in trades if trade['profit'] <= 0]
     win_rate = len(win_trades) / len(trades) if trades else 0
-    avg_win = np.mean([trade['profit'] for trade in win_trades]) if win_trades else 0
-    avg_loss = np.mean([trade['profit'] for trade in loss_trades]) if loss_trades else 0
+
     
     print(f"\nFinal Balance: {balance:.2f}")
     print(f"Net Profit: {net_profit:.2f}")
     print(f"Total Trades: {len(trades)}")
     print(f"Win Rate: {win_rate * 100:.2f}%")
-    print(f"Average Win: {avg_win:.2f}")
-    print(f"Average Loss: {avg_loss:.2f}")
-    print(f"Profit Factor: {abs(avg_win/avg_loss) if avg_loss != 0 else 'N/A'}")
     
     return balance, trades
 
