@@ -1,32 +1,52 @@
 import pandas as pd
 import numpy as np
+import logging
+
+# Configuration object
+config = {
+    "csv_file": "NSE_NIFTY, 1D.csv",  # Replace with your CSV path
+    "initial_balance": 10000,
+    "stop_loss_pct": 2.0,   # 2% stop loss
+    "target_profit_pct": 3.0,  # 3% target profit
+    "max_loss_pct": 5.0,  # Maximum total loss percentage
+    "trade_allocation": 0.1,  # 10% of balance per trade
+    "max_simultaneous_trades": 3,  # Maximum simultaneous trades
+    "log_file": "trading_log.txt"  # Log file name
+}
+
+# Setup logging
+logging.basicConfig(
+    filename=config["log_file"],
+    level=logging.INFO,
+    format="%(asctime)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S"
+)
 
 def load_market_data(csv_file):
     df = pd.read_csv(csv_file)
     df['time'] = pd.to_datetime(df['time'], format='%d-%m-%Y')
-    
+
     # Advanced technical indicators
     df['SMA_50'] = df['close'].rolling(window=50).mean()
     df['SMA_200'] = df['close'].rolling(window=200).mean()
     df['RSI'] = compute_rsi(df['close'])
     df['Volume_MA'] = df['Volume'].rolling(window=20).mean()
-    
-    # More sophisticated Bollinger Bands
+
+    # Bollinger Bands
     rolling_window = 20
     rolling_mean = df['close'].rolling(window=rolling_window).mean()
     rolling_std = df['close'].rolling(window=rolling_window).std()
-    
+
     df['Upper_BB'] = rolling_mean + (2.5 * rolling_std)
     df['Lower_BB'] = rolling_mean - (2.5 * rolling_std)
-    
+
     return df
 
 def compute_rsi(price, periods=14):
     delta = price.diff()
-    
     gain = (delta.where(delta > 0, 0)).rolling(window=periods).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(window=periods).mean()
-    
+
     rs = gain / loss
     rsi = 100.0 - (100.0 / (1.0 + rs))
     return rsi.fillna(50)
@@ -40,66 +60,56 @@ def advanced_mean_reversion_decision(market_data, position=None):
     volume_ma = market_data['volume_ma']
     upper_bb = market_data['upper_bb']
     lower_bb = market_data['lower_bb']
-    
-    # More sophisticated entry and exit conditions
+
+    # Entry and exit conditions
     if position is None:
-        # Strict entry conditions with multiple confirmations
         buy_conditions = (
-            rsi < 30 and  # Oversold
-            close < lower_bb and  # Below lower Bollinger Band
-            close < sma_50 and  # Below short-term moving average
-            close < sma_200 and  # Below long-term moving average
-            volume > volume_ma * 1.5  # High volume confirmation
+            rsi < 30 and
+            close < lower_bb and
+            close < sma_50 and
+            close < sma_200 and
+            volume > volume_ma * 1.5
         )
-        
         sell_conditions = (
-            rsi > 70 and  # Overbought
-            close > upper_bb and  # Above upper Bollinger Band
-            close > sma_50 and  # Above short-term moving average
-            close > sma_200 and  # Above long-term moving average
-            volume > volume_ma * 1.5  # High volume confirmation
+            rsi > 70 and
+            close > upper_bb and
+            close > sma_50 and
+            close > sma_200 and
+            volume > volume_ma * 1.5
         )
-        
+
         if buy_conditions:
             return "BUY", close
         elif sell_conditions:
             return "SELL", close
-    
     else:
-        # More nuanced exit conditions
         if position['type'] == "BUY":
             exit_buy = (
-                rsi > 70 or  # Overbought
-                close > sma_50 or  # Price above short-term MA
-                close > position['entry_price'] * 1.02  # 2% profit target
+                rsi > 70 or
+                close > sma_50 or
+                close > position['entry_price'] * 1.02
             )
             if exit_buy:
                 return "EXIT", close
-        
+
         elif position['type'] == "SELL":
             exit_sell = (
-                rsi < 30 or  # Oversold
-                close < sma_50 or  # Price below short-term MA
-                close < position['entry_price'] * 0.98  # 2% profit target
+                rsi < 30 or
+                close < sma_50 or
+                close < position['entry_price'] * 0.98
             )
             if exit_sell:
                 return "EXIT", close
-    
+
     return "HOLD", close
 
-def run_advanced_mean_reversion_strategy(csv_file, initial_balance, 
-                                         stop_loss_pct=2.0, 
-                                         target_profit_pct=3.0, 
-                                         max_loss_pct=5.0):
-    df = load_market_data(csv_file)
-    balance = initial_balance
+def run_advanced_mean_reversion_strategy(config):
+    df = load_market_data(config["csv_file"])
+    balance = config["initial_balance"]
     position = None
     trades = []
-    
-    trade_allocation = 0.1  # 10% of balance per trade
-    max_simultaneous_trades = 3
     active_trades = 0
-    
+
     for i in range(len(df)):
         market_data = {
             "close": df.iloc[i]['close'],
@@ -112,42 +122,36 @@ def run_advanced_mean_reversion_strategy(csv_file, initial_balance,
             "lower_bb": df.iloc[i]['Lower_BB'],
             "time": df.iloc[i]['time']
         }
-        
-        if position and active_trades < max_simultaneous_trades:
-            # Risk management: dynamic stop-loss and take-profit
-            current_profit_pct = abs(market_data['close'] - position['entry_price']) / position['entry_price'] * 100
-            
-            if current_profit_pct >= target_profit_pct or current_profit_pct >= max_loss_pct:
-                position['rsi'] = 50  # Force exit
-        
+
         decision, price = advanced_mean_reversion_decision(market_data, position)
-        
-        trade_size = balance * trade_allocation
-        
-        if decision == "BUY" and position is None and active_trades < max_simultaneous_trades:
+
+        if decision == "BUY" and position is None and active_trades < config["max_simultaneous_trades"]:
+            trade_size = balance * config["trade_allocation"]
             position = {
                 'type': "BUY",
                 'entry_price': price,
                 'trade_size': trade_size,
-                'stop_loss': price * (1 - stop_loss_pct / 100),
-                'target_profit': price * (1 + target_profit_pct / 100)
+                'stop_loss': price * (1 - config["stop_loss_pct"] / 100),
+                'target_profit': price * (1 + config["target_profit_pct"] / 100)
             }
             active_trades += 1
-        
-        elif decision == "SELL" and position is None and active_trades < max_simultaneous_trades:
+            logging.info(f"BUY at {price:.2f}, Trade Size: {trade_size:.2f}")
+
+        elif decision == "SELL" and position is None and active_trades < config["max_simultaneous_trades"]:
+            trade_size = balance * config["trade_allocation"]
             position = {
                 'type': "SELL",
                 'entry_price': price,
                 'trade_size': trade_size,
-                'stop_loss': price * (1 + stop_loss_pct / 100),
-                'target_profit': price * (1 - target_profit_pct / 100)
+                'stop_loss': price * (1 + config["stop_loss_pct"] / 100),
+                'target_profit': price * (1 - config["target_profit_pct"] / 100)
             }
             active_trades += 1
-        
+            logging.info(f"SELL at {price:.2f}, Trade Size: {trade_size:.2f}")
+
         elif decision == "EXIT" and position is not None:
             profit = (price - position['entry_price']) * (position['trade_size'] / price) if position['type'] == "BUY" else (position['entry_price'] - price) * (position['trade_size'] / price)
             balance += profit
-            
             trades.append({
                 'position': position['type'],
                 'entry_price': position['entry_price'],
@@ -155,33 +159,30 @@ def run_advanced_mean_reversion_strategy(csv_file, initial_balance,
                 'profit': profit,
                 'timestamp': market_data['time']
             })
-            
+            logging.info(f"EXIT {position['type']} at {price:.2f}, Profit: {profit:.2f}")
             position = None
             active_trades -= 1
-    
+
     # Performance analysis
-    net_profit = balance - initial_balance
+    net_profit = balance - config["initial_balance"]
     win_trades = [trade for trade in trades if trade['profit'] > 0]
     loss_trades = [trade for trade in trades if trade['profit'] <= 0]
     win_rate = len(win_trades) / len(trades) if trades else 0
 
-    
+    # Log final summary
+    logging.info(f"\nFinal Balance: {balance:.2f}")
+    logging.info(f"Net Profit: {net_profit:.2f}")
+    logging.info(f"Total Trades: {len(trades)}")
+    logging.info(f"Win Rate: {win_rate * 100:.2f}%")
+
+    # Print summary to terminal
     print(f"\nFinal Balance: {balance:.2f}")
     print(f"Net Profit: {net_profit:.2f}")
     print(f"Total Trades: {len(trades)}")
     print(f"Win Rate: {win_rate * 100:.2f}%")
-    
+
     return balance, trades
 
-# Example usage
+# Run strategy
 if __name__ == "__main__":
-    csv_file = "NSE_NIFTY, 1D.csv"  # Replace with your CSV path
-    initial_balance = 10000
-    
-    final_balance, trades = run_advanced_mean_reversion_strategy(
-        csv_file, 
-        initial_balance, 
-        stop_loss_pct=2.0,   # 2% stop loss
-        target_profit_pct=3.0,  # 3% target profit
-        max_loss_pct=5.0  # Maximum total loss percentage
-    )
+    run_advanced_mean_reversion_strategy(config)

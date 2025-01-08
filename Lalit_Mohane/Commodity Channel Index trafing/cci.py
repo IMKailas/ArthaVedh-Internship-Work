@@ -1,7 +1,25 @@
 import pandas as pd
 import numpy as np
-stop_loss_pct = 0.02  # 2% stop-loss
-take_profit_pct = 0.05  # 5% take-profit
+import logging
+
+# Configuration object to store all parameters
+class Config:
+    def __init__(self):
+        self.stop_loss_pct = 0.02  # 2% stop-loss
+        self.take_profit_pct = 0.05  # 5% take-profit
+        self.sma_window = 14
+        self.cci_window = 14
+        self.rsi_window = 14
+        self.volume_ma_window = 14
+        self.file_path = "NSE_NIFTY, 1 Intraday.csv"  # Path to your dataset
+
+# Configure logging to write to a file
+logging.basicConfig(
+    filename='trades.log', 
+    level=logging.INFO, 
+    format='%(asctime)s - %(message)s', 
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
 
 # Function to read CSV and load data
 def read_csv(file_path):
@@ -36,33 +54,39 @@ def calculate_volume_ma(df, window=14):
 
 # Trading strategy using CCI, RSI, and Volume for confirmation
 # Function for the CCI trading strategy with relaxed thresholds
-def cci_trading_strategy(df, stop_loss_pct=0.02, take_profit_pct=0.05):
+def cci_trading_strategy(df, config):
     trades = []
     in_position = False
     buy_price = None
     
     for index, row in df.iterrows():
-        # Buy condition: CCI > 100, Close > SMA, RSI between 30-70
+        # Buy condition: CCI > 100, Close > SMA, RSI between 45-55
         if row['CCI'] > 100 and row['close'] > row['SMA'] and 45 < row['RSI'] < 55 and not in_position:
             buy_price = row['close']
-            trades.append({'Time': row['time'], 'Action': 'Buy', 'Price': buy_price})
+            trade = {'Time': row['time'], 'Action': 'Buy', 'Price': buy_price}
+            trades.append(trade)
+            logging.info(f"Buy signal: {trade}")
             in_position = True
         
         if in_position:
             # Stop-loss or Take-profit conditions
-            if row['close'] <= buy_price * (1 - stop_loss_pct):
-                trades.append({'Time': row['time'], 'Action': 'Sell (Stop-Loss)', 'Price': row['close']})
+            if row['close'] <= buy_price * (1 - config.stop_loss_pct):
+                trade = {'Time': row['time'], 'Action': 'Sell (Stop-Loss)', 'Price': row['close']}
+                trades.append(trade)
+                logging.info(f"Stop-Loss triggered: {trade}")
                 in_position = False
-            elif row['close'] >= buy_price * (1 + take_profit_pct):
-                trades.append({'Time': row['time'], 'Action': 'Sell (Take-Profit)', 'Price': row['close']})
+            elif row['close'] >= buy_price * (1 + config.take_profit_pct):
+                trade = {'Time': row['time'], 'Action': 'Sell (Take-Profit)', 'Price': row['close']}
+                trades.append(trade)
+                logging.info(f"Take-Profit triggered: {trade}")
                 in_position = False
             elif row['CCI'] < -100 and row['close'] < row['SMA']:
-                trades.append({'Time': row['time'], 'Action': 'Sell', 'Price': row['close']})
+                trade = {'Time': row['time'], 'Action': 'Sell', 'Price': row['close']}
+                trades.append(trade)
+                logging.info(f"Sell signal: {trade}")
                 in_position = False
     
     return trades
-
-
 
 # Function to calculate total profit and summary of trades
 def calculate_summary(trades):
@@ -87,25 +111,26 @@ def display_summary(trades, total_profit, trade_pairs):
 
 # Main function to execute the trading strategy
 def main():
-    file_path = "NSE_NIFTY, 1 Intraday.csv"  # Path to your dataset
+    # Create a configuration object
+    config = Config()
     
     # Read dataset from CSV
-    df = read_csv(file_path)
+    df = read_csv(config.file_path)
     
     # Calculate the SMA (Simple Moving Average)
-    df = calculate_sma(df, window=14)
+    df = calculate_sma(df, window=config.sma_window)
     
     # Calculate the CCI (Commodity Channel Index)
-    df = calculate_cci(df, window=14)
+    df = calculate_cci(df, window=config.cci_window)
     
     # Calculate the RSI (Relative Strength Index)
-    df = calculate_rsi(df, window=14)
+    df = calculate_rsi(df, window=config.rsi_window)
     
     # Calculate Volume Moving Average
-    df = calculate_volume_ma(df, window=14)
+    df = calculate_volume_ma(df, window=config.volume_ma_window)
     
     # Apply the trading strategy
-    trades = cci_trading_strategy(df)
+    trades = cci_trading_strategy(df, config)
     
     # Calculate profit and summary
     total_profit, trade_pairs = calculate_summary(trades)
