@@ -1,0 +1,62 @@
+Detailed Swing Trade Log
+========================================
+[2017-02-20 00:00:00] SELL at 8879.20 | Reason: RSI=71.95 (Overbought) and MACD (117.93) < Signal (122.59)
+Stop Loss: 9056.78, Profit Target: 8346.45
+[2017-02-22 00:00:00] EXIT SELL at 8926.90 | Reason: RSI=74.29 (Oversold) or Close Price=8926.90 <= Lower Band (8930.97)
+Profit: -47.70, Balance: 9952.30
+[2017-03-01 00:00:00] SELL at 8945.80 | Reason: RSI=70.63 (Overbought) and MACD (113.71) < Signal (119.12)
+Stop Loss: 9124.72, Profit Target: 8409.05
+[2017-03-02 00:00:00] EXIT SELL at 8899.75 | Reason: RSI=64.66 (Oversold) or Close Price=8899.75 <= Lower Band (8924.02)
+Profit: 46.05, Balance: 9998.35
+[2017-03-14 00:00:00] SELL at 9087.00 | Reason: RSI=74.02 (Overbought) and MACD (93.40) < Signal (98.32)
+Stop Loss: 9268.74, Profit Target: 8541.78
+[2017-03-15 00:00:00] EXIT SELL at 9084.80 | Reason: RSI=73.71 (Oversold) or Close Price=9084.80 <= Lower Band (9088.95)
+Profit: 2.20, Balance: 10000.55
+[2017-04-03 00:00:00] SELL at 9237.85 | Reason: RSI=70.37 (Overbought) and MACD (90.41) < Signal (90.84)
+Stop Loss: 9422.61, Profit Target: 8683.58
+[2017-04-07 00:00:00] EXIT SELL at 9198.30 | Reason: RSI=62.92 (Oversold) or Close Price=9198.30 <= Lower Band (9212.30)
+Profit: 39.55, Balance: 10040.10
+[2020-12-03 00:00:00] SELL at 13133.90 | Reason: RSI=71.13 (Overbought) and MACD (291.45) < Signal (293.26)
+Stop Loss: 13396.58, Profit Target: 12345.87
+[2020-12-21 00:00:00] EXIT SELL at 13328.40 | Reason: RSI=56.36 (Oversold) or Close Price=13328.40 <= Lower Band (13412.45)
+Profit: -194.50, Balance: 9845.60
+[2020-12-28 00:00:00] SELL at 13873.20 | Reason: RSI=70.21 (Overbought) and MACD (267.74) < Signal (283.95)
+Stop Loss: 14150.66, Profit Target: 13040.81
+[2021-01-01 00:00:00] EXIT SELL at 14018.50 | Reason: RSI=73.18 (Oversold) or Close Price=14018.50 <= Lower Band (14019.90)
+Profit: -145.30, Balance: 9700.30
+[2021-01-20 00:00:00] SELL at 14644.70 | Reason: RSI=71.37 (Overbought) and MACD (301.02) < Signal (310.93)
+Stop Loss: 14937.59, Profit Target: 13766.02
+[2021-01-21 00:00:00] EXIT SELL at 14590.35 | Reason: RSI=68.64 (Oversold) or Close Price=14590.35 <= Lower Band (14620.38)
+Profit: 54.35, Balance: 9754.65
+[2021-09-21 00:00:00] SELL at 17562.00 | Reason: RSI=72.36 (Overbought) and MACD (300.25) < Signal (310.35)
+Stop Loss: 17913.24, Profit Target: 16508.28
+[2021-09-22 00:00:00] EXIT SELL at 17546.65 | Reason: RSI=71.37 (Oversold) or Close Price=17546.65 <= Lower Band (17560.37)
+Profit: 15.35, Balance: 9770.00
+[2021-09-23 00:00:00] SELL at 17822.95 | Reason: RSI=77.35 (Overbought) and MACD (302.31) < Signal (305.63)
+Stop Loss: 18179.41, Profit Target: 16753.57
+[2021-09-24 00:00:00] EXIT SELL at 17853.20 | Reason: RSI=77.89 (Oversold) or Close Price=17853.20 <= Lower Band (17873.42)
+Profit: -30.25, Balance: 9739.75
+[2021-09-28 00:00:00] SELL at 17748.60 | Reason: RSI=70.98 (Overbought) and MACD (303.17) < Signal (306.91)
+Stop Loss: 18103.57, Profit Target: 16683.68
+[2021-09-30 00:00:00] EXIT SELL at 17618.15 | Reason: RSI=63.14 (Oversold) or Close Price=17618.15 <= Lower Band (17648.55)
+Profit: 130.45, Balance: 9870.20
+[2024-01-02 00:00:00] SELL at 21665.80 | Reason: RSI=72.54 (Overbought) and MACD (409.91) < Signal (412.59)
+Stop Loss: 22099.12, Profit Target: 20365.85
+[2024-01-03 00:00:00] EXIT SELL at 21517.35 | Reason: RSI=65.56 (Oversold) or Close Price=21517.35 <= Lower Band (21564.90)
+Profit: 148.45, Balance: 10018.65
+[2024-01-12 00:00:00] SELL at 21894.55 | Reason: RSI=70.20 (Overbought) and MACD (281.83) < Signal (323.91)
+Stop Loss: 22332.44, Profit Target: 20580.88
+[2024-01-16 00:00:00] EXIT SELL at 22032.30 | Reason: RSI=70.86 (Oversold) or Close Price=22032.30 <= Lower Band (22042.08)
+Profit: -137.75, Balance: 9880.90
+[2024-07-26 00:00:00] SELL at 24834.85 | Reason: RSI=70.08 (Overbought) and MACD (282.44) < Signal (318.03)
+Stop Loss: 25331.55, Profit Target: 23344.76
+[2024-07-29 00:00:00] EXIT SELL at 24836.10 | Reason: RSI=70.11 (Oversold) or Close Price=24836.10 <= Lower Band (24870.15)
+Profit: -1.25, Balance: 9879.65
+[2024-07-30 00:00:00] SELL at 24857.30 | Reason: RSI=70.53 (Overbought) and MACD (292.41) < Signal (308.25)
+Stop Loss: 25354.45, Profit Target: 23365.86
+[2024-08-01 00:00:00] EXIT SELL at 25010.90 | Reason: RSI=73.50 (Oversold) or Close Price=25010.90 <= Lower Band (25015.20)
+Profit: -153.60, Balance: 9726.05
+
+Final Balance: 9726.05
+Net Profit: -273.95
+Total Trades: 14
