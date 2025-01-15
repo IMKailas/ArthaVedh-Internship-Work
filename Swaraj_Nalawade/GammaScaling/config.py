@@ -1,7 +1,7 @@
 # config.py
 
 # File paths and basic settings
-DATA_PATH = r"C:\assignement\sem5\Internship\scalping\loadData.csv"
+DATA_PATH = "loadData.csv"
 INITIAL_BALANCE = 10000
 RISK_PER_TRADE = 0.02  # 2% risk per trade
 
