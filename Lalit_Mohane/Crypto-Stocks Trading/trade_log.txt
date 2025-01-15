@@ -1,0 +1,40 @@
+=== Trade Log ===
+Buy at 8433.6504 on 29-05-2015
+Sell at 7809.0 on 24-08-2015, Profit: -624.65
+Buy at 7880.7002 on 25-08-2015
+Sell at 7351.0 on 18-01-2016, Profit: -529.70
+Buy at 7563.5498 on 29-01-2016
+Sell at 6987.0498 on 29-02-2016, Profit: -576.50
+Buy at 8672.1504 on 12-08-2016
+Sell at 8591.25 on 29-09-2016, Profit: -80.90
+Buy at 8602.75 on 25-01-2017
+Sell at 8561.2998 on 31-01-2017, Profit: -41.45
+Buy at 8716.4004 on 01-02-2017
+Sell at 9827.1504 on 18-07-2017, Profit: 1110.75
+Buy at 10295.35 on 25-10-2017
+Sell at 10226.55 on 30-11-2017, Profit: -68.80
+Buy at 10736.15 on 31-05-2018
+Sell at 10589.1 on 28-06-2018, Profit: -147.05
+Buy at 10858.7 on 29-11-2018
+Sell at 10780.55 on 25-01-2019, Profit: -78.15
+Buy at 10830.95 on 31-01-2019
+Sell at 11641.8 on 25-04-2019, Profit: 810.85
+Buy at 11274.2 on 20-09-2019
+Sell at 11359.9 on 01-10-2019, Profit: 85.70
+Buy at 12180.35 on 23-01-2020
+Sell at 10989.45 on 06-03-2020, Profit: -1190.90
+Buy at 9955.2002 on 13-03-2020
+Sell at 8468.7998 on 18-03-2020, Profit: -1486.40
+Buy at 14563.45 on 12-01-2021
+Sell at 14529.15 on 26-02-2021, Profit: -34.30
+Buy at 14744.0 on 19-03-2021
+Sell at 17110.15 on 27-01-2022, Profit: 2366.15
+Buy at 16013.45 on 08-03-2022
+Sell at 17530.85 on 16-09-2022, Profit: 1517.40
+Buy at 18972.1 on 28-06-2023
+Sell at 19265.801 on 25-08-2023, Profit: 293.70
+Buy at 20686.801 on 04-12-2023
+Sell at 21571.949 on 17-01-2024, Profit: 885.15
+Buy at 23263.9 on 03-06-2024
+Sell at 21884.5 on 04-06-2024, Profit: -1379.40
+Buy at 22620.35 on 05-06-2024
