@@ -1,24 +1,12 @@
+# trading_strategy.py
+
 import csv
 import logging
 from datetime import datetime
+from config import Config
 
-# Config object for strategy parameters and settings
-CONFIG = {
-    "lower_band_multiplier": 1.02,
-    "upper_band_multiplier": 0.98,
-    "RSI_buy_threshold": 45,
-    "RSI_sell_threshold": 55,
-    "VWAP_volume_threshold": 500000,
-    "log_file": "trading_strategy.log",
-    "csv_file": "NSE_NIFTY, 1 Intraday.csv"
-}
-
-# Configure logging
-logging.basicConfig(
-    filename=CONFIG["log_file"],
-    level=logging.DEBUG,
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
+# Configure logging using config
+Config.setup_logging()
 
 # Function to read CSV data
 def read_csv(file_path):
@@ -55,10 +43,10 @@ def technical_arbitrage_strategy(data):
         volume = row["volume"]
 
         # Apply relaxed strategy logic
-        if close < lower_band_1 * CONFIG["lower_band_multiplier"] and RSI < CONFIG["RSI_buy_threshold"]:
+        if close < lower_band_1 * Config.LOWER_BAND_MULTIPLIER and RSI < Config.RSI_BUY_THRESHOLD:
             trades.append({"time": time, "action": "Buy", "price": close, "reason": "Near oversold condition"})
             logging.debug("Trade Signal: Buy | Time: %s | Price: %.2f | RSI: %.2f", time, close, RSI)
-        elif close > upper_band_1 * CONFIG["upper_band_multiplier"] and RSI > CONFIG["RSI_sell_threshold"]:
+        elif close > upper_band_1 * Config.UPPER_BAND_MULTIPLIER and RSI > Config.RSI_SELL_THRESHOLD:
             trades.append({"time": time, "action": "Sell", "price": close, "reason": "Near overbought condition"})
             logging.debug("Trade Signal: Sell | Time: %s | Price: %.2f | RSI: %.2f", time, close, RSI)
         elif close < VWAP:
@@ -117,7 +105,7 @@ def display_summary(trades, total_profit, trade_pairs, summary):
 # Main function
 def main():
     # Read dataset from CSV
-    data = read_csv(CONFIG["csv_file"])
+    data = read_csv(Config.CSV_FILE)
     
     # Apply the trading strategy
     trades = technical_arbitrage_strategy(data)

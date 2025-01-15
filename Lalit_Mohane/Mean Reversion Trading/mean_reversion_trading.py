@@ -1,18 +1,7 @@
 import pandas as pd
 import numpy as np
 import logging
-
-# Configuration object
-config = {
-    "csv_file": "NSE_NIFTY, 1D.csv",  # Replace with your CSV path
-    "initial_balance": 10000,
-    "stop_loss_pct": 2.0,   # 2% stop loss
-    "target_profit_pct": 3.0,  # 3% target profit
-    "max_loss_pct": 5.0,  # Maximum total loss percentage
-    "trade_allocation": 0.1,  # 10% of balance per trade
-    "max_simultaneous_trades": 3,  # Maximum simultaneous trades
-    "log_file": "trading_log.txt"  # Log file name
-}
+from config import config  # Importing configuration from config.py
 
 # Setup logging
 logging.basicConfig(
@@ -23,6 +12,7 @@ logging.basicConfig(
 )
 
 def load_market_data(csv_file):
+    """Load market data from the given CSV file and compute necessary indicators."""
     df = pd.read_csv(csv_file)
     df['time'] = pd.to_datetime(df['time'], format='%d-%m-%Y')
 
@@ -43,6 +33,7 @@ def load_market_data(csv_file):
     return df
 
 def compute_rsi(price, periods=14):
+    """Compute Relative Strength Index (RSI) for a given price series."""
     delta = price.diff()
     gain = (delta.where(delta > 0, 0)).rolling(window=periods).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(window=periods).mean()
@@ -52,6 +43,7 @@ def compute_rsi(price, periods=14):
     return rsi.fillna(50)
 
 def advanced_mean_reversion_decision(market_data, position=None):
+    """Make buy, sell, or hold decision based on advanced mean reversion strategy."""
     close = market_data['close']
     rsi = market_data['rsi']
     sma_50 = market_data['sma_50']
@@ -104,6 +96,7 @@ def advanced_mean_reversion_decision(market_data, position=None):
     return "HOLD", close
 
 def run_advanced_mean_reversion_strategy(config):
+    """Run the advanced mean reversion strategy based on the given configuration."""
     df = load_market_data(config["csv_file"])
     balance = config["initial_balance"]
     position = None

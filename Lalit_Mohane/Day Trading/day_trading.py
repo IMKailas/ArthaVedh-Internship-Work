@@ -1,16 +1,9 @@
+# main.py
+
 import pandas as pd
 from datetime import datetime
 from typing import Dict, Tuple, Optional, List
-
-# Configuration Object
-CONFIG = {
-    "csv_file": r"./NSE_NIFTY, 1 Intraday.csv",  # Path to the CSV file
-    "initial_balance": 10000,                    # Starting balance
-    "stop_loss_pct": 0.5,                        # Stop loss percentage
-    "target_profit_pct": 0.5,                    # Target profit percentage
-    "log_file": "trade_log.txt",                 # Log file path
-    "log_details": True                          # Enable/Disable detailed logging
-}
+from config import CONFIG  # Import the configuration settings
 
 def load_market_data(csv_file):
     """Load and preprocess the CSV data"""

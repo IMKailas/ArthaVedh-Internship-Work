@@ -1,21 +1,11 @@
 import pandas as pd
 import numpy as np
 import logging
-
-# Configuration object to store all parameters
-class Config:
-    def __init__(self):
-        self.stop_loss_pct = 0.02  # 2% stop-loss
-        self.take_profit_pct = 0.05  # 5% take-profit
-        self.sma_window = 14
-        self.cci_window = 14
-        self.rsi_window = 14
-        self.volume_ma_window = 14
-        self.file_path = "NSE_NIFTY, 1 Intraday.csv"  # Path to your dataset
+from config import Config
 
 # Configure logging to write to a file
 logging.basicConfig(
-    filename='trades.log', 
+    filename=Config().log_file, 
     level=logging.INFO, 
     format='%(asctime)s - %(message)s', 
     datefmt='%Y-%m-%d %H:%M:%S'
@@ -53,7 +43,6 @@ def calculate_volume_ma(df, window=14):
     return df
 
 # Trading strategy using CCI, RSI, and Volume for confirmation
-# Function for the CCI trading strategy with relaxed thresholds
 def cci_trading_strategy(df, config):
     trades = []
     in_position = False
