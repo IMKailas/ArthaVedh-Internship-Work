@@ -1,24 +1,24 @@
 import pandas as pd
 import numpy as np
 import logging
-from datetime import datetime
+import config
 
 # Set up logging
 logging.basicConfig(
-    filename='synthetic_arbitrage_strategy.log',
-    level=logging.DEBUG,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    filename=config.LOG_FILE,
+    level=getattr(logging, config.LOG_LEVEL),
+    format=config.LOG_FORMAT
 )
 
 
-def generate_synthetic_prices(real_price, volatility=0.001):
+def generate_synthetic_prices(real_price, volatility=config.PRICE_VOLATILITY):
     """Generate synthetic prices for arbitrage opportunities"""
     synthetic_a = real_price * (1 + np.random.normal(0, volatility))
     synthetic_b = real_price * (1 + np.random.normal(0, volatility))
     return synthetic_a, synthetic_b
 
 
-def calculate_arbitrage_opportunity(price_a, price_b, transaction_cost_pct=0.001):
+def calculate_arbitrage_opportunity(price_a, price_b, transaction_cost_pct=config.TRANSACTION_COST):
     """Calculate potential arbitrage opportunity"""
     spread = abs(price_a - price_b)
     transaction_costs = (price_a + price_b) * transaction_cost_pct
@@ -51,7 +51,8 @@ def synthetic_arbitrage_strategy(data, params):
 
         # Market conditions check
         volume_active = current_row['Volume'] > current_row['Volume MA']
-        rsi_stable = 30 < current_row['RSI'] < 70 if not pd.isna(current_row['RSI']) else False
+        rsi_stable = (config.RSI_LOWER_BOUND < current_row['RSI'] < config.RSI_UPPER_BOUND
+                     if not pd.isna(current_row['RSI']) else False)
 
         if position is None:
             # Check for arbitrage opportunity
@@ -99,16 +100,16 @@ def synthetic_arbitrage_strategy(data, params):
             original_spread = abs(position['short_price'] - position['long_price'])
 
             # Exit if spread has narrowed significantly or timeout
-            if (current_spread < original_spread * 0.3 or
-                    (current_row.name - position['entry_time']).total_seconds() > 300):  # 5-minute timeout
+            if (current_spread < original_spread * config.SPREAD_CLOSURE_THRESHOLD or
+                    (current_row.name - position['entry_time']).total_seconds() > config.POSITION_TIMEOUT):
 
                 # Calculate PnL
                 if position['type'] == 'A-B':
                     pnl = position['size'] * ((position['short_price'] - synthetic_a) +
-                                              (synthetic_b - position['long_price']))
+                                            (synthetic_b - position['long_price']))
                 else:
                     pnl = position['size'] * ((position['short_price'] - synthetic_b) +
-                                              (synthetic_a - position['long_price']))
+                                            (synthetic_a - position['long_price']))
 
                 # Apply transaction costs
                 pnl -= position['size'] * (position['short_price'] + position['long_price']) * params['transaction_cost']
@@ -133,7 +134,7 @@ def synthetic_arbitrage_strategy(data, params):
                 position = None
 
                 # Risk management stop
-                if balance < initial_balance * 0.8:
+                if balance < initial_balance * (1 - config.MAX_DRAWDOWN_PCT):
                     logging.warning(f"Strategy stopped - Significant losses. Balance: ${balance:.2f}")
                     break
 
@@ -172,19 +173,19 @@ def synthetic_arbitrage_strategy(data, params):
     }
 
 
-# Strategy parameters
+# Strategy parameters from config
 params = {
-    'initial_balance': 100000,
-    'leverage': 3,  # Conservative leverage for arbitrage
-    'risk_per_trade_pct': 0.05,  # 5% risk per trade
-    'transaction_cost': 0.001,  # 0.1% transaction cost
+    'initial_balance': config.INITIAL_BALANCE,
+    'leverage': config.LEVERAGE,
+    'risk_per_trade_pct': config.RISK_PER_TRADE_PCT,
+    'transaction_cost': config.TRANSACTION_COST,
 }
 
 if __name__ == "__main__":
     try:
         # Load data and run strategy
-        data = pd.read_csv('./NSE_NIFTY_Intraday.csv', parse_dates=['time'])
-        data.set_index('time', inplace=True)
+        data = pd.read_csv(config.DATA_FILE, parse_dates=[config.DATE_COLUMN])
+        data.set_index(config.DATE_COLUMN, inplace=True)
 
         results = synthetic_arbitrage_strategy(data, params)
 

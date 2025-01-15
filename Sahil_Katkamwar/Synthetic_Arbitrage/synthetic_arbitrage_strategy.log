@@ -1,411 +1,363 @@
-2025-01-08 16:38:59,350 - INFO - Starting synthetic arbitrage strategy with balance: $100000
-2025-01-08 16:38:59,351 - INFO - 
+2025-01-15 18:49:00,585 - INFO - Starting synthetic arbitrage strategy with balance: $100000
+2025-01-15 18:49:00,587 - INFO - 
                 Arbitrage Entry:
-                Time: 2024-10-15 10:37:00+05:30
-                Type: A-B
-                Short Price: 25101.85
-                Long Price: 25034.45
-                Size: 0.60
-                Potential Profit: 17.27
-                
-2025-01-08 16:38:59,352 - INFO - 
-                Arbitrage Exit:
-                Time: 2024-10-15 10:38:00+05:30
-                Type: A-B
-                PnL: $19.33
-                New Balance: $100019.33
-                
-2025-01-08 16:38:59,354 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 10:39:00+05:30
+                Time: 2024-10-15 10:48:00+05:30
                 Type: B-A
-                Short Price: 25124.35
-                Long Price: 25062.40
+                Short Price: 25090.90
+                Long Price: 25033.11
                 Size: 0.60
-                Potential Profit: 11.77
+                Potential Profit: 7.66
                 
-2025-01-08 16:38:59,354 - INFO - 
+2025-01-15 18:49:00,587 - INFO - 
                 Arbitrage Exit:
-                Time: 2024-10-15 10:40:00+05:30
+                Time: 2024-10-15 10:49:00+05:30
                 Type: B-A
-                PnL: $2.30
-                New Balance: $100021.63
+                PnL: $3.11
+                New Balance: $100003.11
                 
-2025-01-08 16:38:59,355 - INFO - 
+2025-01-15 18:49:00,587 - INFO - 
                 Arbitrage Entry:
                 Time: 2024-10-15 10:52:00+05:30
                 Type: A-B
-                Short Price: 25126.65
-                Long Price: 25060.48
+                Short Price: 25108.59
+                Long Price: 25045.24
                 Size: 0.60
-                Potential Profit: 15.98
+                Potential Profit: 13.19
                 
-2025-01-08 16:38:59,355 - INFO - 
+2025-01-15 18:49:00,588 - INFO - 
                 Arbitrage Exit:
-                Time: 2024-10-15 10:53:00+05:30
+                Time: 2024-10-15 10:55:00+05:30
                 Type: A-B
-                PnL: $9.62
-                New Balance: $100031.25
+                PnL: $8.84
+                New Balance: $100011.95
                 
-2025-01-08 16:38:59,356 - INFO - 
+2025-01-15 18:49:00,589 - INFO - 
                 Arbitrage Entry:
-                Time: 2024-10-15 11:04:00+05:30
+                Time: 2024-10-15 11:20:00+05:30
+                Type: A-B
+                Short Price: 25089.56
+                Long Price: 25036.13
+                Size: 0.60
+                Potential Profit: 3.31
+                
+2025-01-15 18:49:00,589 - INFO - 
+                Arbitrage Exit:
+                Time: 2024-10-15 11:23:00+05:30
+                Type: A-B
+                PnL: $-2.33
+                New Balance: $100009.62
+                
+2025-01-15 18:49:00,590 - INFO - 
+                Arbitrage Entry:
+                Time: 2024-10-15 11:25:00+05:30
                 Type: B-A
-                Short Price: 25097.07
-                Long Price: 25041.77
+                Short Price: 25085.25
+                Long Price: 25025.56
                 Size: 0.60
-                Potential Profit: 5.16
+                Potential Profit: 9.58
                 
-2025-01-08 16:38:59,356 - INFO - 
+2025-01-15 18:49:00,590 - INFO - 
                 Arbitrage Exit:
-                Time: 2024-10-15 11:05:00+05:30
+                Time: 2024-10-15 11:26:00+05:30
                 Type: B-A
-                PnL: $-5.84
-                New Balance: $100025.41
+                PnL: $7.35
+                New Balance: $100016.98
                 
-2025-01-08 16:38:59,357 - INFO - 
+2025-01-15 18:49:00,591 - INFO - 
                 Arbitrage Entry:
-                Time: 2024-10-15 11:17:00+05:30
-                Type: A-B
-                Short Price: 25105.09
-                Long Price: 25030.43
-                Size: 0.60
-                Potential Profit: 24.52
-                
-2025-01-08 16:38:59,358 - INFO - 
-                Arbitrage Exit:
-                Time: 2024-10-15 11:19:00+05:30
-                Type: A-B
-                PnL: $2.57
-                New Balance: $100027.97
-                
-2025-01-08 16:38:59,359 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 11:39:00+05:30
-                Type: A-B
-                Short Price: 25131.50
-                Long Price: 25031.42
-                Size: 0.60
-                Potential Profit: 49.92
-                
-2025-01-08 16:38:59,359 - INFO - 
-                Arbitrage Exit:
                 Time: 2024-10-15 11:40:00+05:30
-                Type: A-B
-                PnL: $41.14
-                New Balance: $100069.12
-                
-2025-01-08 16:38:59,360 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 11:48:00+05:30
-                Type: A-B
-                Short Price: 25128.87
-                Long Price: 25060.46
+                Type: B-A
+                Short Price: 25097.16
+                Long Price: 25017.09
                 Size: 0.60
-                Potential Profit: 18.22
+                Potential Profit: 29.96
                 
-2025-01-08 16:38:59,360 - INFO - 
+2025-01-15 18:49:00,592 - INFO - 
                 Arbitrage Exit:
-                Time: 2024-10-15 11:51:00+05:30
-                Type: A-B
-                PnL: $21.12
-                New Balance: $100090.24
+                Time: 2024-10-15 11:43:00+05:30
+                Type: B-A
+                PnL: $24.49
+                New Balance: $100041.47
                 
-2025-01-08 16:38:59,360 - INFO - 
+2025-01-15 18:49:00,592 - INFO - 
                 Arbitrage Entry:
                 Time: 2024-10-15 11:55:00+05:30
                 Type: A-B
-                Short Price: 25128.55
-                Long Price: 25056.29
+                Short Price: 25098.83
+                Long Price: 25048.65
                 Size: 0.60
-                Potential Profit: 22.07
+                Potential Profit: 0.03
                 
-2025-01-08 16:38:59,360 - INFO - 
+2025-01-15 18:49:00,593 - INFO - 
                 Arbitrage Exit:
-                Time: 2024-10-15 11:56:00+05:30
+                Time: 2024-10-15 12:01:00+05:30
                 Type: A-B
-                PnL: $19.60
-                New Balance: $100109.84
+                PnL: $-6.22
+                New Balance: $100035.25
                 
-2025-01-08 16:38:59,361 - INFO - 
+2025-01-15 18:49:00,593 - INFO - 
                 Arbitrage Entry:
-                Time: 2024-10-15 12:11:00+05:30
+                Time: 2024-10-15 12:08:00+05:30
                 Type: B-A
-                Short Price: 25120.71
-                Long Price: 25065.54
+                Short Price: 25091.67
+                Long Price: 25039.61
                 Size: 0.60
-                Potential Profit: 4.98
+                Potential Profit: 1.94
                 
-2025-01-08 16:38:59,362 - INFO - 
+2025-01-15 18:49:00,594 - INFO - 
                 Arbitrage Exit:
-                Time: 2024-10-15 12:16:00+05:30
+                Time: 2024-10-15 12:09:00+05:30
                 Type: B-A
-                PnL: $7.81
-                New Balance: $100117.65
+                PnL: $-5.19
+                New Balance: $100030.06
                 
-2025-01-08 16:38:59,363 - INFO - 
+2025-01-15 18:49:00,594 - INFO - 
                 Arbitrage Entry:
-                Time: 2024-10-15 12:28:00+05:30
-                Type: A-B
-                Short Price: 25090.04
-                Long Price: 25038.48
-                Size: 0.60
-                Potential Profit: 1.44
-                
-2025-01-08 16:38:59,363 - INFO - 
-                Arbitrage Exit:
-                Time: 2024-10-15 12:34:00+05:30
-                Type: A-B
-                PnL: $2.66
-                New Balance: $100120.32
-                
-2025-01-08 16:38:59,364 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 12:51:00+05:30
-                Type: A-B
-                Short Price: 25109.71
-                Long Price: 25058.63
-                Size: 0.60
-                Potential Profit: 0.91
-                
-2025-01-08 16:38:59,365 - INFO - 
-                Arbitrage Exit:
-                Time: 2024-10-15 12:57:00+05:30
-                Type: A-B
-                PnL: $-19.30
-                New Balance: $100101.02
-                
-2025-01-08 16:38:59,366 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 13:09:00+05:30
+                Time: 2024-10-15 12:13:00+05:30
                 Type: B-A
-                Short Price: 25069.52
-                Long Price: 25009.54
+                Short Price: 25087.59
+                Long Price: 25018.11
                 Size: 0.60
-                Potential Profit: 9.90
+                Potential Profit: 19.38
                 
-2025-01-08 16:38:59,366 - INFO - 
+2025-01-15 18:49:00,594 - INFO - 
                 Arbitrage Exit:
-                Time: 2024-10-15 13:10:00+05:30
+                Time: 2024-10-15 12:14:00+05:30
                 Type: B-A
-                PnL: $9.03
-                New Balance: $100110.05
+                PnL: $10.39
+                New Balance: $100040.45
                 
-2025-01-08 16:38:59,367 - INFO - 
+2025-01-15 18:49:00,595 - INFO - 
+                Arbitrage Entry:
+                Time: 2024-10-15 12:21:00+05:30
+                Type: B-A
+                Short Price: 25094.28
+                Long Price: 25013.33
+                Size: 0.60
+                Potential Profit: 30.84
+                
+2025-01-15 18:49:00,595 - INFO - 
+                Arbitrage Exit:
+                Time: 2024-10-15 12:23:00+05:30
+                Type: B-A
+                PnL: $17.98
+                New Balance: $100058.43
+                
+2025-01-15 18:49:00,595 - INFO - 
+                Arbitrage Entry:
+                Time: 2024-10-15 12:31:00+05:30
+                Type: B-A
+                Short Price: 25087.14
+                Long Price: 25029.43
+                Size: 0.60
+                Potential Profit: 7.59
+                
+2025-01-15 18:49:00,596 - INFO - 
+                Arbitrage Exit:
+                Time: 2024-10-15 12:32:00+05:30
+                Type: B-A
+                PnL: $7.60
+                New Balance: $100066.03
+                
+2025-01-15 18:49:00,596 - INFO - 
+                Arbitrage Entry:
+                Time: 2024-10-15 12:37:00+05:30
+                Type: A-B
+                Short Price: 25093.35
+                Long Price: 24971.22
+                Size: 0.60
+                Potential Profit: 72.07
+                
+2025-01-15 18:49:00,596 - INFO - 
+                Arbitrage Exit:
+                Time: 2024-10-15 12:38:00+05:30
+                Type: A-B
+                PnL: $41.67
+                New Balance: $100107.70
+                
+2025-01-15 18:49:00,600 - INFO - 
+                Arbitrage Entry:
+                Time: 2024-10-15 13:34:00+05:30
+                Type: B-A
+                Short Price: 25128.19
+                Long Price: 25034.04
+                Size: 0.60
+                Potential Profit: 43.98
+                
+2025-01-15 18:49:00,601 - INFO - 
+                Arbitrage Exit:
+                Time: 2024-10-15 13:38:00+05:30
+                Type: B-A
+                PnL: $39.37
+                New Balance: $100147.08
+                
+2025-01-15 18:49:00,602 - INFO - 
                 Arbitrage Entry:
                 Time: 2024-10-15 13:39:00+05:30
                 Type: A-B
-                Short Price: 25110.50
-                Long Price: 25037.12
+                Short Price: 25099.43
+                Long Price: 25021.43
                 Size: 0.60
-                Potential Profit: 23.23
+                Potential Profit: 27.88
                 
-2025-01-08 16:38:59,368 - INFO - 
+2025-01-15 18:49:00,602 - INFO - 
                 Arbitrage Exit:
-                Time: 2024-10-15 13:41:00+05:30
+                Time: 2024-10-15 13:42:00+05:30
                 Type: A-B
-                PnL: $11.61
-                New Balance: $100121.66
+                PnL: $25.57
+                New Balance: $100172.65
                 
-2025-01-08 16:38:59,368 - INFO - 
+2025-01-15 18:49:00,603 - INFO - 
                 Arbitrage Entry:
-                Time: 2024-10-15 13:45:00+05:30
-                Type: B-A
-                Short Price: 25108.11
-                Long Price: 25036.01
+                Time: 2024-10-15 14:01:00+05:30
+                Type: A-B
+                Short Price: 25056.07
+                Long Price: 25004.13
                 Size: 0.60
-                Potential Profit: 21.96
+                Potential Profit: 1.87
                 
-2025-01-08 16:38:59,368 - INFO - 
+2025-01-15 18:49:00,604 - INFO - 
                 Arbitrage Exit:
-                Time: 2024-10-15 13:48:00+05:30
-                Type: B-A
-                PnL: $13.22
-                New Balance: $100134.88
+                Time: 2024-10-15 14:04:00+05:30
+                Type: A-B
+                PnL: $-5.63
+                New Balance: $100167.02
                 
-2025-01-08 16:38:59,369 - INFO - 
+2025-01-15 18:49:00,605 - INFO - 
                 Arbitrage Entry:
-                Time: 2024-10-15 13:53:00+05:30
-                Type: A-B
-                Short Price: 25091.57
-                Long Price: 25038.55
-                Size: 0.60
-                Potential Profit: 2.89
-                
-2025-01-08 16:38:59,369 - INFO - 
-                Arbitrage Exit:
-                Time: 2024-10-15 13:58:00+05:30
-                Type: A-B
-                PnL: $3.18
-                New Balance: $100138.05
-                
-2025-01-08 16:38:59,371 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 14:18:00+05:30
-                Type: A-B
-                Short Price: 25110.63
-                Long Price: 25017.77
-                Size: 0.60
-                Potential Profit: 42.73
-                
-2025-01-08 16:38:59,371 - INFO - 
-                Arbitrage Exit:
-                Time: 2024-10-15 14:19:00+05:30
-                Type: A-B
-                PnL: $19.33
-                New Balance: $100157.38
-                
-2025-01-08 16:38:59,371 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 14:22:00+05:30
-                Type: B-A
-                Short Price: 25080.30
-                Long Price: 24999.70
-                Size: 0.60
-                Potential Profit: 30.52
-                
-2025-01-08 16:38:59,371 - INFO - 
-                Arbitrage Exit:
                 Time: 2024-10-15 14:23:00+05:30
-                Type: B-A
-                PnL: $20.30
-                New Balance: $100177.68
-                
-2025-01-08 16:38:59,371 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 14:24:00+05:30
-                Type: B-A
-                Short Price: 25081.25
-                Long Price: 24995.27
-                Size: 0.60
-                Potential Profit: 35.90
-                
-2025-01-08 16:38:59,371 - INFO - 
-                Arbitrage Exit:
-                Time: 2024-10-15 14:25:00+05:30
-                Type: B-A
-                PnL: $30.39
-                New Balance: $100208.07
-                
-2025-01-08 16:38:59,372 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 14:28:00+05:30
                 Type: A-B
-                Short Price: 25082.77
-                Long Price: 25021.85
+                Short Price: 25074.11
+                Long Price: 24973.44
                 Size: 0.60
-                Potential Profit: 10.82
+                Potential Profit: 50.62
                 
-2025-01-08 16:38:59,372 - INFO - 
+2025-01-15 18:49:00,605 - INFO - 
+                Arbitrage Exit:
+                Time: 2024-10-15 14:24:00+05:30
+                Type: A-B
+                PnL: $39.50
+                New Balance: $100206.52
+                
+2025-01-15 18:49:00,606 - INFO - 
+                Arbitrage Entry:
+                Time: 2024-10-15 14:27:00+05:30
+                Type: A-B
+                Short Price: 25122.96
+                Long Price: 25039.35
+                Size: 0.60
+                Potential Profit: 33.44
+                
+2025-01-15 18:49:00,606 - INFO - 
                 Arbitrage Exit:
                 Time: 2024-10-15 14:29:00+05:30
                 Type: A-B
-                PnL: $17.12
-                New Balance: $100225.19
+                PnL: $22.95
+                New Balance: $100229.47
                 
-2025-01-08 16:38:59,372 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 14:38:00+05:30
-                Type: A-B
-                Short Price: 25073.91
-                Long Price: 25002.19
-                Size: 0.60
-                Potential Profit: 21.64
-                
-2025-01-08 16:38:59,373 - INFO - 
-                Arbitrage Exit:
-                Time: 2024-10-15 14:39:00+05:30
-                Type: A-B
-                PnL: $4.60
-                New Balance: $100229.80
-                
-2025-01-08 16:38:59,373 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 14:43:00+05:30
-                Type: B-A
-                Short Price: 25064.82
-                Long Price: 25010.27
-                Size: 0.60
-                Potential Profit: 4.48
-                
-2025-01-08 16:38:59,373 - INFO - 
-                Arbitrage Exit:
-                Time: 2024-10-15 14:44:00+05:30
-                Type: B-A
-                PnL: $-2.32
-                New Balance: $100227.47
-                
-2025-01-08 16:38:59,374 - INFO - 
+2025-01-15 18:49:00,608 - INFO - 
                 Arbitrage Entry:
                 Time: 2024-10-15 14:51:00+05:30
                 Type: B-A
-                Short Price: 25081.17
-                Long Price: 25020.37
+                Short Price: 25098.33
+                Long Price: 25025.76
                 Size: 0.60
-                Potential Profit: 10.70
+                Potential Profit: 22.44
                 
-2025-01-08 16:38:59,374 - INFO - 
+2025-01-15 18:49:00,608 - INFO - 
                 Arbitrage Exit:
-                Time: 2024-10-15 14:54:00+05:30
+                Time: 2024-10-15 14:53:00+05:30
                 Type: B-A
-                PnL: $12.35
-                New Balance: $100239.83
+                PnL: $21.52
+                New Balance: $100250.99
                 
-2025-01-08 16:38:59,375 - INFO - 
+2025-01-15 18:49:00,608 - INFO - 
+                Arbitrage Entry:
+                Time: 2024-10-15 14:59:00+05:30
+                Type: B-A
+                Short Price: 25103.52
+                Long Price: 25030.57
+                Size: 0.60
+                Potential Profit: 22.81
+                
+2025-01-15 18:49:00,608 - INFO - 
+                Arbitrage Exit:
+                Time: 2024-10-15 15:00:00+05:30
+                Type: B-A
+                PnL: $18.24
+                New Balance: $100269.23
+                
+2025-01-15 18:49:00,609 - INFO - 
                 Arbitrage Entry:
                 Time: 2024-10-15 15:02:00+05:30
                 Type: B-A
-                Short Price: 25063.82
-                Long Price: 25008.96
+                Short Price: 25099.01
+                Long Price: 25045.93
                 Size: 0.60
-                Potential Profit: 4.79
+                Potential Profit: 2.94
                 
-2025-01-08 16:38:59,375 - INFO - 
+2025-01-15 18:49:00,609 - INFO - 
                 Arbitrage Exit:
-                Time: 2024-10-15 15:05:00+05:30
+                Time: 2024-10-15 15:03:00+05:30
                 Type: B-A
-                PnL: $-4.65
-                New Balance: $100235.17
+                PnL: $-2.11
+                New Balance: $100267.12
                 
-2025-01-08 16:38:59,376 - INFO - 
+2025-01-15 18:49:00,609 - INFO - 
                 Arbitrage Entry:
-                Time: 2024-10-15 15:11:00+05:30
+                Time: 2024-10-15 15:07:00+05:30
                 Type: B-A
-                Short Price: 25080.38
-                Long Price: 25012.09
+                Short Price: 25081.06
+                Long Price: 25000.98
                 Size: 0.60
-                Potential Profit: 18.20
+                Potential Profit: 30.00
                 
-2025-01-08 16:38:59,376 - INFO - 
+2025-01-15 18:49:00,609 - INFO - 
                 Arbitrage Exit:
+                Time: 2024-10-15 15:08:00+05:30
+                Type: B-A
+                PnL: $18.73
+                New Balance: $100285.85
+                
+2025-01-15 18:49:00,610 - INFO - 
+                Arbitrage Entry:
                 Time: 2024-10-15 15:14:00+05:30
                 Type: B-A
-                PnL: $8.65
-                New Balance: $100243.83
-                
-2025-01-08 16:38:59,376 - INFO - 
-                Arbitrage Entry:
-                Time: 2024-10-15 15:15:00+05:30
-                Type: A-B
-                Short Price: 25101.87
-                Long Price: 25049.16
+                Short Price: 25073.23
+                Long Price: 25004.99
                 Size: 0.60
-                Potential Profit: 2.56
+                Potential Profit: 18.16
                 
-2025-01-08 16:38:59,376 - INFO - 
+2025-01-15 18:49:00,610 - INFO - 
                 Arbitrage Exit:
+                Time: 2024-10-15 15:15:00+05:30
+                Type: B-A
+                PnL: $17.85
+                New Balance: $100303.70
+                
+2025-01-15 18:49:00,610 - INFO - 
+                Arbitrage Entry:
                 Time: 2024-10-15 15:17:00+05:30
                 Type: A-B
-                PnL: $-3.50
-                New Balance: $100240.33
+                Short Price: 25114.85
+                Long Price: 25045.64
+                Size: 0.60
+                Potential Profit: 19.06
                 
-2025-01-08 16:38:59,378 - INFO - 
+2025-01-15 18:49:00,611 - INFO - 
+                Arbitrage Exit:
+                Time: 2024-10-15 15:18:00+05:30
+                Type: A-B
+                PnL: $17.13
+                New Balance: $100320.83
+                
+2025-01-15 18:49:00,612 - INFO - 
     Final Results:
     Initial Balance: $100,000.00
-    Final Balance: $100,240.33
-    Total Profit/Loss: $240.33
-    Return: 0.24%
-    Total Trades: 25
-    Win Rate: 80.00%
-    Max Drawdown: $19.33
+    Final Balance: $100,320.83
+    Total Profit/Loss: $320.83
+    Return: 0.32%
+    Total Trades: 22
+    Win Rate: 77.27%
+    Max Drawdown: $3.11
     

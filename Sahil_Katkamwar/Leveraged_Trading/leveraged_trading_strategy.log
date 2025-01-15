@@ -1,20 +1,20 @@
-2025-01-08 12:51:00,720 - INFO - Market data loaded from ./NSE_NIFTY_Intraday.csv
-2025-01-08 12:51:00,722 - INFO - Short Entry - Price: 25071.50, Size: 0.40, Balance: 10000.00, Reason: RSI overbought or MACD crossunder
-2025-01-08 12:51:00,724 - INFO - Short Exit - Price: 25081.10, PnL: -38.29, Balance: 9961.71, Reason: Liquidation or Stop loss
-2025-01-08 12:51:00,731 - INFO - Short Entry - Price: 25041.15, Size: 0.40, Balance: 9961.71, Reason: RSI overbought or MACD crossunder
-2025-01-08 12:51:00,731 - INFO - Short Exit - Price: 25043.65, PnL: -9.95, Balance: 9951.76, Reason: Liquidation or Stop loss
-2025-01-08 12:51:00,740 - INFO - Short Entry - Price: 25078.35, Size: 0.40, Balance: 9951.76, Reason: RSI overbought or MACD crossunder
-2025-01-08 12:51:00,744 - INFO - Short Exit - Price: 25069.65, PnL: 34.52, Balance: 9986.29, Reason: Liquidation or Stop loss
-2025-01-08 12:51:00,748 - INFO - Short Entry - Price: 25066.10, Size: 0.40, Balance: 9986.29, Reason: RSI overbought or MACD crossunder
-2025-01-08 12:51:00,748 - INFO - Short Exit - Price: 25070.05, PnL: -15.74, Balance: 9970.55, Reason: Liquidation or Stop loss
-2025-01-08 12:51:00,754 - INFO - Short Entry - Price: 25055.70, Size: 0.40, Balance: 9970.55, Reason: RSI overbought or MACD crossunder
-2025-01-08 12:51:00,756 - INFO - Short Exit - Price: 25058.40, PnL: -10.74, Balance: 9959.81, Reason: Liquidation or Stop loss
-2025-01-08 12:51:00,767 - INFO - Strategy results:
-2025-01-08 12:51:00,767 - INFO - Initial Balance: $10000.00
-2025-01-08 12:51:00,768 - INFO - Final Balance: $9959.81
-2025-01-08 12:51:00,768 - INFO - Total Profit/Loss: $-40.19
-2025-01-08 12:51:00,768 - INFO - Return: -0.40%
-2025-01-08 12:51:00,768 - INFO - Total Trades: 5
-2025-01-08 12:51:00,768 - INFO - Profitable Trades: 1
-2025-01-08 12:51:00,768 - INFO - Win Rate: 20.00%
-2025-01-08 12:51:00,768 - INFO - Max Drawdown: $48.24
+2025-01-15 18:47:37,576 - INFO - Market data loaded from ./NSE_NIFTY_Intraday.csv
+2025-01-15 18:47:37,578 - INFO - Short Entry - Price: 25071.50, Size: 0.40, Balance: 10000.00, Reason: RSI overbought or MACD crossunder
+2025-01-15 18:47:37,579 - INFO - Short Exit - Price: 25081.10, PnL: -38.29, Balance: 9961.71, Reason: Liquidation or Stop loss
+2025-01-15 18:47:37,583 - INFO - Short Entry - Price: 25041.15, Size: 0.40, Balance: 9961.71, Reason: RSI overbought or MACD crossunder
+2025-01-15 18:47:37,583 - INFO - Short Exit - Price: 25043.65, PnL: -9.95, Balance: 9951.76, Reason: Liquidation or Stop loss
+2025-01-15 18:47:37,586 - INFO - Short Entry - Price: 25078.35, Size: 0.40, Balance: 9951.76, Reason: RSI overbought or MACD crossunder
+2025-01-15 18:47:37,588 - INFO - Short Exit - Price: 25069.65, PnL: 34.52, Balance: 9986.29, Reason: Liquidation or Stop loss
+2025-01-15 18:47:37,590 - INFO - Short Entry - Price: 25066.10, Size: 0.40, Balance: 9986.29, Reason: RSI overbought or MACD crossunder
+2025-01-15 18:47:37,590 - INFO - Short Exit - Price: 25070.05, PnL: -15.74, Balance: 9970.55, Reason: Liquidation or Stop loss
+2025-01-15 18:47:37,595 - INFO - Short Entry - Price: 25055.70, Size: 0.40, Balance: 9970.55, Reason: RSI overbought or MACD crossunder
+2025-01-15 18:47:37,596 - INFO - Short Exit - Price: 25058.40, PnL: -10.74, Balance: 9959.81, Reason: Liquidation or Stop loss
+2025-01-15 18:47:37,604 - INFO - Strategy results:
+2025-01-15 18:47:37,604 - INFO - Initial Balance: Rs.10000.00
+2025-01-15 18:47:37,604 - INFO - Final Balance: Rs.9959.81
+2025-01-15 18:47:37,604 - INFO - Total Profit/Loss: Rs.-40.19
+2025-01-15 18:47:37,604 - INFO - Return: -0.40%
+2025-01-15 18:47:37,604 - INFO - Total Trades: 5
+2025-01-15 18:47:37,604 - INFO - Profitable Trades: 1
+2025-01-15 18:47:37,605 - INFO - Win Rate: 20.00%
+2025-01-15 18:47:37,605 - INFO - Max Drawdown: Rs.48.24

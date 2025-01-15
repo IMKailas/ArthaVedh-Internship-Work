@@ -1,0 +1,20 @@
+2025-01-15 18:48:11,966 - INFO - Market data loaded from ./NSE_NIFTY_Intraday.csv
+2025-01-15 18:48:11,978 - INFO - Long Entry - Price: 25044.07, Size: 0.08, Balance: 100000.50, Rebate Earned: 0.50, Reason: RSI < 40 & Price < VWAP
+2025-01-15 18:48:11,980 - INFO - Long Exit - Price: 25036.35, PnL: -2.12, Balance: 99998.38, Fee: 1.50
+2025-01-15 18:48:11,988 - INFO - Long Entry - Price: 25031.23, Size: 0.08, Balance: 99998.88, Rebate Earned: 0.50, Reason: RSI < 40 & Price < VWAP
+2025-01-15 18:48:11,990 - INFO - Long Exit - Price: 25046.00, PnL: -0.32, Balance: 99998.56, Fee: 1.50
+2025-01-15 18:48:11,990 - INFO - Long Entry - Price: 25018.88, Size: 0.08, Balance: 99999.06, Rebate Earned: 0.50, Reason: RSI < 40 & Price < VWAP
+2025-01-15 18:48:11,991 - INFO - Long Exit - Price: 25050.05, PnL: 0.99, Balance: 100000.05, Fee: 1.50
+2025-01-15 18:48:11,993 - INFO - 
+Strategy Final Results:
+2025-01-15 18:48:11,993 - INFO - Initial Balance: Rs.100000.00
+2025-01-15 18:48:11,993 - INFO - Final Balance: Rs.100000.05
+2025-01-15 18:48:11,993 - INFO - Total Profit/Loss: Rs.-1.45
+2025-01-15 18:48:11,994 - INFO - Total Rebates Earned: Rs.1.50
+2025-01-15 18:48:11,994 - INFO - Total Fees Paid: Rs.4.50
+2025-01-15 18:48:11,994 - INFO - Net P/L (incl. rebates): Rs.-4.45
+2025-01-15 18:48:11,994 - INFO - Return: 0.00%
+2025-01-15 18:48:11,994 - INFO - Total Trades: 3
+2025-01-15 18:48:11,994 - INFO - Profitable Trades: 1
+2025-01-15 18:48:11,994 - INFO - Win Rate: 33.33%
+2025-01-15 18:48:11,994 - INFO - Max Drawdown: Rs.1.62

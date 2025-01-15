@@ -1,0 +1,419 @@
+2025-01-15 18:46:53,857 - INFO - Starting market maker with initial capital: 100000, symbol: ArthaVedh
+2025-01-15 18:46:53,857 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:53,899 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:53,899 - INFO - Placed BUY order for 1 shares of ArthaVedh at 122.25 (Slippage: 0.37) | Transaction cost: 2.44
+2025-01-15 18:46:53,899 - INFO - Shares held after buying: 1
+2025-01-15 18:46:53,899 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:53,899 - INFO - Placed BUY order for 1 shares of ArthaVedh at 121.12 (Slippage: -0.76) | Transaction cost: 2.44
+2025-01-15 18:46:53,902 - INFO - Shares held after buying: 2
+2025-01-15 18:46:53,913 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:53,913 - INFO - Placed SELL order for 1 shares of ArthaVedh at 164.98 (Slippage: -1.38) | Transaction cost: 3.33
+2025-01-15 18:46:53,913 - INFO - Shares held after selling: 1
+2025-01-15 18:46:53,924 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:53,924 - INFO - Placed BUY order for 1 shares of ArthaVedh at 162.82 (Slippage: 1.76) | Transaction cost: 3.22
+2025-01-15 18:46:53,924 - INFO - Shares held after buying: 2
+2025-01-15 18:46:53,935 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:53,935 - INFO - Placed BUY order for 1 shares of ArthaVedh at 163.78 (Slippage: 1.19) | Transaction cost: 3.25
+2025-01-15 18:46:53,935 - INFO - Shares held after buying: 3
+2025-01-15 18:46:53,946 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:53,946 - INFO - Placed BUY order for 1 shares of ArthaVedh at 106.80 (Slippage: 1.26) | Transaction cost: 2.11
+2025-01-15 18:46:53,946 - INFO - Shares held after buying: 4
+2025-01-15 18:46:53,946 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:53,946 - INFO - Placed BUY order for 1 shares of ArthaVedh at 106.40 (Slippage: 0.86) | Transaction cost: 2.11
+2025-01-15 18:46:53,946 - INFO - Shares held after buying: 5
+2025-01-15 18:46:53,957 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:53,957 - INFO - Placed SELL order for 1 shares of ArthaVedh at 186.22 (Slippage: -0.89) | Transaction cost: 3.74
+2025-01-15 18:46:53,957 - INFO - Shares held after selling: 4
+2025-01-15 18:46:53,957 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:53,957 - INFO - Placed SELL order for 1 shares of ArthaVedh at 188.87 (Slippage: 1.76) | Transaction cost: 3.74
+2025-01-15 18:46:53,957 - INFO - Shares held after selling: 3
+2025-01-15 18:46:53,957 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:53,969 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:53,969 - INFO - Placed BUY order for 1 shares of ArthaVedh at 102.97 (Slippage: -0.56) | Transaction cost: 2.07
+2025-01-15 18:46:53,969 - INFO - Shares held after buying: 4
+2025-01-15 18:46:53,969 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:53,969 - INFO - Placed BUY order for 1 shares of ArthaVedh at 104.60 (Slippage: 1.07) | Transaction cost: 2.07
+2025-01-15 18:46:53,969 - INFO - Shares held after buying: 5
+2025-01-15 18:46:53,980 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:53,980 - INFO - Placed SELL order for 1 shares of ArthaVedh at 156.89 (Slippage: -1.38) | Transaction cost: 3.17
+2025-01-15 18:46:53,980 - INFO - Shares held after selling: 4
+2025-01-15 18:46:53,990 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:53,990 - INFO - Placed BUY order for 1 shares of ArthaVedh at 128.31 (Slippage: 0.29) | Transaction cost: 2.56
+2025-01-15 18:46:53,990 - INFO - Shares held after buying: 5
+2025-01-15 18:46:53,990 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:53,990 - INFO - Placed BUY order for 1 shares of ArthaVedh at 126.76 (Slippage: -1.26) | Transaction cost: 2.56
+2025-01-15 18:46:53,991 - INFO - Shares held after buying: 6
+2025-01-15 18:46:53,991 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,002 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,002 - INFO - Placed SELL order for 1 shares of ArthaVedh at 184.20 (Slippage: 1.95) | Transaction cost: 3.65
+2025-01-15 18:46:54,002 - INFO - Shares held after selling: 5
+2025-01-15 18:46:54,002 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,002 - INFO - Placed SELL order for 1 shares of ArthaVedh at 180.81 (Slippage: -1.44) | Transaction cost: 3.65
+2025-01-15 18:46:54,002 - INFO - Shares held after selling: 4
+2025-01-15 18:46:54,002 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,013 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,013 - INFO - Placed SELL order for 1 shares of ArthaVedh at 182.63 (Slippage: 0.16) | Transaction cost: 3.65
+2025-01-15 18:46:54,013 - INFO - Shares held after selling: 3
+2025-01-15 18:46:54,013 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,013 - INFO - Placed SELL order for 1 shares of ArthaVedh at 183.04 (Slippage: 0.57) | Transaction cost: 3.65
+2025-01-15 18:46:54,013 - INFO - Shares held after selling: 2
+2025-01-15 18:46:54,013 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,024 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,024 - INFO - Placed SELL order for 1 shares of ArthaVedh at 220.70 (Slippage: 0.41) | Transaction cost: 4.41
+2025-01-15 18:46:54,024 - INFO - Shares held after selling: 1
+2025-01-15 18:46:54,024 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,024 - INFO - Placed SELL order for 1 shares of ArthaVedh at 218.38 (Slippage: -1.91) | Transaction cost: 4.41
+2025-01-15 18:46:54,024 - INFO - Shares held after selling: 0
+2025-01-15 18:46:54,035 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,035 - INFO - Placed BUY order for 1 shares of ArthaVedh at 129.75 (Slippage: 0.36) | Transaction cost: 2.59
+2025-01-15 18:46:54,036 - INFO - Shares held after buying: 1
+2025-01-15 18:46:54,036 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,036 - INFO - Placed BUY order for 1 shares of ArthaVedh at 130.79 (Slippage: 1.40) | Transaction cost: 2.59
+2025-01-15 18:46:54,036 - INFO - Shares held after buying: 2
+2025-01-15 18:46:54,047 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,048 - INFO - Placed BUY order for 1 shares of ArthaVedh at 135.30 (Slippage: 0.79) | Transaction cost: 2.69
+2025-01-15 18:46:54,048 - INFO - Shares held after buying: 3
+2025-01-15 18:46:54,048 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,048 - INFO - Placed BUY order for 1 shares of ArthaVedh at 134.47 (Slippage: -0.04) | Transaction cost: 2.69
+2025-01-15 18:46:54,049 - INFO - Shares held after buying: 4
+2025-01-15 18:46:54,049 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,060 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,060 - INFO - Placed SELL order for 1 shares of ArthaVedh at 203.56 (Slippage: 1.46) | Transaction cost: 4.04
+2025-01-15 18:46:54,060 - INFO - Shares held after selling: 3
+2025-01-15 18:46:54,060 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,060 - INFO - Placed SELL order for 1 shares of ArthaVedh at 201.01 (Slippage: -1.09) | Transaction cost: 4.04
+2025-01-15 18:46:54,060 - INFO - Shares held after selling: 2
+2025-01-15 18:46:54,070 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,070 - INFO - Placed BUY order for 1 shares of ArthaVedh at 132.38 (Slippage: -1.58) | Transaction cost: 2.68
+2025-01-15 18:46:54,070 - INFO - Shares held after buying: 3
+2025-01-15 18:46:54,070 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,070 - INFO - Placed BUY order for 1 shares of ArthaVedh at 133.89 (Slippage: -0.07) | Transaction cost: 2.68
+2025-01-15 18:46:54,071 - INFO - Shares held after buying: 4
+2025-01-15 18:46:54,082 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,082 - INFO - Placed BUY order for 1 shares of ArthaVedh at 123.23 (Slippage: -1.22) | Transaction cost: 2.49
+2025-01-15 18:46:54,082 - INFO - Shares held after buying: 5
+2025-01-15 18:46:54,082 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,082 - INFO - Placed BUY order for 1 shares of ArthaVedh at 122.76 (Slippage: -1.69) | Transaction cost: 2.49
+2025-01-15 18:46:54,082 - INFO - Shares held after buying: 6
+2025-01-15 18:46:54,094 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,094 - INFO - Placed BUY order for 1 shares of ArthaVedh at 132.02 (Slippage: 1.03) | Transaction cost: 2.62
+2025-01-15 18:46:54,094 - INFO - Shares held after buying: 7
+2025-01-15 18:46:54,094 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,094 - INFO - Placed BUY order for 1 shares of ArthaVedh at 130.64 (Slippage: -0.35) | Transaction cost: 2.62
+2025-01-15 18:46:54,094 - INFO - Shares held after buying: 8
+2025-01-15 18:46:54,105 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,105 - INFO - Placed SELL order for 1 shares of ArthaVedh at 154.80 (Slippage: -0.58) | Transaction cost: 3.11
+2025-01-15 18:46:54,105 - INFO - Shares held after selling: 7
+2025-01-15 18:46:54,105 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,115 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,116 - INFO - Placed BUY order for 1 shares of ArthaVedh at 114.13 (Slippage: 0.31) | Transaction cost: 2.28
+2025-01-15 18:46:54,116 - INFO - Shares held after buying: 8
+2025-01-15 18:46:54,116 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,116 - INFO - Placed BUY order for 1 shares of ArthaVedh at 115.11 (Slippage: 1.29) | Transaction cost: 2.28
+2025-01-15 18:46:54,116 - INFO - Shares held after buying: 9
+2025-01-15 18:46:54,127 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,127 - INFO - Placed SELL order for 1 shares of ArthaVedh at 200.75 (Slippage: 0.96) | Transaction cost: 4.00
+2025-01-15 18:46:54,128 - INFO - Shares held after selling: 8
+2025-01-15 18:46:54,128 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,128 - INFO - Placed SELL order for 1 shares of ArthaVedh at 201.74 (Slippage: 1.95) | Transaction cost: 4.00
+2025-01-15 18:46:54,128 - INFO - Shares held after selling: 7
+2025-01-15 18:46:54,128 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,139 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,139 - INFO - Placed BUY order for 1 shares of ArthaVedh at 104.92 (Slippage: -1.40) | Transaction cost: 2.13
+2025-01-15 18:46:54,139 - INFO - Shares held after buying: 8
+2025-01-15 18:46:54,139 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,139 - INFO - Placed BUY order for 1 shares of ArthaVedh at 105.84 (Slippage: -0.48) | Transaction cost: 2.13
+2025-01-15 18:46:54,139 - INFO - Shares held after buying: 9
+2025-01-15 18:46:54,150 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,150 - INFO - Placed BUY order for 1 shares of ArthaVedh at 143.93 (Slippage: 1.39) | Transaction cost: 2.85
+2025-01-15 18:46:54,151 - INFO - Shares held after buying: 10
+2025-01-15 18:46:54,151 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,151 - INFO - Placed SELL order for 1 shares of ArthaVedh at 147.42 (Slippage: 0.05) | Transaction cost: 2.95
+2025-01-15 18:46:54,151 - INFO - Shares held after selling: 9
+2025-01-15 18:46:54,162 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,162 - INFO - Placed BUY order for 1 shares of ArthaVedh at 144.08 (Slippage: 1.66) | Transaction cost: 2.85
+2025-01-15 18:46:54,162 - INFO - Shares held after buying: 10
+2025-01-15 18:46:54,162 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,162 - INFO - Placed SELL order for 1 shares of ArthaVedh at 147.49 (Slippage: 0.22) | Transaction cost: 2.95
+2025-01-15 18:46:54,162 - INFO - Shares held after selling: 9
+2025-01-15 18:46:54,173 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,173 - INFO - Placed SELL order for 1 shares of ArthaVedh at 180.05 (Slippage: -1.31) | Transaction cost: 3.63
+2025-01-15 18:46:54,173 - INFO - Shares held after selling: 8
+2025-01-15 18:46:54,173 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,173 - INFO - Placed SELL order for 1 shares of ArthaVedh at 182.28 (Slippage: 0.92) | Transaction cost: 3.63
+2025-01-15 18:46:54,174 - INFO - Shares held after selling: 7
+2025-01-15 18:46:54,185 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,185 - INFO - Placed BUY order for 1 shares of ArthaVedh at 145.23 (Slippage: -0.76) | Transaction cost: 2.92
+2025-01-15 18:46:54,185 - INFO - Shares held after buying: 8
+2025-01-15 18:46:54,185 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,185 - INFO - Placed SELL order for 1 shares of ArthaVedh at 149.13 (Slippage: -0.43) | Transaction cost: 2.99
+2025-01-15 18:46:54,186 - INFO - Shares held after selling: 7
+2025-01-15 18:46:54,198 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,198 - INFO - Placed SELL order for 1 shares of ArthaVedh at 198.53 (Slippage: 0.96) | Transaction cost: 3.95
+2025-01-15 18:46:54,198 - INFO - Shares held after selling: 6
+2025-01-15 18:46:54,198 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,198 - INFO - Placed SELL order for 1 shares of ArthaVedh at 196.00 (Slippage: -1.57) | Transaction cost: 3.95
+2025-01-15 18:46:54,198 - INFO - Shares held after selling: 5
+2025-01-15 18:46:54,209 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,209 - INFO - Placed SELL order for 1 shares of ArthaVedh at 175.22 (Slippage: -1.58) | Transaction cost: 3.54
+2025-01-15 18:46:54,209 - INFO - Shares held after selling: 4
+2025-01-15 18:46:54,209 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,210 - INFO - Placed SELL order for 1 shares of ArthaVedh at 176.34 (Slippage: -0.46) | Transaction cost: 3.54
+2025-01-15 18:46:54,210 - INFO - Shares held after selling: 3
+2025-01-15 18:46:54,210 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,221 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,222 - INFO - Placed BUY order for 1 shares of ArthaVedh at 84.44 (Slippage: 1.70) | Transaction cost: 1.65
+2025-01-15 18:46:54,222 - INFO - Shares held after buying: 4
+2025-01-15 18:46:54,222 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,222 - INFO - Placed BUY order for 1 shares of ArthaVedh at 80.83 (Slippage: -1.91) | Transaction cost: 1.65
+2025-01-15 18:46:54,222 - INFO - Shares held after buying: 5
+2025-01-15 18:46:54,222 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,233 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,233 - INFO - Placed BUY order for 1 shares of ArthaVedh at 133.41 (Slippage: -1.89) | Transaction cost: 2.71
+2025-01-15 18:46:54,233 - INFO - Shares held after buying: 6
+2025-01-15 18:46:54,233 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,233 - INFO - Placed BUY order for 1 shares of ArthaVedh at 137.18 (Slippage: 1.88) | Transaction cost: 2.71
+2025-01-15 18:46:54,233 - INFO - Shares held after buying: 7
+2025-01-15 18:46:54,244 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,244 - INFO - Placed SELL order for 1 shares of ArthaVedh at 181.84 (Slippage: -0.53) | Transaction cost: 3.65
+2025-01-15 18:46:54,244 - INFO - Shares held after selling: 6
+2025-01-15 18:46:54,244 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,244 - INFO - Placed SELL order for 1 shares of ArthaVedh at 182.74 (Slippage: 0.37) | Transaction cost: 3.65
+2025-01-15 18:46:54,244 - INFO - Shares held after selling: 5
+2025-01-15 18:46:54,256 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,256 - INFO - Placed SELL order for 1 shares of ArthaVedh at 184.76 (Slippage: -1.41) | Transaction cost: 3.72
+2025-01-15 18:46:54,256 - INFO - Shares held after selling: 4
+2025-01-15 18:46:54,256 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,256 - INFO - Placed SELL order for 1 shares of ArthaVedh at 187.15 (Slippage: 0.98) | Transaction cost: 3.72
+2025-01-15 18:46:54,256 - INFO - Shares held after selling: 3
+2025-01-15 18:46:54,257 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,268 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,268 - INFO - Placed BUY order for 1 shares of ArthaVedh at 136.54 (Slippage: 1.94) | Transaction cost: 2.69
+2025-01-15 18:46:54,268 - INFO - Shares held after buying: 4
+2025-01-15 18:46:54,268 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,268 - INFO - Placed BUY order for 1 shares of ArthaVedh at 133.10 (Slippage: -1.50) | Transaction cost: 2.69
+2025-01-15 18:46:54,268 - INFO - Shares held after buying: 5
+2025-01-15 18:46:54,279 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,279 - INFO - Placed SELL order for 1 shares of ArthaVedh at 174.96 (Slippage: 1.89) | Transaction cost: 3.46
+2025-01-15 18:46:54,279 - INFO - Shares held after selling: 4
+2025-01-15 18:46:54,279 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,280 - INFO - Placed SELL order for 1 shares of ArthaVedh at 174.09 (Slippage: 1.02) | Transaction cost: 3.46
+2025-01-15 18:46:54,280 - INFO - Shares held after selling: 3
+2025-01-15 18:46:54,291 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,291 - INFO - Placed BUY order for 1 shares of ArthaVedh at 154.86 (Slippage: -0.08) | Transaction cost: 3.10
+2025-01-15 18:46:54,291 - INFO - Shares held after buying: 4
+2025-01-15 18:46:54,302 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,302 - INFO - Placed SELL order for 1 shares of ArthaVedh at 173.70 (Slippage: 0.79) | Transaction cost: 3.46
+2025-01-15 18:46:54,302 - INFO - Shares held after selling: 3
+2025-01-15 18:46:54,303 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,303 - INFO - Placed SELL order for 1 shares of ArthaVedh at 174.20 (Slippage: 1.29) | Transaction cost: 3.46
+2025-01-15 18:46:54,303 - INFO - Shares held after selling: 2
+2025-01-15 18:46:54,314 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,314 - INFO - Placed SELL order for 1 shares of ArthaVedh at 173.45 (Slippage: 0.29) | Transaction cost: 3.46
+2025-01-15 18:46:54,314 - INFO - Shares held after selling: 1
+2025-01-15 18:46:54,314 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,314 - INFO - Placed SELL order for 1 shares of ArthaVedh at 175.04 (Slippage: 1.88) | Transaction cost: 3.46
+2025-01-15 18:46:54,314 - INFO - Shares held after selling: 0
+2025-01-15 18:46:54,325 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,325 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,336 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,336 - INFO - Placed BUY order for 1 shares of ArthaVedh at 129.30 (Slippage: 1.15) | Transaction cost: 2.56
+2025-01-15 18:46:54,336 - INFO - Shares held after buying: 1
+2025-01-15 18:46:54,336 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,337 - INFO - Placed BUY order for 1 shares of ArthaVedh at 130.12 (Slippage: 1.97) | Transaction cost: 2.56
+2025-01-15 18:46:54,337 - INFO - Shares held after buying: 2
+2025-01-15 18:46:54,348 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,348 - INFO - Placed BUY order for 1 shares of ArthaVedh at 112.48 (Slippage: 0.10) | Transaction cost: 2.25
+2025-01-15 18:46:54,348 - INFO - Shares held after buying: 3
+2025-01-15 18:46:54,348 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,349 - INFO - Placed BUY order for 1 shares of ArthaVedh at 113.09 (Slippage: 0.71) | Transaction cost: 2.25
+2025-01-15 18:46:54,349 - INFO - Shares held after buying: 4
+2025-01-15 18:46:54,359 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,359 - INFO - Placed BUY order for 1 shares of ArthaVedh at 126.57 (Slippage: -1.56) | Transaction cost: 2.56
+2025-01-15 18:46:54,359 - INFO - Shares held after buying: 5
+2025-01-15 18:46:54,359 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,359 - INFO - Placed BUY order for 1 shares of ArthaVedh at 129.11 (Slippage: 0.98) | Transaction cost: 2.56
+2025-01-15 18:46:54,359 - INFO - Shares held after buying: 6
+2025-01-15 18:46:54,359 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,370 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,370 - INFO - Placed SELL order for 1 shares of ArthaVedh at 187.57 (Slippage: -1.58) | Transaction cost: 3.78
+2025-01-15 18:46:54,370 - INFO - Shares held after selling: 5
+2025-01-15 18:46:54,370 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,370 - INFO - Placed SELL order for 1 shares of ArthaVedh at 190.84 (Slippage: 1.69) | Transaction cost: 3.78
+2025-01-15 18:46:54,370 - INFO - Shares held after selling: 4
+2025-01-15 18:46:54,381 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,381 - INFO - Placed SELL order for 1 shares of ArthaVedh at 153.51 (Slippage: 0.98) | Transaction cost: 3.05
+2025-01-15 18:46:54,381 - INFO - Shares held after selling: 3
+2025-01-15 18:46:54,381 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,391 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,391 - INFO - Placed SELL order for 1 shares of ArthaVedh at 199.37 (Slippage: -2.00) | Transaction cost: 4.03
+2025-01-15 18:46:54,391 - INFO - Shares held after selling: 2
+2025-01-15 18:46:54,391 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,391 - INFO - Placed SELL order for 1 shares of ArthaVedh at 202.08 (Slippage: 0.71) | Transaction cost: 4.03
+2025-01-15 18:46:54,391 - INFO - Shares held after selling: 1
+2025-01-15 18:46:54,403 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,403 - INFO - Placed BUY order for 1 shares of ArthaVedh at 97.60 (Slippage: -0.07) | Transaction cost: 1.95
+2025-01-15 18:46:54,403 - INFO - Shares held after buying: 2
+2025-01-15 18:46:54,403 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,403 - INFO - Placed BUY order for 1 shares of ArthaVedh at 98.16 (Slippage: 0.49) | Transaction cost: 1.95
+2025-01-15 18:46:54,403 - INFO - Shares held after buying: 3
+2025-01-15 18:46:54,414 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,414 - INFO - Placed SELL order for 1 shares of ArthaVedh at 165.10 (Slippage: 1.70) | Transaction cost: 3.27
+2025-01-15 18:46:54,414 - INFO - Shares held after selling: 2
+2025-01-15 18:46:54,414 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,414 - INFO - Placed SELL order for 1 shares of ArthaVedh at 162.62 (Slippage: -0.78) | Transaction cost: 3.27
+2025-01-15 18:46:54,414 - INFO - Shares held after selling: 1
+2025-01-15 18:46:54,425 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,425 - INFO - Placed BUY order for 1 shares of ArthaVedh at 142.03 (Slippage: -1.32) | Transaction cost: 2.87
+2025-01-15 18:46:54,425 - INFO - Shares held after buying: 2
+2025-01-15 18:46:54,425 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,425 - INFO - Placed BUY order for 1 shares of ArthaVedh at 142.67 (Slippage: -0.68) | Transaction cost: 2.87
+2025-01-15 18:46:54,425 - INFO - Shares held after buying: 3
+2025-01-15 18:46:54,425 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,436 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,436 - INFO - Placed SELL order for 1 shares of ArthaVedh at 168.71 (Slippage: -0.76) | Transaction cost: 3.39
+2025-01-15 18:46:54,436 - INFO - Shares held after selling: 2
+2025-01-15 18:46:54,436 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,436 - INFO - Placed SELL order for 1 shares of ArthaVedh at 169.40 (Slippage: -0.07) | Transaction cost: 3.39
+2025-01-15 18:46:54,436 - INFO - Shares held after selling: 1
+2025-01-15 18:46:54,448 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,448 - INFO - Placed SELL order for 1 shares of ArthaVedh at 157.08 (Slippage: -0.74) | Transaction cost: 3.16
+2025-01-15 18:46:54,448 - INFO - Shares held after selling: 0
+2025-01-15 18:46:54,459 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,459 - INFO - Placed BUY order for 1 shares of ArthaVedh at 148.92 (Slippage: 1.50) | Transaction cost: 2.95
+2025-01-15 18:46:54,459 - INFO - Shares held after buying: 1
+2025-01-15 18:46:54,470 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,470 - INFO - Placed SELL order for 1 shares of ArthaVedh at 183.69 (Slippage: -1.82) | Transaction cost: 3.71
+2025-01-15 18:46:54,470 - INFO - Shares held after selling: 0
+2025-01-15 18:46:54,470 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,481 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,481 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,492 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,492 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,503 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,503 - INFO - Placed BUY order for 1 shares of ArthaVedh at 150.53 (Slippage: 1.83) | Transaction cost: 2.97
+2025-01-15 18:46:54,504 - INFO - Shares held after buying: 1
+2025-01-15 18:46:54,504 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,504 - INFO - Placed BUY order for 1 shares of ArthaVedh at 146.79 (Slippage: -1.91) | Transaction cost: 2.97
+2025-01-15 18:46:54,504 - INFO - Shares held after buying: 2
+2025-01-15 18:46:54,515 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,515 - INFO - Placed SELL order for 1 shares of ArthaVedh at 172.09 (Slippage: -1.30) | Transaction cost: 3.47
+2025-01-15 18:46:54,515 - INFO - Shares held after selling: 1
+2025-01-15 18:46:54,515 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,515 - INFO - Placed BUY order for 1 shares of ArthaVedh at 167.99 (Slippage: -1.19) | Transaction cost: 3.38
+2025-01-15 18:46:54,515 - INFO - Shares held after buying: 2
+2025-01-15 18:46:54,526 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,526 - INFO - Placed SELL order for 1 shares of ArthaVedh at 217.44 (Slippage: 0.38) | Transaction cost: 4.34
+2025-01-15 18:46:54,526 - INFO - Shares held after selling: 1
+2025-01-15 18:46:54,526 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,526 - INFO - Placed SELL order for 1 shares of ArthaVedh at 216.44 (Slippage: -0.62) | Transaction cost: 4.34
+2025-01-15 18:46:54,526 - INFO - Shares held after selling: 0
+2025-01-15 18:46:54,537 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,538 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,538 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,548 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,548 - INFO - Placed BUY order for 1 shares of ArthaVedh at 145.40 (Slippage: -1.73) | Transaction cost: 2.94
+2025-01-15 18:46:54,548 - INFO - Shares held after buying: 1
+2025-01-15 18:46:54,548 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,548 - INFO - Placed BUY order for 1 shares of ArthaVedh at 148.01 (Slippage: 0.88) | Transaction cost: 2.94
+2025-01-15 18:46:54,549 - INFO - Shares held after buying: 2
+2025-01-15 18:46:54,549 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,560 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,560 - INFO - Placed BUY order for 1 shares of ArthaVedh at 92.88 (Slippage: -1.87) | Transaction cost: 1.90
+2025-01-15 18:46:54,560 - INFO - Shares held after buying: 3
+2025-01-15 18:46:54,560 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,560 - INFO - Placed BUY order for 1 shares of ArthaVedh at 94.92 (Slippage: 0.17) | Transaction cost: 1.90
+2025-01-15 18:46:54,560 - INFO - Shares held after buying: 4
+2025-01-15 18:46:54,571 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,571 - INFO - Placed SELL order for 1 shares of ArthaVedh at 184.27 (Slippage: -1.67) | Transaction cost: 3.72
+2025-01-15 18:46:54,571 - INFO - Shares held after selling: 3
+2025-01-15 18:46:54,571 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,571 - INFO - Placed SELL order for 1 shares of ArthaVedh at 184.27 (Slippage: -1.67) | Transaction cost: 3.72
+2025-01-15 18:46:54,571 - INFO - Shares held after selling: 2
+2025-01-15 18:46:54,582 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,582 - INFO - Placed BUY order for 1 shares of ArthaVedh at 129.21 (Slippage: -0.34) | Transaction cost: 2.59
+2025-01-15 18:46:54,582 - INFO - Shares held after buying: 3
+2025-01-15 18:46:54,582 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,582 - INFO - Placed BUY order for 1 shares of ArthaVedh at 129.06 (Slippage: -0.49) | Transaction cost: 2.59
+2025-01-15 18:46:54,582 - INFO - Shares held after buying: 4
+2025-01-15 18:46:54,593 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,593 - INFO - Placed BUY order for 1 shares of ArthaVedh at 130.86 (Slippage: 1.26) | Transaction cost: 2.59
+2025-01-15 18:46:54,593 - INFO - Shares held after buying: 5
+2025-01-15 18:46:54,593 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,593 - INFO - Placed BUY order for 1 shares of ArthaVedh at 131.01 (Slippage: 1.41) | Transaction cost: 2.59
+2025-01-15 18:46:54,593 - INFO - Shares held after buying: 6
+2025-01-15 18:46:54,604 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,604 - INFO - Placed BUY order for 1 shares of ArthaVedh at 136.85 (Slippage: -0.37) | Transaction cost: 2.74
+2025-01-15 18:46:54,604 - INFO - Shares held after buying: 7
+2025-01-15 18:46:54,605 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,605 - INFO - Placed SELL order for 1 shares of ArthaVedh at 136.37 (Slippage: -1.04) | Transaction cost: 2.75
+2025-01-15 18:46:54,605 - INFO - Shares held after selling: 6
+2025-01-15 18:46:54,616 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,616 - INFO - Placed SELL order for 1 shares of ArthaVedh at 183.52 (Slippage: -1.04) | Transaction cost: 3.69
+2025-01-15 18:46:54,616 - INFO - Shares held after selling: 5
+2025-01-15 18:46:54,617 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,617 - INFO - Placed SELL order for 1 shares of ArthaVedh at 185.19 (Slippage: 0.63) | Transaction cost: 3.69
+2025-01-15 18:46:54,617 - INFO - Shares held after selling: 4
+2025-01-15 18:46:54,617 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,628 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,628 - INFO - Placed BUY order for 1 shares of ArthaVedh at 129.92 (Slippage: -1.31) | Transaction cost: 2.62
+2025-01-15 18:46:54,629 - INFO - Shares held after buying: 5
+2025-01-15 18:46:54,629 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,629 - INFO - Placed BUY order for 1 shares of ArthaVedh at 130.51 (Slippage: -0.72) | Transaction cost: 2.62
+2025-01-15 18:46:54,629 - INFO - Shares held after buying: 6
+2025-01-15 18:46:54,640 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,640 - INFO - Placed BUY order for 1 shares of ArthaVedh at 122.88 (Slippage: -1.15) | Transaction cost: 2.48
+2025-01-15 18:46:54,640 - INFO - Shares held after buying: 7
+2025-01-15 18:46:54,640 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,640 - INFO - Placed BUY order for 1 shares of ArthaVedh at 123.29 (Slippage: -0.74) | Transaction cost: 2.48
+2025-01-15 18:46:54,640 - INFO - Shares held after buying: 8
+2025-01-15 18:46:54,640 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,651 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,651 - INFO - Placed SELL order for 1 shares of ArthaVedh at 154.72 (Slippage: -0.50) | Transaction cost: 3.10
+2025-01-15 18:46:54,651 - INFO - Shares held after selling: 7
+2025-01-15 18:46:54,663 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,664 - INFO - Placed BUY order for 1 shares of ArthaVedh at 133.66 (Slippage: -0.13) | Transaction cost: 2.68
+2025-01-15 18:46:54,664 - INFO - Shares held after buying: 8
+2025-01-15 18:46:54,664 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,664 - INFO - Placed BUY order for 1 shares of ArthaVedh at 131.98 (Slippage: -1.81) | Transaction cost: 2.68
+2025-01-15 18:46:54,664 - INFO - Shares held after buying: 9
+2025-01-15 18:46:54,664 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,676 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,676 - INFO - Placed SELL order for 1 shares of ArthaVedh at 184.20 (Slippage: -1.40) | Transaction cost: 3.71
+2025-01-15 18:46:54,676 - INFO - Shares held after selling: 8
+2025-01-15 18:46:54,676 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,676 - INFO - Placed SELL order for 1 shares of ArthaVedh at 186.20 (Slippage: 0.60) | Transaction cost: 3.71
+2025-01-15 18:46:54,677 - INFO - Shares held after selling: 7
+2025-01-15 18:46:54,677 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,687 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,687 - INFO - Placed BUY order for 1 shares of ArthaVedh at 123.93 (Slippage: 1.36) | Transaction cost: 2.45
+2025-01-15 18:46:54,688 - INFO - Shares held after buying: 8
+2025-01-15 18:46:54,688 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,688 - INFO - Placed BUY order for 1 shares of ArthaVedh at 122.28 (Slippage: -0.29) | Transaction cost: 2.45
+2025-01-15 18:46:54,688 - INFO - Shares held after buying: 9
+2025-01-15 18:46:54,698 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,698 - INFO - Placed SELL order for 1 shares of ArthaVedh at 160.78 (Slippage: 1.85) | Transaction cost: 3.18
+2025-01-15 18:46:54,698 - INFO - Shares held after selling: 8
+2025-01-15 18:46:54,698 - WARNING - Market downturn event triggered! Adjusting trend.
+2025-01-15 18:46:54,709 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,709 - INFO - Placed BUY order for 1 shares of ArthaVedh at 109.97 (Slippage: -1.12) | Transaction cost: 2.22
+2025-01-15 18:46:54,709 - INFO - Shares held after buying: 9
+2025-01-15 18:46:54,709 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,709 - INFO - Placed BUY order for 1 shares of ArthaVedh at 110.29 (Slippage: -0.80) | Transaction cost: 2.22
+2025-01-15 18:46:54,709 - INFO - Shares held after buying: 10
+2025-01-15 18:46:54,721 - INFO - Mean Reversion Strategy suggests buying.
+2025-01-15 18:46:54,721 - INFO - Placed BUY order for 1 shares of ArthaVedh at 130.81 (Slippage: 1.48) | Transaction cost: 2.59
+2025-01-15 18:46:54,721 - INFO - Shares held after buying: 11
+2025-01-15 18:46:54,721 - INFO - Bid price is below Moving Average. Suggesting to buy.
+2025-01-15 18:46:54,721 - INFO - Placed BUY order for 1 shares of ArthaVedh at 128.41 (Slippage: -0.92) | Transaction cost: 2.59
+2025-01-15 18:46:54,721 - INFO - Shares held after buying: 12
+2025-01-15 18:46:54,732 - INFO - Mean Reversion Strategy suggests selling.
+2025-01-15 18:46:54,732 - INFO - Placed SELL order for 1 shares of ArthaVedh at 181.30 (Slippage: 1.20) | Transaction cost: 3.60
+2025-01-15 18:46:54,732 - INFO - Shares held after selling: 11
+2025-01-15 18:46:54,732 - INFO - Bid price is above Moving Average. Suggesting to sell.
+2025-01-15 18:46:54,732 - INFO - Placed SELL order for 1 shares of ArthaVedh at 180.66 (Slippage: 0.56) | Transaction cost: 3.60
+2025-01-15 18:46:54,732 - INFO - Shares held after selling: 10
+2025-01-15 18:46:54,732 - INFO - Profit target reached: 3281.81. Exiting all positions.
+2025-01-15 18:46:54,733 - INFO - Selling remaining shares before exiting due to profit/loss threshold.
+2025-01-15 18:46:54,733 - INFO - Placed SELL order for 10 shares of ArthaVedh at 181.03 (Slippage: 1.50) | Transaction cost: 35.91
+2025-01-15 18:46:54,733 - INFO - Final Capital: 103260.90 | Profit/Loss: 3260.90 | Final Shares Held: 0

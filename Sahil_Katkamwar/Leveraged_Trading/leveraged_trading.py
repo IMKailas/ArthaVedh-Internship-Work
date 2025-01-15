@@ -1,12 +1,12 @@
 import pandas as pd
 import logging
-from datetime import datetime
+import config
 
 # Set up logging
 logging.basicConfig(
-    filename='leveraged_trading_strategy.log',  # Log file name
-    level=logging.DEBUG,  # Log level (DEBUG will log all levels)
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    filename=config.LOG_FILE,
+    level=config.LOG_LEVEL,
+    format=config.LOG_FORMAT
 )
 
 def load_market_data(file_path):
@@ -15,13 +15,11 @@ def load_market_data(file_path):
     logging.info(f"Market data loaded from {file_path}")
     return data
 
-
 def calculate_position_size(balance, leverage, current_price, risk_per_trade_pct):
     """Calculate position size based on account balance and leverage"""
     max_position_value = balance * leverage * risk_per_trade_pct
     units = max_position_value / current_price
     return units
-
 
 def calculate_liquidation_price(entry_price, position_type, leverage, margin_requirement):
     """Calculate liquidation price for leveraged position"""
@@ -29,13 +27,12 @@ def calculate_liquidation_price(entry_price, position_type, leverage, margin_req
         return entry_price * (1 - (1 / leverage) + margin_requirement)
     return entry_price * (1 + (1 / leverage) - margin_requirement)
 
-
 def leveraged_trading_strategy(data, params):
     """Enhanced leveraged trading strategy"""
-    balance = params['initial_balance']
+    balance = params.get('initial_balance', config.INITIAL_BALANCE)
     initial_balance = balance
-    leverage = params['leverage']
-    margin_requirement = params['margin_requirement']
+    leverage = params.get('leverage', config.LEVERAGE)
+    margin_requirement = params.get('margin_requirement', config.MARGIN_REQUIREMENT)
     position = None
     position_size = 0
     entry_price = 0
@@ -52,8 +49,8 @@ def leveraged_trading_strategy(data, params):
             continue
 
         # Entry and exit signals
-        rsi_oversold = current_row['RSI'] < 30
-        rsi_overbought = current_row['RSI'] > 70
+        rsi_oversold = current_row['RSI'] < config.RSI_OVERSOLD
+        rsi_overbought = current_row['RSI'] > config.RSI_OVERBOUGHT
         macd_crossover = prev_row['MACD'] < prev_row['Signal'] and current_row['MACD'] > current_row['Signal']
         macd_crossunder = prev_row['MACD'] > prev_row['Signal'] and current_row['MACD'] < current_row['Signal']
         price_above_vwap = current_price > current_row['VWAP']
@@ -67,7 +64,7 @@ def leveraged_trading_strategy(data, params):
             # Long Entry
             if (rsi_oversold or macd_crossover) and price_above_vwap and volume_spike:
                 position_size = calculate_position_size(
-                    balance, leverage, current_price, params['risk_per_trade_pct']
+                    balance, leverage, current_price, params.get('risk_per_trade_pct', config.RISK_PER_TRADE_PCT)
                 )
                 position = "Long"
                 entry_price = current_price
@@ -79,7 +76,7 @@ def leveraged_trading_strategy(data, params):
             # Short Entry
             elif (rsi_overbought or macd_crossunder) and price_below_vwap and volume_spike:
                 position_size = calculate_position_size(
-                    balance, leverage, current_price, params['risk_per_trade_pct']
+                    balance, leverage, current_price, params.get('risk_per_trade_pct', config.RISK_PER_TRADE_PCT)
                 )
                 position = "Short"
                 entry_price = current_price
@@ -97,7 +94,7 @@ def leveraged_trading_strategy(data, params):
                 if (current_price <= liquidation_price or  # Liquidation
                         rsi_overbought or  # RSI exit
                         macd_crossunder or  # MACD exit
-                        unrealized_pnl <= -balance * params['max_loss_per_trade']):  # Stop loss
+                        unrealized_pnl <= -balance * params.get('max_loss_per_trade', config.MAX_LOSS_PER_TRADE)):  # Stop loss
 
                     pnl = position_size * (current_price - entry_price) * leverage
                     balance += pnl
@@ -120,7 +117,7 @@ def leveraged_trading_strategy(data, params):
                 if (current_price >= liquidation_price or  # Liquidation
                         rsi_oversold or  # RSI exit
                         macd_crossover or  # MACD exit
-                        unrealized_pnl <= -balance * params['max_loss_per_trade']):  # Stop loss
+                        unrealized_pnl <= -balance * params.get('max_loss_per_trade', config.MAX_LOSS_PER_TRADE)):  # Stop loss
 
                     pnl = position_size * (entry_price - current_price) * leverage
                     balance += pnl
@@ -137,7 +134,7 @@ def leveraged_trading_strategy(data, params):
                     position = None
 
         # Risk management - stop trading if significant losses
-        if balance < initial_balance * 0.5:
+        if balance < initial_balance * config.MAX_DRAWDOWN_PCT:
             logging.warning(f"Strategy stopped - Significant losses. Balance: {balance:.2f}")
             break
 
@@ -149,20 +146,17 @@ def leveraged_trading_strategy(data, params):
         total_profit = sum(t['pnl'] for t in trades)
         max_drawdown = min(t['balance'] for t in trades) - initial_balance if trades else 0
     else:
-        profitable_trades = 0
-        win_rate = 0
-        total_profit = 0
-        max_drawdown = 0
+        profitable_trades = win_rate = total_profit = max_drawdown = 0
 
-    logging.info("Strategy results: ")
-    logging.info(f"Initial Balance: ${initial_balance:.2f}")
-    logging.info(f"Final Balance: ${balance:.2f}")
-    logging.info(f"Total Profit/Loss: ${total_profit:.2f}")
+    logging.info("Strategy results:")
+    logging.info(f"Initial Balance: Rs.{initial_balance:.2f}")
+    logging.info(f"Final Balance: Rs.{balance:.2f}")
+    logging.info(f"Total Profit/Loss: Rs.{total_profit:.2f}")
     logging.info(f"Return: {((balance - initial_balance) / initial_balance) * 100:.2f}%")
     logging.info(f"Total Trades: {total_trades}")
     logging.info(f"Profitable Trades: {profitable_trades}")
     logging.info(f"Win Rate: {win_rate:.2f}%")
-    logging.info(f"Max Drawdown: ${abs(max_drawdown):.2f}")
+    logging.info(f"Max Drawdown: Rs.{abs(max_drawdown):.2f}")
 
     return {
         'initial_balance': initial_balance,
@@ -176,41 +170,21 @@ def leveraged_trading_strategy(data, params):
         'trades': trades
     }
 
-# Strategy parameters
+# Strategy parameters with config values
 params = {
-    'initial_balance': 10000,
-    'leverage': 10,  # Increased leverage for more aggressive trading
-    'margin_requirement': 0.1,  # 10% margin requirement
-    'risk_per_trade_pct': 0.1,  # Risk 10% per trade
-    'max_loss_per_trade': 0.05  # Maximum 5% loss per trade
+    'initial_balance': config.INITIAL_BALANCE,
+    'leverage': config.LEVERAGE,
+    'margin_requirement': config.MARGIN_REQUIREMENT,
+    'risk_per_trade_pct': config.RISK_PER_TRADE_PCT,
+    'max_loss_per_trade': config.MAX_LOSS_PER_TRADE
 }
-
-# File path - adjust this to your actual file path
-file_path = './NSE_NIFTY_Intraday.csv'  # Update this path
 
 try:
     # Load and run strategy
-    data = load_market_data(file_path)
+    data = load_market_data(config.DATA_FILE)
     results = leveraged_trading_strategy(data, params)
 
-    # Print detailed results
-    print("\nStrategy Results:")
-    print(f"Initial Balance: ${results['initial_balance']:.2f}")
-    print(f"Final Balance: ${results['final_balance']:.2f}")
-    print(f"Total Profit/Loss: ${results['total_profit']:.2f}")
-    print(f"Return: {results['return_pct']:.2f}%")
-    print(f"Total Trades: {results['total_trades']}")
-    print(f"Profitable Trades: {results['profitable_trades']}")
-    print(f"Win Rate: {results['win_rate']:.2f}%")
-    print(f"Max Drawdown: ${abs(results['max_drawdown']):.2f}")
-
-    # Print individual trades if requested
-    print("\nRecent Trades:")
-    for trade in results['trades'][-5:]:  # Show last 5 trades
-        print(f"Type: {trade['type']}, Entry: {trade['entry']:.2f}, "
-              f"Exit: {trade['exit']:.2f}, PnL: ${trade['pnl']:.2f}")
-
 except FileNotFoundError:
-    logging.error(f"File not found: {file_path}")
+    logging.error(f"File not found: {config.DATA_FILE}")
 except Exception as e:
     logging.error(f"Error occurred: {str(e)}")

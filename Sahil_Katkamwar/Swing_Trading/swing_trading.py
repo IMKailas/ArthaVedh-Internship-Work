@@ -1,11 +1,11 @@
 import pandas as pd
+import config
 
 def load_market_data(csv_file):
     """Load and preprocess the CSV data for swing trading."""
     df = pd.read_csv(csv_file)
     df['time'] = pd.to_datetime(df['time'], dayfirst=True)
     return df
-
 
 def get_market_data(df, current_index):
     """Get market data for the current index from DataFrame."""
@@ -15,18 +15,17 @@ def get_market_data(df, current_index):
     current_row = df.iloc[current_index]
 
     market_data = {
-        "close_price": current_row['close'],  # Closing price
-        "volume": current_row['Volume'],  # Current volume
-        "volume_ma": current_row['Volume MA'],  # Moving average of volume
-        "rsi": current_row['RSI'],  # RSI value
-        "macd": current_row['MACD'],  # MACD value
-        "signal": current_row['Signal'],  # MACD signal line
-        "upper_band": current_row['Upper Band #1'],  # Bollinger upper band
-        "lower_band": current_row['Lower Band #1'],  # Bollinger lower band
-        "timestamp": current_row['time'],  # Timestamp
+        "close_price": current_row[config.MARKET_DATA_COLUMNS['close']],
+        "volume": current_row[config.MARKET_DATA_COLUMNS['volume']],
+        "volume_ma": current_row[config.MARKET_DATA_COLUMNS['volume_ma']],
+        "rsi": current_row[config.MARKET_DATA_COLUMNS['rsi']],
+        "macd": current_row[config.MARKET_DATA_COLUMNS['macd']],
+        "signal": current_row[config.MARKET_DATA_COLUMNS['signal']],
+        "upper_band": current_row[config.MARKET_DATA_COLUMNS['upper_band']],
+        "lower_band": current_row[config.MARKET_DATA_COLUMNS['lower_band']],
+        "timestamp": current_row[config.MARKET_DATA_COLUMNS['timestamp']],
     }
     return market_data
-
 
 def swing_trading_decision(market_data, position=None, entry_price=0.0):
     close_price = market_data['close_price']
@@ -37,34 +36,31 @@ def swing_trading_decision(market_data, position=None, entry_price=0.0):
     lower_band = market_data['lower_band']
 
     if position is None:  # No position, decide entry
-        # Using both MACD and RSI as confirmation indicators
-        if rsi < 30 and macd > signal:  # Conservative oversold condition for buying
+        if rsi < config.RSI_OVERSOLD and macd > signal:
             reason = f"RSI={rsi:.2f} (Oversold) and MACD ({macd:.2f}) > Signal ({signal:.2f})"
             return "BUY", close_price, reason
-        elif rsi > 70 and macd < signal:  # Conservative overbought condition for selling
+        elif rsi > config.RSI_OVERBOUGHT and macd < signal:
             reason = f"RSI={rsi:.2f} (Overbought) and MACD ({macd:.2f}) < Signal ({signal:.2f})"
             return "SELL", close_price, reason
     else:  # Already in a position, decide exit
         if position == "BUY":
-            # More aggressive stop-loss or take-profit ratios
-            if close_price >= upper_band or rsi > 80:  # Exit on overbought or price at upper band
+            if close_price >= upper_band or rsi > config.RSI_EXIT_OVERBOUGHT:
                 reason = f"RSI={rsi:.2f} (Overbought) or Close Price={close_price:.2f} >= Upper Band ({upper_band:.2f})"
                 return "EXIT", close_price, reason
-            elif close_price < (entry_price * 0.98):  # Exit at 2% loss
-                reason = f"Close Price={close_price:.2f} < Entry Price * 0.98 (Exit at small loss)"
+            elif close_price < (entry_price * config.STOP_LOSS_MULTIPLIER):
+                reason = f"Close Price={close_price:.2f} < Entry Price * {config.STOP_LOSS_MULTIPLIER} (Exit at small loss)"
                 return "EXIT", close_price, reason
         elif position == "SELL":
-            if close_price <= lower_band or rsi < 30:  # Oversold condition for selling exit
+            if close_price <= lower_band or rsi < config.RSI_EXIT_OVERSOLD:
                 reason = f"RSI={rsi:.2f} (Oversold) or Close Price={close_price:.2f} <= Lower Band ({lower_band:.2f})"
                 return "EXIT", close_price, reason
-            elif close_price > (entry_price * 1.05):  # Exit at 5% profit for sell
-                reason = f"Close Price={close_price:.2f} > Entry Price * 1.05 (Exit at small profit)"
+            elif close_price > (entry_price * config.PROFIT_TARGET_MULTIPLIER):
+                reason = f"Close Price={close_price:.2f} > Entry Price * {config.PROFIT_TARGET_MULTIPLIER} (Exit at small profit)"
                 return "EXIT", close_price, reason
 
     return "HOLD", close_price, "No conditions met."
 
-
-def run_swing_trading_strategy(csv_file, initial_balance, stop_loss_pct, target_profit_pct, log_file="swing_trade_log.txt", log_details=False):
+def run_swing_trading_strategy(csv_file, initial_balance, stop_loss_pct, target_profit_pct, log_file=config.LOG_FILE_PATH, log_details=config.LOG_DETAILS):
     """Run the swing trading strategy with improved parameters."""
     df = load_market_data(csv_file)
     balance = initial_balance
@@ -139,12 +135,12 @@ def run_swing_trading_strategy(csv_file, initial_balance, stop_loss_pct, target_
 
     return balance, trades
 
-
-# Example usage
 if __name__ == "__main__":
-    csv_file = r"./NSE_NIFTY, 1D.csv"  # Path to your CSV file
-    initial_balance = 10000
-    stop_loss_pct = 2  # Increased stop loss to 2%
-    target_profit_pct = 6  # Reduced target profit to 3%
-
-    final_balance, trades = run_swing_trading_strategy(csv_file, initial_balance, stop_loss_pct, target_profit_pct, log_details=True)
+    final_balance, trades = run_swing_trading_strategy(
+        csv_file=config.DATA_FILE_PATH,
+        initial_balance=config.INITIAL_BALANCE,
+        stop_loss_pct=config.STOP_LOSS_PCT,
+        target_profit_pct=config.TARGET_PROFIT_PCT,
+        log_file=config.LOG_FILE_PATH,
+        log_details=config.LOG_DETAILS
+    )

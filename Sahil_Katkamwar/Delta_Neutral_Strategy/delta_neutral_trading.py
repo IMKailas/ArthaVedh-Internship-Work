@@ -2,12 +2,13 @@ import pandas as pd
 import numpy as np
 import logging
 from scipy.stats import norm
+import config
 
-# Set up logging
+# Set up logging to capture strategy details in the required format
 logging.basicConfig(
-    filename='delta_neutral_strategy.log',
-    level=logging.DEBUG,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    filename=config.LOG_FILE,
+    level=logging.INFO,
+    format=config.LOG_FORMAT
 )
 
 
@@ -37,10 +38,14 @@ def calculate_option_greeks(S, K, T, r, sigma, option_type='call'):
         'vega': vega
     }
 
-def calculate_implied_volatility(data, window=20):
+
+def calculate_implied_volatility(data, window=None):
     """Calculate historical volatility as proxy for implied volatility"""
+    if window is None:
+        window = config.HV_WINDOW
+
     returns = np.log(data['close'] / data['close'].shift(1))
-    hist_vol = returns.rolling(window=window).std() * np.sqrt(252)  # This should work as a pandas Series
+    hist_vol = returns.rolling(window=window).std() * np.sqrt(config.TRADING_DAYS)
     return hist_vol
 
 
@@ -48,7 +53,7 @@ def generate_synthetic_options_data(data):
     """Generate synthetic options data for delta-neutral strategy"""
     # Calculate basic metrics
     data['HV'] = calculate_implied_volatility(data)
-    data['IV'] = data['HV'] * 1.1  # Typically IV is slightly higher than HV
+    data['IV'] = data['HV'] * config.IV_HV_RATIO  # Typically IV is slightly higher than HV
 
     # Generate synthetic ATM strike prices
     data['ATM_Strike'] = data['close'].round(-1)  # Round to nearest 10
@@ -60,26 +65,23 @@ def generate_synthetic_options_data(data):
     data['Open_Interest'] = data['Volume'].rolling(window=5).mean()
 
     # Time to expiration (synthetic - assuming weekly options)
-    data['Days_to_Expiry'] = 5  # Assuming 5 trading days
-
-    # Risk-free rate (using typical Indian rate)
-    risk_free_rate = 0.05
+    data['Days_to_Expiry'] = config.DAYS_TO_EXPIRY
 
     # Calculate option Greeks for both calls and puts
     for idx in data.index:
         call_greeks = calculate_option_greeks(
             S=data.loc[idx, 'close'],
             K=data.loc[idx, 'ATM_Strike'],
-            T=data.loc[idx, 'Days_to_Expiry'] / 252,
-            r=risk_free_rate,
+            T=data.loc[idx, 'Days_to_Expiry'] / config.TRADING_DAYS,
+            r=config.RISK_FREE_RATE,
             sigma=data.loc[idx, 'IV']
         )
 
         put_greeks = calculate_option_greeks(
             S=data.loc[idx, 'close'],
             K=data.loc[idx, 'ATM_Strike'],
-            T=data.loc[idx, 'Days_to_Expiry'] / 252,
-            r=risk_free_rate,
+            T=data.loc[idx, 'Days_to_Expiry'] / config.TRADING_DAYS,
+            r=config.RISK_FREE_RATE,
             sigma=data.loc[idx, 'IV'],
             option_type='put'
         )
@@ -95,7 +97,7 @@ def generate_synthetic_options_data(data):
 
 def delta_neutral_strategy(data, params):
     """Enhanced delta-neutral strategy with options parameters"""
-    balance = params['initial_balance']
+    balance = params.get('initial_balance', config.INITIAL_BALANCE)
     initial_balance = balance
     positions = {'long': 0, 'short': 0}
     entry_prices = {'long': 0, 'short': 0}
@@ -105,7 +107,7 @@ def delta_neutral_strategy(data, params):
     data = generate_synthetic_options_data(data)
 
     # Corrected rolling window application on Series
-    data['IV_MA'] = data['IV'].rolling(window=20).mean()
+    data['IV_MA'] = data['IV'].rolling(window=config.IV_MA_PERIOD).mean()
 
     for i in range(1, len(data)):
         current_row = data.iloc[i]
@@ -118,24 +120,25 @@ def delta_neutral_strategy(data, params):
 
         # Enhanced entry signals using options data
         delta_imbalance = abs(current_row['Call_Delta'] + current_row['Put_Delta'])
-        high_gamma = current_row['Gamma'] > data['Gamma'].rolling(window=20).mean().iloc[i]
+        high_gamma = current_row['Gamma'] > data['Gamma'].rolling(window=config.GAMMA_MA_PERIOD).mean().iloc[i]
         iv_spike = current_row['IV'] > current_row['IV_MA']
-        put_call_signal = current_row['Put_Call_Ratio'] > 1.2
+        put_call_signal = current_row['Put_Call_Ratio'] > config.PUT_CALL_RATIO_THRESHOLD
 
         if positions['long'] == 0 and positions['short'] == 0:
             # Entry conditions incorporating options data
-            if ((delta_imbalance > 0.15 or high_gamma) and
+            if ((delta_imbalance > config.DELTA_IMBALANCE_THRESHOLD or high_gamma) and
                     (iv_spike or put_call_signal) and
                     current_row['Volume'] > current_row['Volume MA']):
                 # Calculate position sizes based on delta exposure
-                position_size = params['risk_per_trade_pct'] * balance / current_price
+                position_size = params.get('risk_per_trade_pct', config.RISK_PER_TRADE_PCT) * balance / current_price
                 delta_adjustment = current_row['Call_Delta'] / (current_row['Call_Delta'] - current_row['Put_Delta'])
 
                 positions['long'] = position_size * delta_adjustment
                 positions['short'] = position_size * (1 - delta_adjustment)
                 entry_prices['long'] = current_price
                 entry_prices['short'] = current_price
-                logging.info(f"Entered position at {current_row.name} - Price: ₹{current_price:.2f}")
+                logging.info(
+                    f"Short Entry - Price: {current_price:.2f}, Size: {positions['short']:.2f}, Balance: {balance:.2f}, Reason: RSI overbought or MACD crossunder")
 
         else:
             # Calculate P&L
@@ -144,14 +147,14 @@ def delta_neutral_strategy(data, params):
             total_pnl = long_pnl + short_pnl
 
             # Enhanced exit conditions
-            delta_neutral = delta_imbalance < 0.05
-            gamma_risk = current_row['Gamma'] > params['max_gamma']
-            theta_decay = current_row['Theta'] < -params['max_theta']
-            iv_crush = current_row['IV'] < current_row['IV_MA'] * 0.8
+            delta_neutral = delta_imbalance < config.DELTA_NEUTRAL_THRESHOLD
+            gamma_risk = current_row['Gamma'] > params.get('max_gamma', config.MAX_GAMMA)
+            theta_decay = current_row['Theta'] < -params.get('max_theta', config.MAX_THETA)
+            iv_crush = current_row['IV'] < current_row['IV_MA'] * config.IV_CRUSH_THRESHOLD
 
             if (delta_neutral or gamma_risk or theta_decay or iv_crush or
-                    total_pnl < -balance * params['max_loss_per_trade'] or
-                    total_pnl > balance * params['take_profit_pct']):
+                    total_pnl < -balance * params.get('max_loss_per_trade', config.MAX_LOSS_PER_TRADE) or
+                    total_pnl > balance * params.get('take_profit_pct', config.TAKE_PROFIT_PCT)):
                 balance += total_pnl
 
                 trades.append({
@@ -169,6 +172,9 @@ def delta_neutral_strategy(data, params):
                     else 'Stop Loss/Take Profit')
                 })
 
+                logging.info(
+                    f"Short Exit - Price: {current_price:.2f}, PnL: {total_pnl:.2f}, Balance: {balance:.2f}, Reason: {trades[-1]['exit_reason']}")
+
                 positions = {'long': 0, 'short': 0}
                 entry_prices = {'long': 0, 'short': 0}
 
@@ -181,6 +187,17 @@ def delta_neutral_strategy(data, params):
         max_drawdown = min(t['balance'] for t in trades) - initial_balance if trades else 0
     else:
         profitable_trades = win_rate = total_profit = max_drawdown = 0
+
+    # Log final strategy results
+    logging.info("Strategy results:")
+    logging.info(f"Initial Balance: Rs.{initial_balance:.2f}")
+    logging.info(f"Final Balance: Rs.{balance:.2f}")
+    logging.info(f"Total Profit/Loss: Rs.{total_profit:.2f}")
+    logging.info(f"Return: {((balance - initial_balance) / initial_balance) * 100:.2f}%")
+    logging.info(f"Total Trades: {total_trades}")
+    logging.info(f"Profitable Trades: {profitable_trades}")
+    logging.info(f"Win Rate: {win_rate:.2f}%")
+    logging.info(f"Max Drawdown: Rs.{abs(max_drawdown):,.2f}")
 
     return {
         'initial_balance': initial_balance,
@@ -195,36 +212,20 @@ def delta_neutral_strategy(data, params):
     }
 
 
-# Updated parameters incorporating options metrics
+# Parameters with config values
 params = {
-    'initial_balance': 100000,
-    'risk_per_trade_pct': 0.1,  # Increased risk per trade
-    'max_loss_per_trade': 0.02,
-    'take_profit_pct': 0.03,
-    'max_gamma': 0.1,  # Maximum gamma exposure
-    'max_theta': 50,  # Maximum theta decay
-    'max_drawdown_pct': 0.15
+    'initial_balance': config.INITIAL_BALANCE,
+    'risk_per_trade_pct': config.RISK_PER_TRADE_PCT,
+    'max_loss_per_trade': config.MAX_LOSS_PER_TRADE,
+    'take_profit_pct': config.TAKE_PROFIT_PCT,
+    'max_gamma': config.MAX_GAMMA,
+    'max_theta': config.MAX_THETA,
+    'max_drawdown_pct': config.MAX_DRAWDOWN_PCT
 }
 
 try:
-    sample_data = pd.read_csv('./NSE_NIFTY_Intraday.csv')
+    sample_data = pd.read_csv(config.DATA_FILE)
+    logging.info(f"Market data loaded from {config.DATA_FILE}")
     results = delta_neutral_strategy(sample_data, params)
-
-    print("\nDelta-Neutral Strategy Results:")
-    print(f"Initial Balance: ₹{results['initial_balance']:,.2f}")
-    print(f"Final Balance: ₹{results['final_balance']:,.2f}")
-    print(f"Total Profit/Loss: ₹{results['total_profit']:,.2f}")
-    print(f"Return: {results['return_pct']:.2f}%")
-    print(f"Total Trades: {results['total_trades']}")
-    print(f"Profitable Trades: {results['profitable_trades']}")
-    print(f"Win Rate: {results['win_rate']:.2f}%")
-    print(f"Max Drawdown: ₹{abs(results['max_drawdown']):,.2f}")
-
-    print("\nRecent Trades:")
-    for trade in results['trades'][-5:]:
-        print(f"Time: {trade['time']}, Entry: ₹{trade['entry_price']:.2f}, "
-              f"Exit: ₹{trade['exit_price']:.2f}, PnL: ₹{trade['pnl']:,.2f}, "
-              f"Reason: {trade['exit_reason']}")
-
 except Exception as e:
     logging.error(f"Error occurred: {str(e)}")
