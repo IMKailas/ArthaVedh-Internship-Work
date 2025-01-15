@@ -1,7 +1,7 @@
 # config.py
 
 # File paths and basic settings
-DATA_PATH = r"C:\assignement\sem5\Internship\MomentumInvesting\NSE_NIFTY, 1D.csv"
+DATA_PATH = "NSE_NIFTY, 1D.csv"
 INITIAL_BALANCE = 10000
 STOP_LOSS_PERCENT = 1.0
 TARGET_PROFIT_PERCENT = 2.0
