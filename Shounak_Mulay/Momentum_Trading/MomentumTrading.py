@@ -1,110 +1,208 @@
 import pandas as pd
 import os
-from config_SmartRouting import *  # Import configuration from config.py
+from datetime import datetime
+import config_MomentumTrading
+
+# Function to create log directory if it doesn't exist
+def create_log_directory():
+    log_dir = os.path.join(os.getcwd(), './Momentum_Trading/logs')
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+    return log_dir
 
 # Load CSV data
 def load_market_data(file_path):
-    data = pd.read_csv(file_path)
-    return data
+    """Load and preprocess the CSV data"""
+    try:
+        data = pd.read_csv(file_path)
+        if config_MomentumTrading.ENABLE_DEBUG_LOGGING:
+            print(f"Data loaded successfully from {file_path}")
+        return data
+    except FileNotFoundError:
+        print(f"Error: File not found at {file_path}")
+        log_error(f"Error: File not found at {file_path}")
+        raise
 
-# Smart order routing decision logic based on volume and VWAP
-def routing_decision(row, volume_ma):
+# Log Errors to File
+def log_error(message):
+    log_dir = create_log_directory()
+    log_filename = os.path.join(log_dir, "error_log.txt")
+    with open(log_filename, 'a') as f:
+        f.write(f"{message}\n")
+
+# Momentum decision logic
+def momentum_decision(row):
     volume = row['Volume']
-    vwap = row['VWAP']
+    macd = row['MACD']
+    signal_line = row['Signal']
+    rsi = row['RSI']
 
-    # Routing decision based on volume and price (VWAP)
-    if volume > volume_ma and row['close'] < vwap:  # Bullish signal based on volume and price below VWAP
-        return "Buy_Route"  # Route to high-liquidity exchange for buying
-    return "Hold"  # No strong routing preference based on current conditions
+    if config_MomentumTrading.ENABLE_DEBUG_LOGGING:
+        print(f"\nAnalyzing conditions:")
+        print(f"Volume: {volume}")
+        print(f"MACD: {macd:.2f}, Signal: {signal_line:.2f}")
+        print(f"RSI: {rsi:.2f}")
 
-# Run Smart Order Routing strategy based only on Volume and VWAP, with stop-loss and target
-def run_smart_order_routing(data, initial_balance, volume_ma, stop_loss_pct, target_pct):
+    # Define threshold conditions
+    min_volume = config_MomentumTrading.min_volume
+    rsi_oversold = config_MomentumTrading.rsi_oversold
+
+    # Make trading decision based on parameters
+    if volume >= min_volume and macd > signal_line and rsi < rsi_oversold:
+        return "Buy"
+
+    return "Hold"
+
+# Run momentum strategy with enhanced logging
+def run_momentum_strategy(data, initial_balance, stop_loss_pct, target_profit_pct):
+    # Create log directory
+    log_dir = create_log_directory()
+
+    # Create log file with dynamic name based on time
+    log_filename = os.path.join(log_dir, f"momentum_trading_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt")
+
+    def log_trade(message):
+        with open(log_filename, 'a') as f:
+            f.write(f"{message}\n")
+        print(message)
+
     balance = initial_balance
-    position = None  # "Buy" or "Sell" position
-    trade_price = None  # Entry price for the current trade
-    stop_loss_price = None  # Stop loss price
-    target_price = None  # Target price
-    position_size = 1  # Assume 1 unit per trade, adjust as needed
-
-    # Summary variables
+    position = None
+    trade_price = None
+    stop_loss = None
+    target_profit = None
+    trade_entry_time = None
     trades = []
-    total_profit = 0
-    total_loss = 0
-    successful_trades = 0
-    failed_trades = 0
 
-    print(f"Starting Smart Order Routing with Initial Balance: {balance}\n")
+    # Trading Initialization Logs
+    log_trade(f"===========================================")
+    log_trade(f"  Momentum Trading Strategy Started")
+    log_trade(f"===========================================")
+    log_trade(f"Initial Balance: {balance:.2f}")
+    log_trade(f"Stop Loss Percentage: {stop_loss_pct}%")
+    log_trade(f"Target Profit Percentage: {target_profit_pct}%")
 
     for index, row in data.iterrows():
         current_price = row['close']
-        volume = row['Volume']
-        vwap = row['VWAP']
+        timestamp = row.name if isinstance(row.name, pd.Timestamp) else pd.Timestamp(row['time'])
 
-        # Log current market data
-        print(f"Minute {index + 1}: Price={current_price:.2f}, VWAP={vwap:.2f}, Volume={volume}")
-
-        # Check if we should enter a routed position
         if position is None:
-            routing_decision_result = routing_decision(row, volume_ma)
-            if routing_decision_result == "Buy_Route":
+            decision = momentum_decision(row)
+            if decision == "Buy":
                 position = "Buy"
                 trade_price = current_price
-                stop_loss_price = trade_price * (1 - stop_loss_pct / 100)
-                target_price = trade_price * (1 + target_pct / 100)
-                print(f"Routing Buy Order at {trade_price:.2f} with VWAP Benchmark at {vwap:.2f}. Stop Loss at {stop_loss_price:.2f}, Target at {target_price:.2f}")
+                trade_entry_time = timestamp
+                stop_loss = trade_price * (1 - stop_loss_pct / 100)
+                target_profit = trade_price * (1 + target_profit_pct / 100)
+                
+                log_trade(f"\nOpened {position} position at {trade_price:.2f}")
+                log_trade(f"Stop Loss: {stop_loss:.2f}, Target Profit: {target_profit:.2f}")
+                log_trade(f"Entry Time: {trade_entry_time}")
 
-        # Monitor routing positions and check for stop-loss or target
+        # Check exit conditions if in position
         if position == "Buy":
-            if current_price <= stop_loss_price:
-                print(f"Stop Loss hit for Buy: Current Price={current_price:.2f}, Stop Loss={stop_loss_price:.2f}")
-                loss = trade_price - current_price
-                balance -= position_size * loss  # Loss taken based on position size
-                total_loss += loss
-                failed_trades += 1
-                trades.append({"Entry Price": trade_price, "Exit Price": current_price, "PnL": -loss, "Reason": "Stop Loss"})
-                position = None
-            elif current_price >= target_price:
-                print(f"Target hit for Buy: Current Price={current_price:.2f}, Target={target_price:.2f}")
+            if current_price <= stop_loss or current_price >= target_profit:
+                # Calculate profit/loss
                 profit = current_price - trade_price
-                balance += position_size * profit  # Profit taken based on position size
-                total_profit += profit
-                successful_trades += 1
-                trades.append({"Entry Price": trade_price, "Exit Price": current_price, "PnL": profit, "Reason": "Target Profit"})
-                position = None
+                balance += profit
+                
+                # Determine exit reason
+                exit_reason = "Stop Loss" if current_price <= stop_loss else "Target Profit"
+                
+                # Log trade details
+                trade_info = {
+                    'entry_time': trade_entry_time,
+                    'exit_time': timestamp,
+                    'type': position,
+                    'entry_price': trade_price,
+                    'exit_price': current_price,
+                    'status': exit_reason,
+                    'profit': profit
+                }
+                trades.append(trade_info)
 
-        # Risk management: stop routing if balance falls significantly
+                log_trade(f"\n===========================================")
+                log_trade(f"Closed {position} position: {exit_reason}")
+                log_trade(f"Entry Price: {trade_price:.2f}, Exit Price: {current_price:.2f}")
+                log_trade(f"Profit/Loss: {profit:.2f}")
+                log_trade(f"New Balance: {balance:.2f}")
+                log_trade(f"Exit Time: {timestamp}")
+                log_trade(f"===========================================")
+                
+                # Reset position
+                position = None
+                trade_price = None
+                stop_loss = None
+                target_profit = None
+                trade_entry_time = None
+
+        # Risk management
         if balance <= initial_balance * 0.7:
-            print(f"Balance dropped below 70% of initial value. Stopping strategy.")
+            log_trade(f"Balance dropped below 70% of initial value. Stopping strategy.")
             break
 
-    # Summary of trades
-    print("\n--- Trade Summary ---")
-    print(f"Total Trades: {len(trades)}")
-    print(f"Successful Trades: {successful_trades}")
-    print(f"Failed Trades: {failed_trades}")
-    print(f"Total Profit: {total_profit:.2f}")
-    print(f"Total Loss: {total_loss:.2f}")
-    print(f"Net Profit/Loss: {total_profit - total_loss:.2f}")
-    print(f"Final Balance: {balance:.2f} ({((balance - initial_balance) / initial_balance) * 100:.2f}%)")
+    # Close any remaining position at the end
+    if position is not None:
+        final_price = data.iloc[-1]['close']
+        profit = final_price - trade_price
+        balance += profit
+        trades.append({
+            'entry_time': trade_entry_time,
+            'exit_time': timestamp,
+            'type': position,
+            'entry_price': trade_price,
+            'exit_price': final_price,
+            'status': 'Market Close',
+            'profit': profit
+        })
 
-    # Detailed trade breakdown
-    print("\n--- Trade Details ---")
-    for i, trade in enumerate(trades, 1):
-        print(f"Trade {i}: Entry Price={trade['Entry Price']:.2f}, Exit Price={trade['Exit Price']:.2f}, "
-              f"PnL={trade['PnL']:.2f}, Reason={trade['Reason']}")
+        log_trade(f"\n===========================================")
+        log_trade(f"Closed remaining position at market close.")
+        log_trade(f"Entry Price: {trade_price:.2f}, Exit Price: {final_price:.2f}")
+        log_trade(f"Profit/Loss: {profit:.2f}")
+        log_trade(f"New Balance: {balance:.2f}")
+        log_trade(f"===========================================")
 
-# Correct the file path using os.path from config
-file_path = os.path.join(os.getcwd(), file_path)
+    # Trading Summary Logs
+    log_trade("\n===========================================")
+    log_trade(f"  Trading Summary")
+    log_trade(f"===========================================")
+    log_trade(f"Initial Balance: {initial_balance:.2f}")
+    log_trade(f"Final Balance: {balance:.2f}")
+    log_trade(f"Total Profit/Loss: {balance - initial_balance:.2f}")
+    log_trade(f"Total Trades Executed: {len(trades)}")
 
-# Run strategy with data
-try:
-    data = load_market_data(file_path)
-    run_smart_order_routing(
-        data,
-        initial_balance=initial_balance,
-        volume_ma=volume_ma,
-        stop_loss_pct=stop_loss_pct,
-        target_pct=target_pct
-    )
-except FileNotFoundError:
-    print(f"File not found: {file_path}")
+    if len(trades) > 0:
+        trades_df = pd.DataFrame(trades)
+        trades_df['profit'] = trades_df['profit'].astype(float)
+        profit_trades = trades_df[trades_df['profit'] > 0]
+        loss_trades = trades_df[trades_df['profit'] < 0]
+
+        log_trade(f"Profitable Trades: {len(profit_trades)}")
+        log_trade(f"Loss-making Trades: {len(loss_trades)}")
+        if len(profit_trades) > 0:
+            log_trade(f"Average Profit per Winning Trade: {profit_trades['profit'].mean():.2f}")
+        if len(loss_trades) > 0:
+            log_trade(f"Average Loss per Losing Trade: {loss_trades['profit'].mean():.2f}")
+
+        # Calculate win rate
+        win_rate = len(profit_trades) / len(trades) * 100
+        log_trade(f"Win Rate: {win_rate:.2f}%")
+    
+    log_trade("\n===========================================")
+
+    return balance, trades
+
+# Main execution
+if __name__ == "__main__":
+    # Correct the file path using os.path
+    file_path = os.path.join(os.getcwd(), './Momentum_Trading/NSE_NIFTY, 1 Intraday.csv')
+
+    try:
+        data = load_market_data(file_path)
+        initial_balance = config_MomentumTrading.initial_balance
+        stop_loss_pct = config_MomentumTrading.stop_loss_pct
+        target_profit_pct = config_MomentumTrading.target_profit_pct
+        final_balance, trades = run_momentum_strategy(data, initial_balance, stop_loss_pct, target_profit_pct)
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")

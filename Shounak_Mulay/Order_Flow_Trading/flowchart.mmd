@@ -1,0 +1,25 @@
+flowchart TD
+    A[Start] --> B[Load Market Data]
+    B --> C[Initialize Trading Parameters & P&L Tracking]
+    C --> D{Check Position}
+    
+    D -->|No Position| E[Check Entry Parameters]
+    D -->|In Position| J{Check Exit Conditions}
+    
+    E --> F[Conditions Met: High Volume, Price Below VWAP]
+    F -->|Yes| G[Enter Buy Position]
+    G --> H[Set Initial Stop Loss and Target Profit]
+    H --> D
+
+    J --> K{Price <= Stop Loss?}
+    J --> L{Price >= Target Profit?}
+    
+    K -->|Yes| N[Exit Position: Loss = Entry - Exit]
+    L -->|Yes| O[Exit Position: Profit = Exit - Entry]
+    
+    N --> Q[Update Balance and Loss Tracking]
+    O --> Q
+    
+    Q --> D
+    D -->|All Data Processed| R[Generate Trade Summary]
+    R --> S[End]

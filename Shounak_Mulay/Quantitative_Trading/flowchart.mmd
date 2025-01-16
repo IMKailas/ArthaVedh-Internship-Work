@@ -1,0 +1,33 @@
+flowchart TD
+    A[Start] --> B[Load Market Data]
+    B --> C[Initialize Parameters:
+    RSI Thresholds
+    Volume MA
+    Stop Loss %
+    Target Profit %]
+    C --> D{Check Position}
+    
+    D -->|No Position| E[Check Entry Parameters:]
+    D -->|In Position| J{Check Exit Conditions}
+    
+    E --> F[RSI < Oversold Threshold
+           MACD > Signal Line
+           Price < Lower Bollinger Band
+           Volume > Volume MA]
+    F -->|All Conditions Met| I[Enter Buy Position]
+    F -->|Conditions Not Met| H[Hold Position]
+    
+    I --> K[Set Stop Loss & Target]
+    K --> D
+    
+    J --> L{Price <= Stop Loss?}
+    J --> M{Price >= Target?}
+    
+    L -->|Yes| N[Exit Position:
+    Loss = Entry Price - Exit Price]
+    M -->|Yes| O[Exit Position:
+    Profit = Exit Price - Entry Price]
+    
+    N --> D
+    O --> D
+    H --> D

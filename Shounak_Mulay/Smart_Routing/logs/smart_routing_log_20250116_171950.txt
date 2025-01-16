@@ -1,0 +1,61 @@
+===========================================
+  Smart Order Routing Strategy Started
+===========================================
+Initial Balance: 10000.00
+Volume MA Threshold: 1000000
+Stop Loss Percentage: 0.1%
+Target Percentage: 0.1%
+Position Size: 1 unit(s)
+
+Routing Buy Order:
+Entry Price: 25052.10
+VWAP Benchmark: 25116.70
+Stop Loss: 25027.05
+Target: 25077.15
+
+===========================================
+Target Profit Hit:
+Entry Price: 25052.10
+Exit Price: 25078.30
+Profit: 26.20
+New Balance: 10026.20
+
+Routing Buy Order:
+Entry Price: 25046.20
+VWAP Benchmark: 25095.69
+Stop Loss: 25021.15
+Target: 25071.25
+
+===========================================
+Target Profit Hit:
+Entry Price: 25046.20
+Exit Price: 25073.50
+Profit: 27.30
+New Balance: 10053.50
+
+Routing Buy Order:
+Entry Price: 25075.85
+VWAP Benchmark: 25079.30
+Stop Loss: 25050.77
+Target: 25100.93
+
+===========================================
+  Trading Summary
+===========================================
+Initial Balance: 10000.00
+Final Balance: 10053.50
+Total Trades: 2
+Successful Trades: 2
+Failed Trades: 0
+Total Profit: 53.50
+Total Loss: 0.00
+Net Profit/Loss: 53.50
+Win Rate: 100.00%
+Average Profit per Winning Trade: 26.75
+Average Loss per Losing Trade: 0.00
+
+--- Trade Details ---
+Trade 1: Entry=25052.10, Exit=25078.30, PnL=26.20, Reason=Target Profit
+Trade 2: Entry=25046.20, Exit=25073.50, PnL=27.30, Reason=Target Profit
+
+===========================================

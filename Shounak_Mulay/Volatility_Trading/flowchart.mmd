@@ -1,0 +1,27 @@
+flowchart TD
+    A[Start] --> B[Load Market Data]
+    B --> C[Initialize Trading Parameters & P&L Tracking]
+    C --> D{Check Position}
+    
+    D -->|No Position| E[Check Entry Parameters:]
+    D -->|In Position| J{Check Exit Conditions}
+    
+    E --> F[Implied Volatility < Threshold
+           VIX < Threshold]
+    F -->|Parameters Met| I[Enter Buy Position]
+
+    
+    I --> K[Set Stop Loss & Target]
+    K --> D
+    
+    J --> L{Price <= Stop Loss?}
+    J --> M{Price >= Target?}
+    
+    L -->|Yes| N[Exit Position:
+    Loss = Entry Price - Exit Price]
+    M -->|Yes| O[Exit Position:
+    Profit = Exit Price - Entry Price]
+    
+    N --> D
+    O --> D
+    H --> D

@@ -1,0 +1,14 @@
+===========================================
+  Leveraged ETF Trading Strategy  
+===========================================
+Initial Balance: 10000.00
+Stop Loss Percentage: 0.1%
+Target Profit Percentage: 0.1%
+
+===========================================
+  Trading Summary
+===========================================
+Initial Balance: 10000.00
+Final Balance: 10000.00
+Total Profit/Loss: 0.00
+Total Trades Executed: 0

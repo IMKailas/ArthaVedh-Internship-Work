@@ -1,0 +1,38 @@
+===========================================
+  Micro Futures Trading Strategy Started
+===========================================
+Initial Balance: 10000.00
+Leverage: 1x
+Stop Loss Percentage: 0.1%
+Target Profit Percentage: 0.1%
+
+Opened Buy position at 25028.95
+Stop Loss: 25003.92, Target Profit: 25053.98
+Entry Time: 2024-10-15 13:02:00+05:30
+
+===========================================
+Closed Buy position: Target Profit
+Entry Price: 25028.95, Exit Price: 25054.25
+Profit/Loss (with 1x leverage): 25.30
+New Balance: 10025.30
+Exit Time: 2024-10-15 13:36:00+05:30
+===========================================
+
+===========================================
+  Trading Summary
+===========================================
+Initial Balance: 10000.00
+Final Balance: 10025.30
+Total Profit/Loss: 25.30
+Total Trades Executed: 1
+Profitable Trades: 1
+Loss-making Trades: 0
+Average Profit per Winning Trade: 25.30
+Win Rate: 100.00%
+
+Leverage-specific Metrics:
+Maximum Drawdown: 25.30
+Largest Profit: 25.30
+Average Leverage Used: 1.00x
+
+===========================================

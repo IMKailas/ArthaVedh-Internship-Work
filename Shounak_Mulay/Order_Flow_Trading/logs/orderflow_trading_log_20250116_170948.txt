@@ -1,0 +1,52 @@
+===========================================
+  Order Flow Trading Strategy Started
+===========================================
+Initial Balance: 10000.00
+Stop Loss Percentage: 0.1%
+Target Profit Percentage: 1%
+Volume MA Threshold: 1000000
+
+Opened Buy position at 25052.10
+Stop Loss: 25027.05, Target Profit: 25302.62
+Entry Time: 2024-10-15 11:38:00+05:30
+VWAP: 25116.70, Volume: 1028849
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Price: 25052.10, Exit Price: 25012.60
+Profit/Loss: -39.50
+New Balance: 9960.50
+Exit Time: 2024-10-15 13:05:00+05:30
+===========================================
+
+Opened Buy position at 25046.20
+Stop Loss: 25021.15, Target Profit: 25296.66
+Entry Time: 2024-10-15 13:35:00+05:30
+VWAP: 25095.69, Volume: 1266093
+
+===========================================
+Closed remaining position at market close
+Entry Price: 25046.20, Exit Price: 25057.35
+Profit/Loss: 11.15
+Final Balance: 9971.65
+===========================================
+
+===========================================
+  Trading Summary
+===========================================
+Initial Balance: 10000.00
+Final Balance: 9971.65
+Total Profit/Loss: -28.35
+Total Trades Executed: 2
+Profitable Trades: 1
+Loss-making Trades: 1
+Average Profit per Winning Trade: 11.15
+Average Loss per Losing Trade: -39.50
+Win Rate: 50.00%
+
+Order Flow-specific Metrics:
+Average VWAP Deviation at Entry: -41.37
+Maximum Single Trade Profit: 11.15
+Maximum Single Trade Loss: -39.50
+
+===========================================

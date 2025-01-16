@@ -1,0 +1,44 @@
+flowchart TD
+    A[Start] --> B[Load ETF Data]
+    B --> C[Initialize Parameters:
+    Leverage
+    Stop Loss %
+    Target Profit %]
+    
+    C --> D{Check Position}
+    
+    D -->|No Position| E[Calculate Indicators]
+    D -->|In Position| J{Check Exit Conditions}
+    
+    E --> F[Calculate Volatility:
+    High - Low Range]
+    F --> G[Determine Market Trend:
+    Close vs VWAP]
+    
+    G --> H{Check Entry Conditions}
+    H -->|Volatility >= Threshold
+    AND Trend = Up| I[Enter Buy Position
+    with 3x Leverage]
+    H -->|Conditions Not Met| K[Hold Position]
+    
+    I --> L[Set Stop Loss & Target
+    Based on Entry Price]
+    
+    J --> M[Simulate Price Change
+    Based on Volatility & Trend]
+    
+    M --> N{Price <= Stop Loss?}
+    M --> O{Price >= Target?}
+    
+    N -->|Yes| P[Exit Position:
+    Loss = Leverage * 
+    Entry Price - Exit Price]
+    
+    O -->|Yes| Q[Exit Position:
+    Profit = Leverage * 
+    Exit Price - Entry Price]
+    
+    P --> D
+    Q --> D
+    K --> D
+    L --> D
