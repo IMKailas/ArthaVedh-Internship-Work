@@ -4,7 +4,7 @@ from datetime import datetime
 
 # File and data settings
 DATA_CONFIG = {
-    "data_path": r"C:\assignement\sem5\Internship\optionsTrading\loadData.csv",
+    "data_path": "loadData.csv",
     "log_file": f"options_trading_log_{datetime.now().strftime('%Y%m%d')}.log"
 }
 
