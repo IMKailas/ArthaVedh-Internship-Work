@@ -1,0 +1,158 @@
+===========================================
+  Volatility Trading Strategy Started
+===========================================
+Initial Balance: 10000.00
+Stop Loss Percentage: 2.5%
+Target Profit Percentage: 5%
+
+Opened Buy position at 11222.05
+Stop Loss: 10941.50, Target Profit: 11783.15
+Entry Time: 2019-05-14 00:00:00
+Current VIX: 39.79
+
+===========================================
+Closed Buy position: Target Profit
+Entry Price: 11222.05, Exit Price: 12434.45
+Profit/Loss: 1212.40
+New Balance: 11212.40
+Exit Time: 2019-05-20 00:00:00
+===========================================
+
+Opened Buy position at 10829.35
+Stop Loss: 10558.62, Target Profit: 11370.82
+Entry Time: 2019-08-23 00:00:00
+Current VIX: 40.0
+
+===========================================
+Closed Buy position: Target Profit
+Entry Price: 10829.35, Exit Price: 11381.35
+Profit/Loss: 552.00
+New Balance: 11764.40
+Exit Time: 2019-08-27 00:00:00
+===========================================
+
+Opened Buy position at 12129.50
+Stop Loss: 11826.26, Target Profit: 12735.98
+Entry Time: 2020-01-29 00:00:00
+Current VIX: 39.56
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Price: 12129.50, Exit Price: 11794.70
+Profit/Loss: -334.80
+New Balance: 11429.60
+Exit Time: 2020-01-31 00:00:00
+===========================================
+
+Opened Buy position at 9282.30
+Stop Loss: 9050.24, Target Profit: 9746.41
+Entry Time: 2020-04-27 00:00:00
+Current VIX: 39.54
+
+===========================================
+Closed Buy position: Target Profit
+Entry Price: 9282.30, Exit Price: 9824.40
+Profit/Loss: 542.10
+New Balance: 11971.70
+Exit Time: 2020-04-29 00:00:00
+===========================================
+
+Opened Buy position at 10551.70
+Stop Loss: 10287.91, Target Profit: 11079.29
+Entry Time: 2020-02-07 00:00:00
+Current VIX: 39.85
+
+===========================================
+Closed Buy position: Target Profit
+Entry Price: 10551.70, Exit Price: 11251.70
+Profit/Loss: 700.00
+New Balance: 12671.70
+Exit Time: 2020-07-17 00:00:00
+===========================================
+
+Opened Buy position at 11914.20
+Stop Loss: 11616.35, Target Profit: 12509.91
+Entry Time: 2020-09-10 00:00:00
+Current VIX: 39.35
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Price: 11914.20, Exit Price: 11446.50
+Profit/Loss: -467.70
+New Balance: 12204.00
+Exit Time: 2020-10-15 00:00:00
+===========================================
+
+Opened Buy position at 11889.40
+Stop Loss: 11592.16, Target Profit: 12483.87
+Entry Time: 2020-10-27 00:00:00
+Current VIX: 39.25
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Price: 11889.40, Exit Price: 11569.80
+Profit/Loss: -319.60
+New Balance: 11884.40
+Exit Time: 2020-10-28 00:00:00
+===========================================
+
+Opened Buy position at 15098.40
+Stop Loss: 14720.94, Target Profit: 15853.32
+Entry Time: 2021-09-03 00:00:00
+Current VIX: 39.19
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Price: 15098.40, Exit Price: 14344.20
+Profit/Loss: -754.20
+New Balance: 11130.20
+Exit Time: 2021-03-17 00:00:00
+===========================================
+
+Opened Buy position at 17854.05
+Stop Loss: 17407.70, Target Profit: 18746.75
+Entry Time: 2023-03-02 00:00:00
+Current VIX: 39.7
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Price: 17854.05, Exit Price: 17254.55
+Profit/Loss: -599.50
+New Balance: 10530.70
+Exit Time: 2023-02-22 00:00:00
+===========================================
+
+Opened Buy position at 22821.40
+Stop Loss: 22250.87, Target Profit: 23962.47
+Entry Time: 2024-06-06 00:00:00
+Current VIX: 39.41
+
+===========================================
+Closed Buy position: Target Profit
+Entry Price: 22821.40, Exit Price: 23976.40
+Profit/Loss: 1155.00
+New Balance: 11685.70
+Exit Time: 2024-06-13 00:00:00
+===========================================
+
+===========================================
+  Trading Summary
+===========================================
+Initial Balance: 10000.00
+Final Balance: 11685.70
+Total Profit/Loss: 1685.70
+Total Trades Executed: 10
+Profitable Trades: 5
+Loss-making Trades: 5
+Average Profit per Winning Trade: 832.30
+Highest Profit Trade: 1212.40
+Average Loss per Losing Trade: -495.16
+Largest Loss Trade: -754.20
+Win Rate: 50.00%
+
+VIX Analysis:
+Average VIX at Entry: 30.44
+Average VIX on Profitable Trades: 34.57
+Average VIX on Loss Trades: 26.30
+
+===========================================

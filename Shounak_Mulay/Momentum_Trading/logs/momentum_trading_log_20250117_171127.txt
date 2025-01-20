@@ -1,0 +1,48 @@
+===========================================
+  Momentum Trading Strategy Started
+===========================================
+Initial Balance: 10000.00
+Stop Loss Percentage: 0.15%
+Target Profit Percentage: 1%
+Minimum Volume: 300,000
+RSI Oversold Level: 60
+
+Opened Buy position at 25047.80
+Entry Reasoning: Volume: 624,291 (Sufficient) | MACD: -10.70 vs Signal: -11.56 (Bullish) | RSI: 45.72 (Oversold)
+Stop Loss: 25010.23, Target Profit: 25298.28
+Entry Time: 2024-10-15 10:35:00+05:30
+
+===========================================
+Closed remaining position at market close.
+Entry Reasoning: Volume: 624,291 (Sufficient) | MACD: -10.70 vs Signal: -11.56 (Bullish) | RSI: 45.72 (Oversold)
+Entry Price: 25047.80, Exit Price: 25057.35
+Profit/Loss: 9.55
+New Balance: 10009.55
+===========================================
+
+===========================================
+  Trading Summary
+===========================================
+Initial Balance: 10000.00
+Final Balance: 10009.55
+Total Profit/Loss: 9.55
+Total Trades Executed: 1
+
+Detailed Trade Analysis:
+
+Trade #1:
+Entry Time: 2024-10-15 10:35:00+05:30
+Exit Time: 2024-10-15 15:32:00+05:30
+Entry Price: 25047.80
+Exit Price: 25057.35
+Status: Market Close
+Profit/Loss: 9.55
+Entry Reasoning: Volume: 624,291 (Sufficient) | MACD: -10.70 vs Signal: -11.56 (Bullish) | RSI: 45.72 (Oversold)
+
+Profit/Loss Statistics:
+Profitable Trades: 1
+Loss-making Trades: 0
+Average Profit per Winning Trade: 9.55
+Win Rate: 100.00%
+
+===========================================

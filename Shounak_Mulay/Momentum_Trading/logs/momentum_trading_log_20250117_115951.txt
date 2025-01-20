@@ -4,13 +4,17 @@
 Initial Balance: 10000.00
 Stop Loss Percentage: 0.1%
 Target Profit Percentage: 1%
+Minimum Volume: 300,000
+RSI Oversold Level: 60
 
 Opened Buy position at 25047.80
+Entry Reasoning: Volume: 624,291 (Sufficient) | MACD: -10.70 vs Signal: -11.56 (Bullish) | RSI: 45.72 (Oversold)
 Stop Loss: 25022.75, Target Profit: 25298.28
 Entry Time: 2024-10-15 10:35:00+05:30
 
 ===========================================
 Closed Buy position: Stop Loss
+Entry Reasoning: Volume: 624,291 (Sufficient) | MACD: -10.70 vs Signal: -11.56 (Bullish) | RSI: 45.72 (Oversold)
 Entry Price: 25047.80, Exit Price: 25012.60
 Profit/Loss: -35.20
 New Balance: 9964.80
@@ -18,11 +22,13 @@ Exit Time: 2024-10-15 13:05:00+05:30
 ===========================================
 
 Opened Buy position at 25030.00
+Entry Reasoning: Volume: 476,323 (Sufficient) | MACD: -10.87 vs Signal: -10.93 (Bullish) | RSI: 42.03 (Oversold)
 Stop Loss: 25004.97, Target Profit: 25280.30
 Entry Time: 2024-10-15 13:13:00+05:30
 
 ===========================================
 Closed remaining position at market close.
+Entry Reasoning: Volume: 476,323 (Sufficient) | MACD: -10.87 vs Signal: -10.93 (Bullish) | RSI: 42.03 (Oversold)
 Entry Price: 25030.00, Exit Price: 25057.35
 Profit/Loss: 27.35
 New Balance: 9992.15
@@ -35,6 +41,28 @@ Initial Balance: 10000.00
 Final Balance: 9992.15
 Total Profit/Loss: -7.85
 Total Trades Executed: 2
+
+Detailed Trade Analysis:
+
+Trade #1:
+Entry Time: 2024-10-15 10:35:00+05:30
+Exit Time: 2024-10-15 13:05:00+05:30
+Entry Price: 25047.80
+Exit Price: 25012.60
+Status: Stop Loss
+Profit/Loss: -35.20
+Entry Reasoning: Volume: 624,291 (Sufficient) | MACD: -10.70 vs Signal: -11.56 (Bullish) | RSI: 45.72 (Oversold)
+
+Trade #2:
+Entry Time: 2024-10-15 13:13:00+05:30
+Exit Time: 2024-10-15 15:32:00+05:30
+Entry Price: 25030.00
+Exit Price: 25057.35
+Status: Market Close
+Profit/Loss: 27.35
+Entry Reasoning: Volume: 476,323 (Sufficient) | MACD: -10.87 vs Signal: -10.93 (Bullish) | RSI: 42.03 (Oversold)
+
+Profit/Loss Statistics:
 Profitable Trades: 1
 Loss-making Trades: 1
 Average Profit per Winning Trade: 27.35

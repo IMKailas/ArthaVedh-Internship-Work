@@ -2,7 +2,7 @@
 
 # Trading parameters
 initial_balance = 10000  # Starting trading balance
-stop_loss_pct = 0.1      # 0.1% stop loss
+stop_loss_pct = 0.15      # 0.1% stop loss
 target_profit_pct = 1    # 1% target profit
 
 # Thresholds for RSI, MACD, and volume
