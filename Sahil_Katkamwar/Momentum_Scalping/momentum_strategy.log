@@ -1,30 +1,81 @@
-2025-01-15 18:47:57,101 - INFO - Starting Momentum Strategy with initial balance: Rs.100,000.00
-2025-01-15 18:47:57,110 - INFO - Calculating technical indicators...
-2025-01-15 18:47:57,117 - INFO - Technical indicators calculated successfully.
-2025-01-15 18:47:57,156 - INFO - 
+2025-02-03 20:02:11,065 - INFO - Starting Momentum Strategy with initial balance: Rs.100,000.00
+2025-02-03 20:02:11,103 - INFO - Calculating technical indicators...
+2025-02-03 20:02:11,111 - INFO - Technical indicators calculated successfully.
+2025-02-03 20:02:11,127 - INFO - 
                 Entry:
-                Time: 2025-01-15 04:29:00
+                Time: 2025-02-03 01:59:00
                 Position: SHORT
-                Price: 25041.57
-                Stop Loss: 25042.35
-                Take Profit: 25040.01
+                Price: 25064.95
+                Stop Loss: 25065.71
+                Take Profit: 25063.42
                 
-2025-01-15 18:47:57,156 - INFO - 
+2025-02-03 20:02:11,128 - INFO - 
                 Exit:
-                Time: 2025-01-15 04:31:00
+                Time: 2025-02-03 02:05:00
+                Position: SHORT
+                Exit Price: 25065.29
+                Profit/Loss: Rs.-0.34
+                Reason: Time Exit
+                New Balance: Rs.99999.66
+                
+2025-02-03 20:02:11,140 - INFO - 
+                Entry:
+                Time: 2025-02-03 03:29:00
+                Position: SHORT
+                Price: 25048.13
+                Stop Loss: 25049.37
+                Take Profit: 25045.67
+                
+2025-02-03 20:02:11,142 - INFO - 
+                Exit:
+                Time: 2025-02-03 03:35:00
+                Position: SHORT
+                Exit Price: 25046.49
+                Profit/Loss: Rs.1.64
+                Reason: Time Exit
+                New Balance: Rs.100001.30
+                
+2025-02-03 20:02:11,148 - INFO - 
+                Entry:
+                Time: 2025-02-03 04:10:00
+                Position: SHORT
+                Price: 25046.87
+                Stop Loss: 25048.20
+                Take Profit: 25044.20
+                
+2025-02-03 20:02:11,150 - INFO - 
+                Exit:
+                Time: 2025-02-03 04:16:00
+                Position: SHORT
+                Exit Price: 25044.20
+                Profit/Loss: Rs.2.67
+                Reason: Time Exit
+                New Balance: Rs.100003.98
+                
+2025-02-03 20:02:11,152 - INFO - 
+                Entry:
+                Time: 2025-02-03 04:30:00
+                Position: SHORT
+                Price: 25041.81
+                Stop Loss: 25042.79
+                Take Profit: 25039.84
+                
+2025-02-03 20:02:11,152 - INFO - 
+                Exit:
+                Time: 2025-02-03 04:31:00
                 Position: SHORT
                 Exit Price: 25043.18
-                Profit/Loss: Rs.-1.61
+                Profit/Loss: Rs.-1.37
                 Reason: Stop Loss
-                New Balance: Rs.99998.39
+                New Balance: Rs.100002.60
                 
-2025-01-15 18:47:57,160 - INFO - 
+2025-02-03 20:02:11,158 - INFO - 
     Final Results:
     Initial Balance: Rs.100,000.00
-    Final Balance: Rs.99,998.39
-    Total Profit/Loss: Rs.-1.61
-    Return: -0.00%
-    Total Trades: 1
-    Win Rate: 0.00%
-    Max Drawdown: Rs.1.61
+    Final Balance: Rs.100,002.60
+    Total Profit/Loss: Rs.2.60
+    Return: 0.00%
+    Total Trades: 4
+    Win Rate: 50.00%
+    Max Drawdown: Rs.1.37
     

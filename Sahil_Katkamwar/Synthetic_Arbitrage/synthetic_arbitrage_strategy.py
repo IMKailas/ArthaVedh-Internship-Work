@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import logging
+import talib
 import config
 
 # Set up logging
@@ -9,6 +10,25 @@ logging.basicConfig(
     level=getattr(logging, config.LOG_LEVEL),
     format=config.LOG_FORMAT
 )
+
+
+def calculate_technical_indicators(data):
+    """
+    Calculate technical indicators using TA-Lib
+
+    Args:
+        data (pd.DataFrame): Input price data
+
+    Returns:
+        pd.DataFrame: DataFrame with added technical indicators
+    """
+    df = data.copy()
+
+    # Mandatory Indicators
+    df['Volume MA'] = talib.SMA(df['Volume'], timeperiod=config.VOLUME_MA_PERIOD)
+    df['RSI'] = talib.RSI(df['close'], timeperiod=14)
+
+    return df
 
 
 def generate_synthetic_prices(real_price, volatility=config.PRICE_VOLATILITY):
@@ -52,7 +72,7 @@ def synthetic_arbitrage_strategy(data, params):
         # Market conditions check
         volume_active = current_row['Volume'] > current_row['Volume MA']
         rsi_stable = (config.RSI_LOWER_BOUND < current_row['RSI'] < config.RSI_UPPER_BOUND
-                     if not pd.isna(current_row['RSI']) else False)
+                      if not pd.isna(current_row['RSI']) else False)
 
         if position is None:
             # Check for arbitrage opportunity
@@ -106,13 +126,14 @@ def synthetic_arbitrage_strategy(data, params):
                 # Calculate PnL
                 if position['type'] == 'A-B':
                     pnl = position['size'] * ((position['short_price'] - synthetic_a) +
-                                            (synthetic_b - position['long_price']))
+                                              (synthetic_b - position['long_price']))
                 else:
                     pnl = position['size'] * ((position['short_price'] - synthetic_b) +
-                                            (synthetic_a - position['long_price']))
+                                              (synthetic_a - position['long_price']))
 
                 # Apply transaction costs
-                pnl -= position['size'] * (position['short_price'] + position['long_price']) * params['transaction_cost']
+                pnl -= position['size'] * (position['short_price'] + position['long_price']) * params[
+                    'transaction_cost']
 
                 balance += pnl
                 trades.append({
@@ -183,11 +204,15 @@ params = {
 
 if __name__ == "__main__":
     try:
-        # Load data and run strategy
+        # Load data
         data = pd.read_csv(config.DATA_FILE, parse_dates=[config.DATE_COLUMN])
         data.set_index(config.DATE_COLUMN, inplace=True)
 
-        results = synthetic_arbitrage_strategy(data, params)
+        # Calculate technical indicators using TA-Lib
+        data_with_indicators = calculate_technical_indicators(data)
+
+        # Run strategy
+        results = synthetic_arbitrage_strategy(data_with_indicators, params)
 
     except Exception as e:
         logging.error(f"Error in strategy execution: {str(e)}")

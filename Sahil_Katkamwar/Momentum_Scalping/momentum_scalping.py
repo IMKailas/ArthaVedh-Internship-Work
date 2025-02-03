@@ -1,7 +1,9 @@
 import pandas as pd
+import numpy as np
 import logging
-import config
+import talib
 from datetime import datetime
+import config
 
 # Set up logging
 logging.basicConfig(
@@ -10,9 +12,8 @@ logging.basicConfig(
     format=config.LOG_FORMAT
 )
 
-
 def calculate_indicators(df):
-    """Calculate technical indicators for momentum strategy"""
+    """Calculate technical indicators using TA-Lib"""
     logging.info("Calculating technical indicators...")
 
     # Convert timestamp column if it exists
@@ -20,50 +21,30 @@ def calculate_indicators(df):
         df['timestamp'] = pd.to_datetime(df['timestamp'])
         df.set_index('timestamp', inplace=True)
 
-    # VWAP Calculation
+    # VWAP Calculation (manual as TA-Lib doesn't have VWAP)
     df['Cum_Vol'] = df['Volume'].cumsum()
     df['Cum_Vol_Price'] = (df['Plot'] * df['Volume']).cumsum()
     df['VWAP'] = df['Cum_Vol_Price'] / df['Cum_Vol']
 
-    # Volume Analysis
-    df['Volume_MA'] = df['Volume'].rolling(window=config.VOLUME_MA_PERIOD).mean()
+    # TA-Lib Indicators
+    # RSI
+    df['RSI'] = talib.RSI(df['Plot'], timeperiod=config.RSI_PERIOD)
+
+    # Volume Moving Average
+    df['Volume_MA'] = talib.SMA(df['Volume'], timeperiod=config.VOLUME_MA_PERIOD)
     df['Volume_Ratio'] = df['Volume'] / df['Volume_MA']
 
     # Price Moving Average
-    df['Price_MA'] = df['Plot'].rolling(window=config.PRICE_MA_PERIOD).mean()
+    df['Price_MA'] = talib.SMA(df['Plot'], timeperiod=config.PRICE_MA_PERIOD)
+
+    # Price Momentum (percentage change)
     df['Price_Momentum'] = df['Plot'].pct_change(periods=config.MOMENTUM_LOOKBACK) * 100
 
-    # RSI Calculation
-    delta = df['Plot'].diff()
-    gain = (delta.where(delta > 0, 0)).rolling(window=config.RSI_PERIOD).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=config.RSI_PERIOD).mean()
-    rs = gain / loss
-    df['RSI'] = 100 - (100 / (1 + rs))
-
     # ATR for volatility-based exits
-    df['ATR'] = calculate_atr(df)
+    df['ATR'] = talib.ATR(df['Plot'], df['Plot'], df['Plot'], timeperiod=config.ATR_PERIOD)
 
     logging.info("Technical indicators calculated successfully.")
     return df
-
-
-def calculate_atr(df, period=None):
-    """Calculate Average True Range"""
-    if period is None:
-        period = config.ATR_PERIOD
-
-    high = df['Plot'].rolling(window=2).max()
-    low = df['Plot'].rolling(window=2).min()
-    prev_close = df['Plot'].shift(1)
-
-    tr = pd.DataFrame({
-        'hl': high - low,
-        'hc': abs(high - prev_close),
-        'lc': abs(low - prev_close)
-    }).max(axis=1)
-
-    return tr.rolling(window=period).mean()
-
 
 def check_entry_signal(df, i):
     """Identify entry signals based on momentum and volume"""
@@ -89,7 +70,6 @@ def check_entry_signal(df, i):
 
     return "LONG" if long_signal else "SHORT" if short_signal else None
 
-
 def calculate_exit_points(entry_price, position_type, atr):
     """Calculate stop loss and take profit levels"""
     atr_multiple = atr * config.ATR_MULTIPLIER
@@ -102,7 +82,6 @@ def calculate_exit_points(entry_price, position_type, atr):
         take_profit = entry_price - (atr_multiple * config.TAKE_PROFIT_RATIO)
 
     return stop_loss, take_profit
-
 
 def check_exit_signals(df, i, position_type, entry_price, stop_loss, take_profit, entry_time):
     """Check exit conditions for positions"""
@@ -136,7 +115,6 @@ def check_exit_signals(df, i, position_type, entry_price, stop_loss, take_profit
             exit_reason = "Time Exit"
 
     return bool(exit_reason), exit_reason
-
 
 def run_momentum_strategy(data_path, initial_balance=None):
     """Execute momentum scalping strategy"""
@@ -259,7 +237,6 @@ def run_momentum_strategy(data_path, initial_balance=None):
         'return_pct': ((balance - initial_balance) / initial_balance) * 100,
         'trades': trades
     }
-
 
 if __name__ == "__main__":
     try:

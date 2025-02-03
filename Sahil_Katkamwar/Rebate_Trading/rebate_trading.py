@@ -1,5 +1,7 @@
 import pandas as pd
+import numpy as np
 import logging
+import talib
 from datetime import datetime
 import config
 
@@ -10,13 +12,50 @@ logging.basicConfig(
     format=config.LOG_CONFIG['format']
 )
 
-
 def load_market_data(file_path):
     """Load and prepare market data from CSV"""
     data = pd.read_csv(file_path)
     logging.info(f"Market data loaded from {file_path}")
     return data
 
+def calculate_indicators(df):
+    """Calculate technical indicators using TA-Lib"""
+    logging.info("Calculating technical indicators...")
+
+    # RSI
+    df['RSI'] = talib.RSI(df['close'], timeperiod=14)
+
+    # Bollinger Bands
+    df['Upper Band #1'], df['Middle Band'], df['Lower Band #1'] = talib.BBANDS(
+        df['close'],
+        timeperiod=20,
+        nbdevup=1,
+        nbdevdn=1,
+        matype=0
+    )
+
+    # VWAP Calculation (manual as TA-Lib doesn't have VWAP)
+    df['Cum_Vol'] = df['Volume'].cumsum()
+    df['Cum_Vol_Price'] = (df['close'] * df['Volume']).cumsum()
+    df['VWAP'] = df['Cum_Vol_Price'] / df['Cum_Vol']
+
+    # Volume Moving Average
+    df['Volume MA'] = talib.SMA(df['Volume'], timeperiod=20)
+
+    # Stochastic Oscillator
+    stoch_slow, stoch_signal = talib.STOCH(
+        df['high'],
+        df['low'],
+        df['close'],
+        fastk_period=14,
+        slowk_period=3,
+        slowd_period=3
+    )
+    df['%K'] = stoch_slow
+    df['%D'] = stoch_signal
+
+    logging.info("Technical indicators calculated successfully.")
+    return df
 
 def calculate_position_size(balance, risk_per_trade_pct, current_price):
     """Calculate position size based on account balance"""
@@ -24,9 +63,11 @@ def calculate_position_size(balance, risk_per_trade_pct, current_price):
     units = position_value / current_price
     return units
 
-
 def rebate_trading_strategy(data):
     """Rebate trading strategy implementation"""
+    # Calculate indicators
+    data = calculate_indicators(data)
+
     balance = config.INITIAL_BALANCE
     initial_balance = balance
     position = None
@@ -194,7 +235,6 @@ def rebate_trading_strategy(data):
         'return_pct': ((balance - initial_balance) / initial_balance) * 100,
         'trades': trades
     }
-
 
 if __name__ == "__main__":
     try:

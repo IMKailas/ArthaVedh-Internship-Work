@@ -1,131 +1,43 @@
-2025-01-15 18:48:28,719 - INFO - 
-    Generated synthetic BANK data:
-    Correlation with NIFTY: 0.92
-    Initial BANK price: 80079.20
-    Final BANK price: 80158.61
-    Average daily volume: 526330
-    
-2025-01-15 18:48:28,721 - INFO - 
-                New Trade Entry:
-                Time: 2024-10-15 11:17:00+05:30
-                Strategy: SHORT NIFTY vs BANK
-                Z-Score: 1.93
-                Entry Prices: NIFTY=25062.60, BANK=80107.16
-                Position Sizes: NIFTY=2.00, BANK=0.62
-                Notional Value: $99,791.64
-                
-2025-01-15 18:48:28,722 - INFO - 
-                Trade Exit:
-                Time: 2024-10-15 11:19:00+05:30
-                Strategy: SHORT
-                Exit Reason: profit_target
-                Z-Score Movement: 1.93 -> 1.26
-                PnL: $-77.83
-                Current Balance: $99922.17
-                Trade Duration: 2.0 minutes
-                
-2025-01-15 18:48:28,722 - INFO - Entering cooling-off period until 2024-10-15 11:24:00+05:30
-2025-01-15 18:48:28,724 - INFO - 
-                New Trade Entry:
-                Time: 2024-10-15 12:13:00+05:30
-                Strategy: SHORT NIFTY vs BANK
-                Z-Score: 2.25
-                Entry Prices: NIFTY=25066.30, BANK=80104.53
-                Position Sizes: NIFTY=1.99, BANK=0.62
-                Notional Value: $99,546.75
-                
-2025-01-15 18:48:28,724 - INFO - 
-                Trade Exit:
-                Time: 2024-10-15 12:17:00+05:30
-                Strategy: SHORT
-                Exit Reason: profit_target
-                Z-Score Movement: 2.25 -> 1.48
-                PnL: $-83.43
-                Current Balance: $99838.74
-                Trade Duration: 4.0 minutes
-                
-2025-01-15 18:48:28,724 - INFO - Entering cooling-off period until 2024-10-15 12:22:00+05:30
-2025-01-15 18:48:28,725 - INFO - 
-                New Trade Entry:
+2025-02-04 00:24:46,416 - INFO - 
+                Trade Entry:
                 Time: 2024-10-15 12:37:00+05:30
-                Strategy: LONG NIFTY vs BANK
-                Z-Score: -2.34
-                Entry Prices: NIFTY=25062.85, BANK=80135.37
-                Position Sizes: NIFTY=1.99, BANK=0.62
-                Notional Value: $99,559.00
+                Type: LONG
+                Z-Score: -2.40
+                Prices: NIFTY=25062.85, BANK=80135.37
+                Sizes: NIFTY=9.81, BANK=0.13
                 
-2025-01-15 18:48:28,726 - INFO - 
+2025-02-04 00:24:46,416 - INFO - 
                 Trade Exit:
                 Time: 2024-10-15 12:38:00+05:30
-                Strategy: LONG
-                Exit Reason: profit_target
-                Z-Score Movement: -2.34 -> -1.35
-                PnL: $-73.74
-                Current Balance: $99765.00
-                Trade Duration: 1.0 minutes
+                Type: LONG
+                Reason: profit_target
+                Z-Score: -2.40 -> -1.39
+                PnL: $-134.28
+                Balance: $99865.72
                 
-2025-01-15 18:48:28,726 - INFO - Entering cooling-off period until 2024-10-15 12:43:00+05:30
-2025-01-15 18:48:28,729 - INFO - 
-                New Trade Entry:
+2025-02-04 00:24:46,428 - INFO - 
+                Trade Entry:
+                Time: 2024-10-15 14:01:00+05:30
+                Type: LONG
+                Z-Score: -3.65
+                Prices: NIFTY=25041.35, BANK=80108.85
+                Sizes: NIFTY=9.07, BANK=0.14
+                
+2025-02-04 00:24:46,429 - INFO - 
+                Trade Exit:
                 Time: 2024-10-15 14:02:00+05:30
-                Strategy: LONG NIFTY vs BANK
-                Z-Score: -2.81
-                Entry Prices: NIFTY=25042.20, BANK=80115.70
-                Position Sizes: NIFTY=2.00, BANK=0.62
-                Notional Value: $99,756.13
+                Type: LONG
+                Reason: profit_target
+                Z-Score: -3.65 -> -2.88
+                PnL: $-183.92
+                Balance: $99681.80
                 
-2025-01-15 18:48:28,729 - INFO - 
-                Trade Exit:
-                Time: 2024-10-15 14:05:00+05:30
-                Strategy: LONG
-                Exit Reason: profit_target
-                Z-Score Movement: -2.81 -> -2.11
-                PnL: $-91.98
-                Current Balance: $99673.02
-                Trade Duration: 3.0 minutes
-                
-2025-01-15 18:48:28,729 - INFO - Entering cooling-off period until 2024-10-15 14:10:00+05:30
-2025-01-15 18:48:28,732 - INFO - 
-                New Trade Entry:
-                Time: 2024-10-15 14:57:00+05:30
-                Strategy: SHORT NIFTY vs BANK
-                Z-Score: 2.04
-                Entry Prices: NIFTY=25038.00, BANK=80077.98
-                Position Sizes: NIFTY=2.00, BANK=0.62
-                Notional Value: $99,724.35
-                
-2025-01-15 18:48:28,733 - INFO - 
-                Trade Exit:
-                Time: 2024-10-15 14:58:00+05:30
-                Strategy: SHORT
-                Exit Reason: profit_target
-                Z-Score Movement: 2.04 -> 1.03
-                PnL: $-70.48
-                Current Balance: $99602.54
-                Trade Duration: 1.0 minutes
-                
-2025-01-15 18:48:28,733 - INFO - Entering cooling-off period until 2024-10-15 15:03:00+05:30
-2025-01-15 18:48:28,735 - INFO - 
-    Strategy Performance Summary:
-    ===========================
-    Initial Capital: $100,000.00
-    Final Capital: $99,602.54
-    Net Profit: $-397.46
-    Return on Investment: -0.40%
-
-    Trade Statistics:
-    ----------------
-    Total Trades: 5
-    Winning Trades: 0
-    Win Rate: 0.00%
-    Average Profit per Trade: $-79.49
-    Sharpe Ratio: -148.59
-    Maximum Drawdown: $397.46
-    
-2025-01-15 18:48:28,735 - INFO - 
-        Strategy Execution Completed Successfully:
-        Total Trades: 5
+2025-02-04 00:24:46,441 - INFO - 
+        Strategy Results:
+        Total Trades: 2
         Win Rate: 0.00%
-        Total Profit: $-397.46
-        Sharpe Ratio: -148.59
+        Total Profit: $-318.20
+        Sharpe Ratio: -71.95
+        Profit Factor: 0.00
+        Max Drawdown: 0.18%
         

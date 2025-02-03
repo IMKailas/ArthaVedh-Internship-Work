@@ -1,5 +1,7 @@
 import pandas as pd
+import numpy as np
 import logging
+import talib
 import config
 
 # Set up logging
@@ -9,11 +11,35 @@ logging.basicConfig(
     format=config.LOG_FORMAT
 )
 
+
 def load_market_data(file_path):
     """Load and prepare market data from CSV"""
     data = pd.read_csv(file_path)
     logging.info(f"Market data loaded from {file_path}")
     return data
+
+
+def calculate_technical_indicators(data):
+    """Calculate technical indicators using TA-Lib"""
+    # RSI
+    data['RSI'] = talib.RSI(data['close'], timeperiod=config.RSI_PERIOD)
+
+    # MACD
+    data['MACD'], data['Signal'], data['MACD_Hist'] = talib.MACD(
+        data['close'],
+        fastperiod=12,
+        slowperiod=26,
+        signalperiod=9
+    )
+
+    # Volume Moving Average
+    data['Volume MA'] = talib.SMA(data['Volume'], timeperiod=config.VOLUME_MA_PERIOD)
+
+    # VWAP (Volume Weighted Average Price)
+    data['VWAP'] = (data['Volume'] * data['close']).cumsum() / data['Volume'].cumsum()
+
+    return data
+
 
 def calculate_position_size(balance, leverage, current_price, risk_per_trade_pct):
     """Calculate position size based on account balance and leverage"""
@@ -21,14 +47,19 @@ def calculate_position_size(balance, leverage, current_price, risk_per_trade_pct
     units = max_position_value / current_price
     return units
 
+
 def calculate_liquidation_price(entry_price, position_type, leverage, margin_requirement):
     """Calculate liquidation price for leveraged position"""
     if position_type == "Long":
         return entry_price * (1 - (1 / leverage) + margin_requirement)
     return entry_price * (1 + (1 / leverage) - margin_requirement)
 
+
 def leveraged_trading_strategy(data, params):
     """Enhanced leveraged trading strategy"""
+    # Preprocess data with technical indicators
+    data = calculate_technical_indicators(data)
+
     balance = params.get('initial_balance', config.INITIAL_BALANCE)
     initial_balance = balance
     leverage = params.get('leverage', config.LEVERAGE)
@@ -71,7 +102,8 @@ def leveraged_trading_strategy(data, params):
                 liquidation_price = calculate_liquidation_price(
                     entry_price, position, leverage, margin_requirement
                 )
-                logging.info(f"Long Entry - Price: {entry_price:.2f}, Size: {position_size:.2f}, Balance: {balance:.2f}, Reason: RSI oversold or MACD crossover")
+                logging.info(
+                    f"Long Entry - Price: {entry_price:.2f}, Size: {position_size:.2f}, Balance: {balance:.2f}, Reason: RSI oversold or MACD crossover")
 
             # Short Entry
             elif (rsi_overbought or macd_crossunder) and price_below_vwap and volume_spike:
@@ -83,7 +115,8 @@ def leveraged_trading_strategy(data, params):
                 liquidation_price = calculate_liquidation_price(
                     entry_price, position, leverage, margin_requirement
                 )
-                logging.info(f"Short Entry - Price: {entry_price:.2f}, Size: {position_size:.2f}, Balance: {balance:.2f}, Reason: RSI overbought or MACD crossunder")
+                logging.info(
+                    f"Short Entry - Price: {entry_price:.2f}, Size: {position_size:.2f}, Balance: {balance:.2f}, Reason: RSI overbought or MACD crossunder")
 
         else:  # Managing existing position
             # Calculate current profit/loss
@@ -94,7 +127,8 @@ def leveraged_trading_strategy(data, params):
                 if (current_price <= liquidation_price or  # Liquidation
                         rsi_overbought or  # RSI exit
                         macd_crossunder or  # MACD exit
-                        unrealized_pnl <= -balance * params.get('max_loss_per_trade', config.MAX_LOSS_PER_TRADE)):  # Stop loss
+                        unrealized_pnl <= -balance * params.get('max_loss_per_trade',
+                                                                config.MAX_LOSS_PER_TRADE)):  # Stop loss
 
                     pnl = position_size * (current_price - entry_price) * leverage
                     balance += pnl
@@ -107,7 +141,8 @@ def leveraged_trading_strategy(data, params):
                         'balance': balance
                     })
 
-                    logging.info(f"Long Exit - Price: {current_price:.2f}, PnL: {pnl:.2f}, Balance: {balance:.2f}, Reason: Liquidation or Stop loss")
+                    logging.info(
+                        f"Long Exit - Price: {current_price:.2f}, PnL: {pnl:.2f}, Balance: {balance:.2f}, Reason: Liquidation or Stop loss")
                     position = None
 
             else:  # Short position
@@ -117,7 +152,8 @@ def leveraged_trading_strategy(data, params):
                 if (current_price >= liquidation_price or  # Liquidation
                         rsi_oversold or  # RSI exit
                         macd_crossover or  # MACD exit
-                        unrealized_pnl <= -balance * params.get('max_loss_per_trade', config.MAX_LOSS_PER_TRADE)):  # Stop loss
+                        unrealized_pnl <= -balance * params.get('max_loss_per_trade',
+                                                                config.MAX_LOSS_PER_TRADE)):  # Stop loss
 
                     pnl = position_size * (entry_price - current_price) * leverage
                     balance += pnl
@@ -130,7 +166,8 @@ def leveraged_trading_strategy(data, params):
                         'balance': balance
                     })
 
-                    logging.info(f"Short Exit - Price: {current_price:.2f}, PnL: {pnl:.2f}, Balance: {balance:.2f}, Reason: Liquidation or Stop loss")
+                    logging.info(
+                        f"Short Exit - Price: {current_price:.2f}, PnL: {pnl:.2f}, Balance: {balance:.2f}, Reason: Liquidation or Stop loss")
                     position = None
 
         # Risk management - stop trading if significant losses
@@ -169,6 +206,7 @@ def leveraged_trading_strategy(data, params):
         'return_pct': ((balance - initial_balance) / initial_balance) * 100,
         'trades': trades
     }
+
 
 # Strategy parameters with config values
 params = {

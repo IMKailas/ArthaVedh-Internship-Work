@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
+import talib
 import logging
 import config
 
-# Enhanced logging setup
 logging.basicConfig(
     filename=config.LOG_CONFIG['filename'],
     level=getattr(logging, config.LOG_CONFIG['level']),
@@ -11,94 +11,144 @@ logging.basicConfig(
 )
 
 
+def prepare_data(df):
+    """Calculate technical indicators using TA-Lib"""
+    df['RSI'] = talib.RSI(df['close'], timeperiod=14)
+    df['Volume MA'] = talib.SMA(df['Volume'], timeperiod=20)
+
+    # Additional indicators for trend confirmation
+    df['EMA20'] = talib.EMA(df['close'], timeperiod=20)
+    df['ATR'] = talib.ATR(df['high'], df['low'], df['close'], timeperiod=14)
+
+    # MACD for trend direction
+    df['MACD'], df['MACD_signal'], df['MACD_hist'] = talib.MACD(
+        df['close'],
+        fastperiod=12,
+        slowperiod=26,
+        signalperiod=9
+    )
+
+    return df
+
+
 def calculate_zscore(spread):
     """Calculate z-score of the spread"""
-    mean = spread.rolling(window=config.ZSCORE_WINDOW).mean()
-    std = spread.rolling(window=config.ZSCORE_WINDOW).std()
+    mean = talib.SMA(spread, timeperiod=config.ZSCORE_WINDOW)
+    std = talib.STDDEV(spread, timeperiod=config.ZSCORE_WINDOW)
     return (spread - mean) / std
 
 
-def calculate_position_size(balance, price_a, price_b):
-    """Calculate larger position sizes with proper scaling"""
+def calculate_position_size(balance, price_a, price_b, atr_a, atr_b):
+    """Calculate position sizes with ATR-based risk adjustment"""
     total_exposure = balance * config.LEVERAGE * config.RISK_PER_TRADE_PCT
-
-    # Ensure minimum position sizes for profitability
     total_exposure = max(total_exposure, config.MIN_NOTIONAL_VALUE)
 
-    # Calculate sizes based on price ratio
+    # Adjust position sizes based on ATR ratio
+    volatility_ratio = atr_a / atr_b
     price_ratio = price_a / price_b
+
+    # Calculate base position sizes
     size_a = total_exposure / (price_a + price_b * price_ratio)
     size_b = size_a * price_ratio
 
-    # Round to 2 decimals for more realistic position sizes
+    # Adjust for relative volatility
+    size_a = size_a * (1 / volatility_ratio)
+    size_b = size_b * volatility_ratio
+
     return round(size_a, 2), round(size_b, 2)
 
 
-def check_entry_conditions(zscore, volume_active, rsi_stable, trend_direction):
-    """Enhanced entry conditions"""
-    if volume_active and rsi_stable:
-        if zscore < -config.ZSCORE_ENTRY_THRESHOLD and trend_direction > 0:  # Long entry
+def check_entry_conditions(row_a, row_b, zscore):
+    """Enhanced entry conditions using TA-Lib indicators"""
+    volume_active = (row_a['Volume'] > row_a['Volume MA'] * config.VOLUME_THRESHOLD and
+                     row_b['Volume'] > row_b['Volume MA'] * config.VOLUME_THRESHOLD)
+
+    rsi_stable = (config.RSI_LOWER < row_a['RSI'] < config.RSI_UPPER and
+                  config.RSI_LOWER < row_b['RSI'] < config.RSI_UPPER)
+
+    trend_aligned = (
+            (row_a['MACD'] > row_a['MACD_signal']) == (row_b['MACD'] > row_b['MACD_signal'])
+    )
+
+    if volume_active and rsi_stable and trend_aligned:
+        if zscore < -config.ZSCORE_ENTRY_THRESHOLD:
             return True, 'long'
-        elif zscore > config.ZSCORE_ENTRY_THRESHOLD and trend_direction < 0:  # Short entry
+        elif zscore > config.ZSCORE_ENTRY_THRESHOLD:
             return True, 'short'
     return False, None
 
 
-def check_exit_conditions(zscore, position_type, entry_time, current_time, entry_zscore):
-    """Improved exit conditions"""
-    # Profit target reached
-    if position_type == 'long':
-        if zscore >= -config.ZSCORE_EXIT_THRESHOLD or zscore >= (entry_zscore + config.ZSCORE_STOP_LOSS):  # Take profit on mean reversion or improvement
+def check_exit_conditions(zscore, position, current_time, row_a, row_b):
+    """Exit conditions with technical indicator confirmation"""
+    # Trend reversal check using MACD
+    trend_reversal = False
+    if position['type'] == 'long':
+        trend_reversal = (row_a['MACD'] < row_a['MACD_signal'] and
+                          row_b['MACD'] < row_b['MACD_signal'])
+    else:
+        trend_reversal = (row_a['MACD'] > row_a['MACD_signal'] and
+                          row_b['MACD'] > row_b['MACD_signal'])
+
+    # Profit target or stop loss based on zscore
+    if position['type'] == 'long':
+        if zscore >= -config.ZSCORE_EXIT_THRESHOLD or zscore >= (position['entry_zscore'] + config.ZSCORE_STOP_LOSS):
             return True, 'profit_target'
-        if zscore < entry_zscore - config.ZSCORE_STOP_LOSS:  # Stop loss on further divergence
+        if zscore < position['entry_zscore'] - config.ZSCORE_STOP_LOSS:
             return True, 'stop_loss'
-    else:  # Short position
-        if zscore <= config.ZSCORE_EXIT_THRESHOLD or zscore <= (entry_zscore - config.ZSCORE_STOP_LOSS):
+    else:
+        if zscore <= config.ZSCORE_EXIT_THRESHOLD or zscore <= (position['entry_zscore'] - config.ZSCORE_STOP_LOSS):
             return True, 'profit_target'
-        if zscore > entry_zscore + config.ZSCORE_STOP_LOSS:
+        if zscore > position['entry_zscore'] + config.ZSCORE_STOP_LOSS:
             return True, 'stop_loss'
 
-    # Trade timeout
-    if (current_time - entry_time).total_seconds() > (config.POSITION_HOLD_MINUTES * 60):
+    # Exit on trend reversal
+    if trend_reversal:
+        return True, 'trend_reversal'
+
+    # Time-based exit
+    if (current_time - position['entry_time']).total_seconds() > (config.POSITION_HOLD_MINUTES * 60):
         return True, 'timeout'
 
     return False, None
 
 
 def statistical_arbitrage_strategy(nifty_data, bank_data):
-    """Execute improved statistical arbitrage strategy"""
+    """Execute statistical arbitrage strategy with TA-Lib indicators"""
+    nifty_data = prepare_data(nifty_data.copy())
+    bank_data = prepare_data(bank_data.copy())
+
     balance = config.INITIAL_BALANCE
     initial_balance = balance
     trades = []
     position = None
+    cooling_off_until = None
 
-    # Calculate spread and indicators
     spread = nifty_data['close'] / bank_data['close']
     zscore = calculate_zscore(spread)
 
     for i in range(config.ZSCORE_WINDOW, len(nifty_data)):
         current_time = nifty_data.index[i]
 
-        # Market conditions with stronger filters
-        volume_active = (nifty_data['Volume'].iloc[i] > nifty_data['Volume MA'].iloc[i] * config.VOLUME_THRESHOLD)
-        rsi_stable = (config.RSI_LOWER < nifty_data['RSI'].iloc[i] < config.RSI_UPPER)
-        trend_direction = np.sign(nifty_data['close'].iloc[i] - nifty_data['close'].iloc[i - config.TREND_PERIODS])
+        # Skip if in cooling-off period
+        if cooling_off_until and current_time < cooling_off_until:
+            continue
 
         current_zscore = zscore.iloc[i]
 
         if position is None:
             entry_signal, trade_type = check_entry_conditions(
-                current_zscore,
-                volume_active,
-                rsi_stable,
-                trend_direction
+                nifty_data.iloc[i],
+                bank_data.iloc[i],
+                current_zscore
             )
 
             if entry_signal:
                 size_nifty, size_bank = calculate_position_size(
                     balance,
                     nifty_data['close'].iloc[i],
-                    bank_data['close'].iloc[i]
+                    bank_data['close'].iloc[i],
+                    nifty_data['ATR'].iloc[i],
+                    bank_data['ATR'].iloc[i]
                 )
 
                 position = {
@@ -112,26 +162,25 @@ def statistical_arbitrage_strategy(nifty_data, bank_data):
                 }
 
                 logging.info(f"""
-                New Trade Entry:
+                Trade Entry:
                 Time: {current_time}
-                Strategy: {trade_type.upper()} NIFTY vs BANK
+                Type: {trade_type.upper()}
                 Z-Score: {current_zscore:.2f}
-                Entry Prices: NIFTY={position['nifty_entry']:.2f}, BANK={position['bank_entry']:.2f}
-                Position Sizes: NIFTY={position['nifty_size']:.2f}, BANK={position['bank_size']:.2f}
-                Notional Value: ${(position['nifty_size'] * position['nifty_entry'] + position['bank_size'] * position['bank_entry']):,.2f}
+                Prices: NIFTY={position['nifty_entry']:.2f}, BANK={position['bank_entry']:.2f}
+                Sizes: NIFTY={size_nifty:.2f}, BANK={size_bank:.2f}
                 """)
 
         else:
             exit_signal, exit_reason = check_exit_conditions(
                 current_zscore,
-                position['type'],
-                position['entry_time'],
+                position,
                 current_time,
-                position['entry_zscore']
+                nifty_data.iloc[i],
+                bank_data.iloc[i]
             )
 
             if exit_signal:
-                # Calculate PnL with improved position sizes
+                # Calculate PnL
                 if position['type'] == 'long':
                     nifty_pnl = position['nifty_size'] * (nifty_data['close'].iloc[i] - position['nifty_entry'])
                     bank_pnl = position['bank_size'] * (position['bank_entry'] - bank_data['close'].iloc[i])
@@ -141,7 +190,7 @@ def statistical_arbitrage_strategy(nifty_data, bank_data):
 
                 total_pnl = nifty_pnl + bank_pnl
 
-                # Apply reduced transaction costs for larger sizes
+                # Apply transaction costs
                 transaction_cost = config.TRANSACTION_COST * (0.8 if position['nifty_size'] > 1 else 1)
                 total_pnl -= (position['nifty_size'] * position['nifty_entry'] +
                               position['bank_size'] * position['bank_entry']) * transaction_cost * 2
@@ -161,152 +210,132 @@ def statistical_arbitrage_strategy(nifty_data, bank_data):
                 logging.info(f"""
                 Trade Exit:
                 Time: {current_time}
-                Strategy: {position['type'].upper()}
-                Exit Reason: {exit_reason}
-                Z-Score Movement: {position['entry_zscore']:.2f} -> {current_zscore:.2f}
+                Type: {position['type'].upper()}
+                Reason: {exit_reason}
+                Z-Score: {position['entry_zscore']:.2f} -> {current_zscore:.2f}
                 PnL: ${total_pnl:.2f}
-                Current Balance: ${balance:.2f}
-                Trade Duration: {(current_time - position['entry_time']).total_seconds() / 60:.1f} minutes
+                Balance: ${balance:.2f}
                 """)
 
                 position = None
 
-                # Implement cooling-off period after losses
                 if total_pnl < 0:
-                    cooling_off_end = current_time + pd.Timedelta(minutes=config.COOLING_OFF_MINUTES)
-                    logging.info(f"Entering cooling-off period until {cooling_off_end}")
+                    cooling_off_until = current_time + pd.Timedelta(minutes=config.COOLING_OFF_MINUTES)
 
-    # Calculate final metrics
+    # Calculate performance metrics
+    return calculate_performance_metrics(trades, initial_balance, balance)
+
+
+def generate_correlated_data(nifty_data):
+    """Generate synthetic NIFTY BANK data correlated with NIFTY"""
+    nifty_returns = nifty_data['close'].pct_change()
+
+    np.random.seed(42)
+    random_component = np.random.normal(0, nifty_returns.std(), len(nifty_returns))
+
+    bank_returns = (config.SYNTHETIC_DATA['correlation'] * nifty_returns +
+                    np.sqrt(1 - config.SYNTHETIC_DATA['correlation'] ** 2) * random_component *
+                    config.SYNTHETIC_DATA['volatility_factor'])
+
+    initial_bank_price = nifty_data['close'].iloc[0] * config.SYNTHETIC_DATA['bank_nifty_multiplier']
+    bank_prices = initial_bank_price * (1 + bank_returns).cumprod()
+
+    bank_data = pd.DataFrame(index=nifty_data.index)
+
+    # Generate OHLC data
+    bank_data['close'] = bank_prices
+    volatility = nifty_data['close'].std() * config.SYNTHETIC_DATA['volatility_factor']
+    bank_data['high'] = bank_data['close'] + np.abs(np.random.normal(0, volatility, len(bank_data)))
+    bank_data['low'] = bank_data['close'] - np.abs(np.random.normal(0, volatility, len(bank_data)))
+    bank_data['open'] = bank_data['close'].shift(1).fillna(bank_data['close'])
+
+    # Generate volume data
+    volume_correlation = config.SYNTHETIC_DATA['volume_correlation']
+    random_volume = np.random.normal(0, nifty_data['Volume'].std(), len(nifty_data))
+    bank_data['Volume'] = (nifty_data['Volume'] * volume_correlation +
+                           random_volume * np.sqrt(1 - volume_correlation ** 2))
+    bank_data['Volume'] = np.abs(bank_data['Volume'])
+
+    # Clean up data
+    bank_data['close'] = bank_data['close'].round(2)
+    bank_data['high'] = bank_data['high'].round(2)
+    bank_data['low'] = bank_data['low'].round(2)
+    bank_data['open'] = bank_data['open'].round(2)
+    bank_data['Volume'] = bank_data['Volume'].round().astype(int)
+
+    return bank_data
+
+
+def calculate_performance_metrics(trades, initial_balance, final_balance):
+    """Calculate comprehensive performance metrics"""
+    if not trades:
+        return {
+            'initial_balance': initial_balance,
+            'final_balance': final_balance,
+            'total_trades': 0,
+            'profitable_trades': 0,
+            'win_rate': 0,
+            'total_profit': 0,
+            'max_drawdown': 0,
+            'sharpe_ratio': 0,
+            'profit_factor': 0
+        }
+
     total_trades = len(trades)
-    if total_trades > 0:
-        profitable_trades = len([t for t in trades if t['pnl'] > 0])
-        win_rate = (profitable_trades / total_trades) * 100
-        total_profit = sum(t['pnl'] for t in trades)
-        max_drawdown = abs(min(0, min(t['balance'] - initial_balance for t in trades)))
-        avg_profit_per_trade = total_profit / total_trades
+    profitable_trades = len([t for t in trades if t['pnl'] > 0])
+    win_rate = (profitable_trades / total_trades) * 100
+    total_profit = sum(t['pnl'] for t in trades)
 
-        # Calculate Sharpe Ratio (assuming risk-free rate of 2%)
-        returns = pd.Series([t['pnl'] for t in trades])
-        sharpe_ratio = (returns.mean() * 252 - 0.02) / (returns.std() * np.sqrt(252)) if len(returns) > 1 else 0
-    else:
-        profitable_trades = win_rate = total_profit = max_drawdown = avg_profit_per_trade = sharpe_ratio = 0
+    # Calculate drawdown
+    running_balance = pd.Series([t['balance'] for t in trades])
+    running_max = running_balance.expanding().max()
+    drawdowns = (running_balance - running_max) / running_max * 100
+    max_drawdown = abs(min(0, drawdowns.min()))
 
-    logging.info(f"""
-    Strategy Performance Summary:
-    ===========================
-    Initial Capital: ${initial_balance:,.2f}
-    Final Capital: ${balance:,.2f}
-    Net Profit: ${total_profit:,.2f}
-    Return on Investment: {((balance - initial_balance) / initial_balance) * 100:.2f}%
+    # Calculate Sharpe Ratio (assuming risk-free rate of 2%)
+    returns = pd.Series([t['pnl'] for t in trades])
+    sharpe_ratio = (returns.mean() * 252 - 0.02) / (returns.std() * np.sqrt(252)) if len(returns) > 1 else 0
 
-    Trade Statistics:
-    ----------------
-    Total Trades: {total_trades}
-    Winning Trades: {profitable_trades}
-    Win Rate: {win_rate:.2f}%
-    Average Profit per Trade: ${avg_profit_per_trade:,.2f}
-    Sharpe Ratio: {sharpe_ratio:.2f}
-    Maximum Drawdown: ${max_drawdown:,.2f}
-    """)
+    # Calculate Profit Factor
+    gross_profits = sum(t['pnl'] for t in trades if t['pnl'] > 0)
+    gross_losses = abs(sum(t['pnl'] for t in trades if t['pnl'] < 0))
+    profit_factor = gross_profits / gross_losses if gross_losses != 0 else float('inf')
 
     return {
         'initial_balance': initial_balance,
-        'final_balance': balance,
+        'final_balance': final_balance,
         'total_trades': total_trades,
         'profitable_trades': profitable_trades,
         'win_rate': win_rate,
         'total_profit': total_profit,
         'max_drawdown': max_drawdown,
-        'sharpe_ratio': sharpe_ratio
+        'sharpe_ratio': sharpe_ratio,
+        'profit_factor': profit_factor
     }
 
 
-def generate_correlated_data(nifty_data):
-    """
-    Generate synthetic NIFTY BANK data correlated with NIFTY
-    """
-    # Calculate NIFTY returns
-    nifty_returns = nifty_data['close'].pct_change()
-
-    # Generate random component for BANK returns
-    np.random.seed(42)  # For reproducibility
-    random_component = np.random.normal(0, nifty_returns.std(), len(nifty_returns))
-
-    # Create correlated returns using correlation coefficient
-    bank_returns = (config.SYNTHETIC_DATA['correlation'] * nifty_returns +
-                    np.sqrt(1 - config.SYNTHETIC_DATA['correlation'] ** 2) * random_component *
-                    config.SYNTHETIC_DATA['volatility_factor'])
-
-    # Start BANK prices at a realistic level
-    initial_bank_price = nifty_data['close'].iloc[0] * config.SYNTHETIC_DATA['bank_nifty_multiplier']
-    bank_prices = initial_bank_price * (1 + bank_returns).cumprod()
-
-    # Create BANK dataframe
-    bank_data = pd.DataFrame(index=nifty_data.index)
-
-    # Generate synthetic price data
-    bank_data['close'] = bank_prices
-
-    # Generate correlated volume data
-    volume_correlation = config.SYNTHETIC_DATA['volume_correlation']
-    random_volume = np.random.normal(0, nifty_data['Volume'].std(), len(nifty_data))
-    bank_data['Volume'] = (nifty_data['Volume'] * volume_correlation +
-                           random_volume * np.sqrt(1 - volume_correlation ** 2))
-    bank_data['Volume'] = np.abs(bank_data['Volume'])  # Ensure positive volume
-
-    # Generate correlated RSI data
-    rsi_correlation = config.SYNTHETIC_DATA['rsi_correlation']
-    random_rsi = np.random.normal(0, nifty_data['RSI'].std(), len(nifty_data))
-    bank_data['RSI'] = (nifty_data['RSI'] * rsi_correlation +
-                        random_rsi * np.sqrt(1 - rsi_correlation ** 2))
-
-    # Ensure RSI stays within bounds (0-100)
-    bank_data['RSI'] = bank_data['RSI'].clip(0, 100)
-
-    # Add realistic market microstructure effects
-    bank_data['close'] = bank_data['close'].round(2)  # Round to 2 decimals
-    bank_data['Volume'] = bank_data['Volume'].round().astype(int)  # Integer volume
-
-    # Generate additional required columns if they exist in NIFTY data
-    if 'Volume MA' in nifty_data.columns:
-        bank_data['Volume MA'] = bank_data['Volume'].rolling(window=20).mean()
-
-    logging.info(f"""
-    Generated synthetic BANK data:
-    Correlation with NIFTY: {config.SYNTHETIC_DATA['correlation']:.2f}
-    Initial BANK price: {initial_bank_price:.2f}
-    Final BANK price: {bank_data['close'].iloc[-1]:.2f}
-    Average daily volume: {bank_data['Volume'].mean():.0f}
-    """)
-
-    return bank_data
-
 if __name__ == "__main__":
     try:
-        # Initialize logging
-        logging.basicConfig(
-            filename=config.LOG_CONFIG['filename'],
-            level=getattr(logging, config.LOG_CONFIG['level']),
-            format=config.LOG_CONFIG['format']
-        )
-
-        # Load and process data
+        # Load data
         nifty_data = pd.read_csv(config.DATA_FILE_PATH, parse_dates=['time'])
         nifty_data.set_index('time', inplace=True)
+
+        # Generate synthetic bank data
         bank_data = generate_correlated_data(nifty_data)
 
-        # Execute strategy without params argument
+        # Run strategy
         results = statistical_arbitrage_strategy(nifty_data, bank_data)
 
-        # Log strategy results
         logging.info(f"""
-        Strategy Execution Completed Successfully:
+        Strategy Results:
         Total Trades: {results['total_trades']}
         Win Rate: {results['win_rate']:.2f}%
         Total Profit: ${results['total_profit']:,.2f}
         Sharpe Ratio: {results['sharpe_ratio']:.2f}
+        Profit Factor: {results['profit_factor']:.2f}
+        Max Drawdown: {results['max_drawdown']:.2f}%
         """)
 
     except Exception as e:
-        logging.error(f"Error in strategy execution: {str(e)}")
-        raise  # Re-raise the exception for debugging
+        logging.error(f"Strategy execution error: {str(e)}")
+        raise

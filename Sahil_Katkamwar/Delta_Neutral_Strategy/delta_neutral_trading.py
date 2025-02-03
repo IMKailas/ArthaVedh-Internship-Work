@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import logging
+import talib
 from scipy.stats import norm
 import config
 
@@ -49,9 +50,32 @@ def calculate_implied_volatility(data, window=None):
     return hist_vol
 
 
+def calculate_indicators(data):
+    """Calculate technical indicators using TA-Lib"""
+    # RSI
+    data['RSI'] = talib.RSI(data['close'], timeperiod=config.RSI_PERIOD)
+
+    # MACD
+    macd, signal, hist = talib.MACD(
+        data['close'],
+        fastperiod=12,
+        slowperiod=26,
+        signalperiod=9
+    )
+    data['MACD'] = macd
+    data['MACD_Signal'] = signal
+    data['MACD_Hist'] = hist
+
+    # Volume Moving Average
+    data['Volume MA'] = talib.SMA(data['Volume'], timeperiod=config.VOLUME_MA_PERIOD)
+
+    return data
+
+
 def generate_synthetic_options_data(data):
     """Generate synthetic options data for delta-neutral strategy"""
     # Calculate basic metrics
+    data = calculate_indicators(data)
     data['HV'] = calculate_implied_volatility(data)
     data['IV'] = data['HV'] * config.IV_HV_RATIO  # Typically IV is slightly higher than HV
 
