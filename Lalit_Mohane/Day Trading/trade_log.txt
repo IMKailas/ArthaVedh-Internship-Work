@@ -82,4 +82,3 @@ Detailed Trade Log
 Final Balance: 10018.70
 Net Profit: 18.70
 Total Trades: 39
-

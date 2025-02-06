@@ -18,8 +18,8 @@ CONFIG = {
     "indicators": {
         "rsi": {
             "period": 14,
-            "overbought": 70,
-            "oversold": 30
+            "overbought": 55,
+            "oversold": 45
         },
         "macd": {
             "fast_period": 12,

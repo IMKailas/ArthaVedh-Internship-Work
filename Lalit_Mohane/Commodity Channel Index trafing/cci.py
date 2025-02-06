@@ -114,7 +114,6 @@ def main():
         
         # Read dataset from CSV
         df = read_csv(config.file_path)
-        print(f"Loaded data with columns: {df.columns.tolist()}")
         
         # Calculate indicators using TA-Lib
         df = calculate_indicators(df, config)
