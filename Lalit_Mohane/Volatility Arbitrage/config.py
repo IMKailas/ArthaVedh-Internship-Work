@@ -1,4 +1,3 @@
-# config.py
 # Configuration for volatility arbitrage trading strategy
 
 # Implied Volatility (VIX) generation range
@@ -7,6 +6,12 @@ VIX_MAX = 35.0  # Maximum VIX (%)
 
 # Rolling window for realized volatility
 REALIZED_VOL_WINDOW = 14  # Days
+
+# RSI period
+RSI_PERIOD = 14
+
+# Bollinger Bands period
+BOLLINGER_PERIOD = 20
 
 # Strategy thresholds
 BUY_THRESHOLD = -10.0  # Difference between realized and implied volatility to trigger buy
@@ -22,3 +27,6 @@ TRADE_SIZE = 1000         # Number of units per trade
 
 # Log file name
 LOG_FILE = "trade_log.txt"
+
+
+ATR_PERIOD = 14  # Time period for ATR calculation

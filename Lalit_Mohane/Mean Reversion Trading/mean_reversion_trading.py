@@ -1,5 +1,7 @@
+# mean_reversion_trading.py
 import pandas as pd
 import numpy as np
+import talib
 import logging
 from config import config  # Importing configuration from config.py
 
@@ -16,31 +18,16 @@ def load_market_data(csv_file):
     df = pd.read_csv(csv_file)
     df['time'] = pd.to_datetime(df['time'], format='%d-%m-%Y')
 
-    # Advanced technical indicators
-    df['SMA_50'] = df['close'].rolling(window=50).mean()
-    df['SMA_200'] = df['close'].rolling(window=200).mean()
-    df['RSI'] = compute_rsi(df['close'])
-    df['Volume_MA'] = df['Volume'].rolling(window=20).mean()
+    # TA-Lib indicators
+    df['SMA_50'] = talib.SMA(df['close'], timeperiod=50)
+    df['SMA_200'] = talib.SMA(df['close'], timeperiod=200)
+    df['RSI'] = talib.RSI(df['close'], timeperiod=14)
+    df['Volume_MA'] = talib.SMA(df['Volume'], timeperiod=20)
 
     # Bollinger Bands
-    rolling_window = 20
-    rolling_mean = df['close'].rolling(window=rolling_window).mean()
-    rolling_std = df['close'].rolling(window=rolling_window).std()
-
-    df['Upper_BB'] = rolling_mean + (2.5 * rolling_std)
-    df['Lower_BB'] = rolling_mean - (2.5 * rolling_std)
+    df['Upper_BB'], df['Middle_BB'], df['Lower_BB'] = talib.BBANDS(df['close'], timeperiod=20, nbdevup=2.5, nbdevdn=2.5, matype=0)
 
     return df
-
-def compute_rsi(price, periods=14):
-    """Compute Relative Strength Index (RSI) for a given price series."""
-    delta = price.diff()
-    gain = (delta.where(delta > 0, 0)).rolling(window=periods).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=periods).mean()
-
-    rs = gain / loss
-    rsi = 100.0 - (100.0 / (1.0 + rs))
-    return rsi.fillna(50)
 
 def advanced_mean_reversion_decision(market_data, position=None):
     """Make buy, sell, or hold decision based on advanced mean reversion strategy."""

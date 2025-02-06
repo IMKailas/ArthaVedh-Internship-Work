@@ -1,8 +1,11 @@
+# technical_arbitrage.py
 # trading_strategy.py
 
 import csv
 import logging
 from datetime import datetime
+import talib
+import numpy as np
 from config import Config
 
 # Configure logging using config
@@ -10,52 +13,79 @@ Config.setup_logging()
 
 # Function to read CSV data
 def read_csv(file_path):
-    dataset = []
+    dataset = {
+        "time": [],
+        "open": [],
+        "high": [],
+        "low": [],
+        "close": [],
+        "volume": []
+    }
+    
     with open(file_path, mode='r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            # Convert necessary fields to float
-            dataset.append({
-                "time": row["time"],
-                "open": float(row["open"]),
-                "high": float(row["high"]),
-                "low": float(row["low"]),
-                "close": float(row["close"]),
-                "VWAP": float(row["VWAP"]),
-                "upper_band_1": float(row["Upper Band #1"]),
-                "lower_band_1": float(row["Lower Band #1"]),
-                "volume": int(row["Volume"]),
-                "RSI": float(row["RSI"])
-            })
-    logging.info("CSV file read successfully. Total records: %d", len(dataset))
+            dataset["time"].append(row["time"])
+            dataset["open"].append(float(row["open"]))
+            dataset["high"].append(float(row["high"]))
+            dataset["low"].append(float(row["low"]))
+            dataset["close"].append(float(row["close"]))
+            dataset["volume"].append(int(row["Volume"]))
+
+    logging.info("CSV file read successfully. Total records: %d", len(dataset["time"]))
     return dataset
+
+# Function to calculate indicators using TA-Lib
+def calculate_indicators(data):
+    close = np.array(data["close"], dtype=float)
+    high = np.array(data["high"], dtype=float)
+    low = np.array(data["low"], dtype=float)
+    volume = np.array(data["volume"], dtype=float)
+
+    # Calculate Bollinger Bands
+    upper_band, middle_band, lower_band = talib.BBANDS(close, timeperiod=20, nbdevup=2, nbdevdn=2, matype=0)
+
+    # Calculate RSI
+    rsi = talib.RSI(close, timeperiod=14)
+
+    # Calculate VWAP
+    typical_price = (high + low + close) / 3
+    vwap = np.cumsum(typical_price * volume) / np.cumsum(volume)
+
+    # Add calculated indicators to the dataset
+    data["upper_band"] = upper_band
+    data["lower_band"] = lower_band
+    data["RSI"] = rsi
+    data["VWAP"] = vwap
+
+    logging.info("Indicators calculated using TA-Lib.")
+    return data
 
 # Function to apply technical arbitrage strategy
 def technical_arbitrage_strategy(data):
     trades = []
-    for row in data:
-        time = row["time"]
-        close = row["close"]
-        VWAP = row["VWAP"]
-        upper_band_1 = row["upper_band_1"]
-        lower_band_1 = row["lower_band_1"]
-        RSI = row["RSI"]
-        volume = row["volume"]
+    for i in range(len(data["close"])):
+        time = data["time"][i]
+        close = data["close"][i]
+        vwap = data["VWAP"][i]
+        upper_band = data["upper_band"][i]
+        lower_band = data["lower_band"][i]
+        rsi = data["RSI"][i]
 
         # Apply relaxed strategy logic
-        if close < lower_band_1 * Config.LOWER_BAND_MULTIPLIER and RSI < Config.RSI_BUY_THRESHOLD:
+        if close < lower_band * Config.LOWER_BAND_MULTIPLIER and rsi < Config.RSI_BUY_THRESHOLD:
             trades.append({"time": time, "action": "Buy", "price": close, "reason": "Near oversold condition"})
-            logging.debug("Trade Signal: Buy | Time: %s | Price: %.2f | RSI: %.2f", time, close, RSI)
-        elif close > upper_band_1 * Config.UPPER_BAND_MULTIPLIER and RSI > Config.RSI_SELL_THRESHOLD:
+            logging.debug("Trade Signal: Buy | Time: %s | Price: %.2f | RSI: %.2f", time, close, rsi)
+        elif close > upper_band * Config.UPPER_BAND_MULTIPLIER and rsi > Config.RSI_SELL_THRESHOLD:
             trades.append({"time": time, "action": "Sell", "price": close, "reason": "Near overbought condition"})
-            logging.debug("Trade Signal: Sell | Time: %s | Price: %.2f | RSI: %.2f", time, close, RSI)
-        elif close < VWAP:
+            logging.debug("Trade Signal: Sell | Time: %s | Price: %.2f | RSI: %.2f", time, close, rsi)
+        elif close < vwap:
             trades.append({"time": time, "action": "Buy", "price": close, "reason": "Price below VWAP"})
-            logging.debug("Trade Signal: Buy | Time: %s | Price: %.2f | VWAP: %.2f", time, close, VWAP)
-        elif close > VWAP:
+            logging.debug("Trade Signal: Buy | Time: %s | Price: %.2f | VWAP: %.2f", time, close, vwap)
+        elif close > vwap:
             trades.append({"time": time, "action": "Sell", "price": close, "reason": "Price above VWAP"})
-            logging.debug("Trade Signal: Sell | Time: %s | Price: %.2f | VWAP: %.2f", time, close, VWAP)
-    
+            logging.debug("Trade Signal: Sell | Time: %s | Price: %.2f | VWAP: %.2f", time, close, vwap)
+
     logging.info("Total trades generated: %d", len(trades))
     return trades
 
@@ -69,7 +99,7 @@ def calculate_summary(trades):
         "profitable_trades": 0,
         "loss_trades": 0
     }
-    
+
     for trade in trades:
         if trade["action"] == "Buy" and buy_price is None:
             buy_price = trade["price"]
@@ -94,7 +124,7 @@ def display_summary(trades, total_profit, trade_pairs, summary):
     print("\nTrade Details:")
     for i, (buy, sell, profit) in enumerate(trade_pairs, start=1):
         print(f"Trade {i}: Bought at {buy}, Sold at {sell}, Profit: {profit:.2f}")
-    
+
     print("\nSummary:")
     print(f"Total Trades: {summary['total_trades']}")
     print(f"Profitable Trades: {summary['profitable_trades']}")
@@ -106,13 +136,16 @@ def display_summary(trades, total_profit, trade_pairs, summary):
 def main():
     # Read dataset from CSV
     data = read_csv(Config.CSV_FILE)
-    
+
+    # Calculate indicators
+    data = calculate_indicators(data)
+
     # Apply the trading strategy
     trades = technical_arbitrage_strategy(data)
-    
+
     # Calculate profit and summary
     total_profit, trade_pairs, summary = calculate_summary(trades)
-    
+
     # Display results
     display_summary(trades, total_profit, trade_pairs, summary)
 

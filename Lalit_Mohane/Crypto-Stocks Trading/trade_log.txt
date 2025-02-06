@@ -38,3 +38,4 @@ Sell at 21571.949 on 17-01-2024, Profit: 885.15
 Buy at 23263.9 on 03-06-2024
 Sell at 21884.5 on 04-06-2024, Profit: -1379.40
 Buy at 22620.35 on 05-06-2024
+2025-02-04 12:46:56 - ERROR - Strategy execution failed: [Errno 2] No such file or directory: '/home/lalit/Codes/projects/ArthaVedh-Internship-Work/Lalit_Mohane/Crypto-Stocks Trading/NSE_NIFTY, 1 Intraday.csv'

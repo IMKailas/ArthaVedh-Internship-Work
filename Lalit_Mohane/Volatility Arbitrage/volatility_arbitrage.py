@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime
+import talib
 import logging
 from config import *
 
@@ -17,10 +18,21 @@ def calculate_realized_volatility(data, window):
     data['Realized_Vol'] = data['Pct_Change'].rolling(window).std() * np.sqrt(252) * 100
     return data
 
-def generate_implied_volatility(data):
-    """Generate random implied volatility if not present."""
-    # np.random.seed(42)
-    data['Implied_Vol'] = np.random.uniform(VIX_MIN, VIX_MAX, size=len(data))
+def calculate_ta_indicators(data):
+    """Calculate indicators using TA-Lib."""
+    # Moving Average
+    data['SMA'] = talib.SMA(data['close'], timeperiod=REALIZED_VOL_WINDOW)
+    
+    # Relative Strength Index
+    data['RSI'] = talib.RSI(data['close'], timeperiod=RSI_PERIOD)
+    
+    # Bollinger Bands
+    data['Upper_BB'], data['Middle_BB'], data['Lower_BB'] = talib.BBANDS(
+        data['close'], timeperiod=BOLLINGER_PERIOD, nbdevup=2, nbdevdn=2, matype=0
+    )
+
+    # Average True Range as a proxy for implied volatility
+    data['Implied_Vol'] = talib.ATR(data['high'], data['low'], data['close'], timeperiod=ATR_PERIOD)
     return data
 
 def execute_trades(data):
@@ -92,9 +104,9 @@ def summarize_trades(trade_log, initial_balance, final_balance):
 # Main script execution
 if __name__ == "__main__":
     # Load and preprocess data
-    data = pd.read_csv("NSE_NIFTY, 1D.csv")
+    data = pd.read_csv("NSE_NIFTY, 1D.csv", usecols=['time', 'open', 'high', 'low', 'close', 'Volume'])
     data = calculate_realized_volatility(data, REALIZED_VOL_WINDOW)
-    data = generate_implied_volatility(data)
+    data = calculate_ta_indicators(data)
 
     # Execute trades
     final_balance, trade_log = execute_trades(data)
