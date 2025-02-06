@@ -1,5 +1,3 @@
-# ArthaVedh-Internship-Work
-
 # ArthaVedh Internship Work
 
 This repository contains a Python-based trading strategy simulation that uses various technical indicators such as RSI, Moving Averages, MACD, and Volume for stock market analysis. The strategy is designed for backtesting stock market data and generating insights.
