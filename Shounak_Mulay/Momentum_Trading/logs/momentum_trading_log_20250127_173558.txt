@@ -1,0 +1,72 @@
+===========================================
+  Momentum Trading Strategy Started
+===========================================
+Initial Balance: 10000.00
+Stop Loss Percentage: 0.15%
+Target Profit Percentage: 1%
+Minimum Volume: 300,000
+RSI Oversold Level: 60
+
+Opened Buy position at 25066.95
+Entry Reasoning: Volume: 368,663 (Sufficient) | MACD: -1.50 vs Signal: -1.51 (Bullish) | RSI: 50.07 (Oversold)
+Stop Loss: 25029.35, Target Profit: 25317.62
+Entry Time: 2024-10-15 11:21:00+05:30
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Reasoning: Volume: 368,663 (Sufficient) | MACD: -1.50 vs Signal: -1.51 (Bullish) | RSI: 50.07 (Oversold)
+Entry Price: 25066.95, Exit Price: 25028.95
+Profit/Loss: -38.00
+New Balance: 9962.00
+Exit Time: 2024-10-15 13:02:00+05:30
+===========================================
+
+Opened Buy position at 25030.00
+Entry Reasoning: Volume: 476,323 (Sufficient) | MACD: -10.87 vs Signal: -10.93 (Bullish) | RSI: 42.03 (Oversold)
+Stop Loss: 24992.46, Target Profit: 25280.30
+Entry Time: 2024-10-15 13:13:00+05:30
+
+===========================================
+Closed remaining position at market close.
+Entry Reasoning: Volume: 476,323 (Sufficient) | MACD: -10.87 vs Signal: -10.93 (Bullish) | RSI: 42.03 (Oversold)
+Entry Price: 25030.00, Exit Price: 25057.35
+Profit/Loss: 27.35
+New Balance: 9989.35
+===========================================
+
+===========================================
+  Trading Summary
+===========================================
+Initial Balance: 10000.00
+Final Balance: 9989.35
+Total Profit/Loss: -10.65
+Total Trades Executed: 2
+
+Detailed Trade Analysis:
+
+Trade #1:
+Entry Time: 2024-10-15 11:21:00+05:30
+Exit Time: 2024-10-15 13:02:00+05:30
+Entry Price: 25066.95
+Exit Price: 25028.95
+Status: Stop Loss
+Profit/Loss: -38.00
+Entry Reasoning: Volume: 368,663 (Sufficient) | MACD: -1.50 vs Signal: -1.51 (Bullish) | RSI: 50.07 (Oversold)
+
+Trade #2:
+Entry Time: 2024-10-15 13:13:00+05:30
+Exit Time: 2024-10-15 15:32:00+05:30
+Entry Price: 25030.00
+Exit Price: 25057.35
+Status: Market Close
+Profit/Loss: 27.35
+Entry Reasoning: Volume: 476,323 (Sufficient) | MACD: -10.87 vs Signal: -10.93 (Bullish) | RSI: 42.03 (Oversold)
+
+Profit/Loss Statistics:
+Profitable Trades: 1
+Loss-making Trades: 1
+Average Profit per Winning Trade: 27.35
+Average Loss per Losing Trade: -38.00
+Win Rate: 50.00%
+
+===========================================

@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from datetime import datetime
 import config_MomentumTrading
+import talib
 
 # Function to create log directory if it doesn't exist
 def create_log_directory():
@@ -225,12 +226,16 @@ def run_momentum_strategy(data, initial_balance, stop_loss_pct, target_profit_pc
 
     return balance, trades
 
-# Main execution
 if __name__ == "__main__":
     file_path = os.path.join(os.getcwd(), './Momentum_Trading/NSE_NIFTY, 1 Intraday.csv')
 
     try:
         data = load_market_data(file_path)
+        
+        # Add TA-Lib indicators
+        data['MACD'], data['Signal'], _ = talib.MACD(data['close'])
+        data['RSI'] = talib.RSI(data['close'])
+        
         initial_balance = config_MomentumTrading.initial_balance
         stop_loss_pct = config_MomentumTrading.stop_loss_pct
         target_profit_pct = config_MomentumTrading.target_profit_pct

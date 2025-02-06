@@ -3,7 +3,7 @@ import time
 import os
 from datetime import datetime
 import config_ForexTrading
-
+import talib
 # Function to create log directory if it doesn't exist
 def create_log_directory():
     log_dir = os.path.join(os.getcwd(), './Forex_Trading/logs')
@@ -18,6 +18,7 @@ def load_market_data(file_path):
         data = pd.read_csv(file_path)
         if config_ForexTrading.ENABLE_DEBUG_LOGGING:
             print(f"Data loaded successfully from {file_path}")
+        data['RSI'] = talib.RSI(data['close'])
         return data
     except FileNotFoundError:
         print(f"Error: File not found at {file_path}")
@@ -80,7 +81,6 @@ def run_forex_trading_strategy(csv_file, initial_balance, leverage, stop_loss_pc
             f.write(f"{message}\n")
         print(message)
 
-    data = load_market_data(csv_file)
     balance = initial_balance
     position = None
     trade_price = None
@@ -236,7 +236,8 @@ def run_forex_trading_strategy(csv_file, initial_balance, leverage, stop_loss_pc
 # Main execution
 if __name__ == "__main__":
     csv_file = os.path.join(os.getcwd(), './Forex_Trading/NSE_NIFTY, 1 Intraday.csv')
-
+    data = load_market_data(csv_file)
+    # data['RSI'] = talib.RSI(data['close'])
     initial_balance = config_ForexTrading.initial_balance
     leverage = config_ForexTrading.leverage
     stop_loss_pct = config_ForexTrading.stop_loss_pct

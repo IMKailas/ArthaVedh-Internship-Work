@@ -1,0 +1,6 @@
+===========================================
+  Order Flow Trading Strategy Started
+===========================================
+Initial Balance: 10000.00
+Stop Loss Percentage: 0.1%
+Target Profit Percentage: 1%

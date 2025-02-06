@@ -10,7 +10,7 @@ rsi_oversold = 30  # RSI oversold threshold
 rsi_overbought = 70  # RSI overbought threshold
 
 # Volume Moving Average threshold
-volume_ma = 1000000  # Moving average of volume (volume moving average threshold)
+volume_ma = 500000  # Moving average of volume (volume moving average threshold)
 
 ENABLE_DEBUG_LOGGING = True  # Enable/disable debug logging
 SAVE_TRADE_HISTORY = True    # Enable/disable trade history export

@@ -3,6 +3,7 @@ import os
 import random
 import config_LeveragedETF
 from datetime import datetime
+import talib
 
 def create_log_directory():
     log_dir = os.path.join(os.getcwd(), './Leveraged_ETF_Trading/logs')
@@ -11,9 +12,30 @@ def create_log_directory():
     return log_dir
 
 def load_etf_data(file_path):
-    """Load and preprocess the ETF data"""
+    """Load and preprocess the ETF data with TALib indicators"""
     try:
         data = pd.read_csv(file_path)
+        
+        # Calculate TALib indicators
+        high, low, close = data['high'], data['low'], data['close']
+        
+        # Trend Indicators
+        data['SMA'] = talib.SMA(close, timeperiod=20)
+        data['EMA'] = talib.EMA(close, timeperiod=20)
+        data['TEMA'] = talib.TEMA(close, timeperiod=20)
+        
+        # Momentum Indicators
+        data['RSI'] = talib.RSI(close, timeperiod=14)
+        data['MOM'] = talib.MOM(close, timeperiod=10)
+        data['ADX'] = talib.ADX(high, low, close, timeperiod=14)
+        
+        # Volatility Indicators
+        data['ATR'] = talib.ATR(high, low, close, timeperiod=14)
+        data['NATR'] = talib.NATR(high, low, close, timeperiod=14)
+        
+        # Price Channel
+        data['Upper'], data['Middle'], data['Lower'] = talib.BBANDS(close, timeperiod=20)
+        
         return data
     except FileNotFoundError:
         error_msg = f"Error: File not found at {file_path}"
@@ -28,23 +50,30 @@ def log_error(message):
     with open(log_filename, 'a') as f:
         f.write(f"{message}\n")
 
-def calculate_volatility(row):
-    return row["high"] - row["low"]
-
-def calculate_market_trend(row):
-    return "up" if row["close"] > row["VWAP"] else "down"
-
+def calculate_market_conditions(row):
+    # Use TALib indicators to determine market conditions
+    volatility = row['ATR']  # Using Average True Range for volatility
+    trend_strength = row['ADX']  # ADX for trend strength
+    momentum = row['MOM']  # Momentum indicator
+    rsi = row['RSI']  # RSI for overbought/oversold
+    return volatility, trend_strength, momentum, rsi
+    
 def leveraged_etf_decision(row, position, entry_made):
-    volatility = calculate_volatility(row)
-    market_trend = calculate_market_trend(row)
-    high_volatility_threshold = 1.0
+    volatility, trend_strength, momentum, rsi = calculate_market_conditions(row)
+    
+    # Define thresholds
+    high_volatility_threshold = row['NATR'] * 1.2  # Using Normalized ATR
+    strong_trend_threshold = 25  # ADX above 25 indicates strong trend
     
     # Build detailed reasoning components
     reasoning = []
-    reasoning.append(f"Volatility: {volatility:.2f} ({['Low', 'High'][volatility >= high_volatility_threshold]})")
-    reasoning.append(f"Market Trend: {market_trend.capitalize()}")
-    reasoning.append(f"Close Price: {row['close']:.2f}")
-    reasoning.append(f"VWAP: {row['VWAP']:.2f}")
+    reasoning.append(f"ATR (Volatility): {volatility:.2f}")
+    reasoning.append(f"ADX (Trend Strength): {trend_strength:.2f}")
+    reasoning.append(f"Momentum: {momentum:.2f}")
+    reasoning.append(f"RSI: {rsi:.2f}")
+    reasoning.append(f"Price: {row['close']:.2f}")
+    reasoning.append(f"BB Upper: {row['Upper']:.2f}")
+    reasoning.append(f"BB Lower: {row['Lower']:.2f}")
     
     # Add position status to reasoning
     position_status = "No Position" if position is None else position
@@ -54,8 +83,16 @@ def leveraged_etf_decision(row, position, entry_made):
     # Combine reasoning
     full_reasoning = " | ".join(reasoning)
     
-    if position is None and not entry_made and volatility >= high_volatility_threshold and market_trend == "up":
-        return "Buy", full_reasoning
+    if position is None and not entry_made:
+        # Entry conditions using multiple indicators
+        trend_up = row['close'] > row['EMA'] and row['EMA'] > row['SMA']
+        strong_trend = trend_strength > strong_trend_threshold
+        good_momentum = momentum > 0
+        not_overbought = rsi < 70
+        
+        if (trend_up and strong_trend and good_momentum and not_overbought):
+            return "Buy", full_reasoning
+            
     return "Hold", full_reasoning
 
 def simulate_etf_price_change(entry_price, volatility, trend):
@@ -97,8 +134,8 @@ def run_leveraged_etf_strategy(etf_data, initial_balance, leverage, stop_loss_pc
     for index, row in etf_data.iterrows():
         timestamp = pd.Timestamp(row.name if isinstance(row.name, pd.Timestamp) else row.get('time', datetime.now()))
         price = row["close"]
-        volatility = calculate_volatility(row)
-        trend = calculate_market_trend(row)
+        # volatility = calculate_volatility(row)
+        # trend = calculate_market_trend(row)
 
         # Check for new entry
         if position is None:
@@ -120,7 +157,7 @@ def run_leveraged_etf_strategy(etf_data, initial_balance, leverage, stop_loss_pc
 
         # Manage active position
         if position == "Buy":
-            current_price = simulate_etf_price_change(trade_price, volatility, trend)
+            current_price = price
             leveraged_gain_loss = (current_price - trade_price) * leverage
 
             if current_price <= stop_loss or current_price >= target_profit:
@@ -140,7 +177,7 @@ def run_leveraged_etf_strategy(etf_data, initial_balance, leverage, stop_loss_pc
                     'exit_price': current_price,
                     'status': exit_reason,
                     'profit': profit,
-                    'entry_reasoning': trade_entry_reason
+                    'entry_reasoning': trade_entry_reason,
                 }
                 trades.append(trade_info)
                 
