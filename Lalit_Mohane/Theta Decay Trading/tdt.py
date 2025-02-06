@@ -1,4 +1,3 @@
-# Import necessary libraries
 import pandas as pd
 import numpy as np
 from datetime import datetime
@@ -18,15 +17,12 @@ def calculate_theta(data, days_to_expiry):
     data['Theta'] = -np.log(data['close'] / data['close'].shift(1)) / days_to_expiry
     return data
 
-def generate_implied_volatility(data):
-    """Generate random implied volatility if not present."""
-    data['Implied_Vol'] = np.random.uniform(VIX_MIN, VIX_MAX, size=len(data))
-    return data
-
 def calculate_indicators(data):
     """Calculate indicators using TA-Lib."""
     data['RSI'] = talib.RSI(data['close'], timeperiod=14)
     data['MACD'], data['Signal'], data['Histogram'] = talib.MACD(data['close'], fastperiod=12, slowperiod=26, signalperiod=9)
+    data['ATR'] = talib.ATR(data['high'], data['low'], data['close'], timeperiod=14)
+    data['Implied_Vol'] = talib.STDDEV(data['close'], timeperiod=REALIZED_VOL_WINDOW) * 100
     return data
 
 def theta_decay_trading_decision(data):
@@ -102,7 +98,6 @@ if __name__ == "__main__":
     # Load and preprocess data
     data = pd.read_csv("NSE_NIFTY, 1D.csv", usecols=['time', 'open', 'high', 'low', 'close', 'Volume'])
     data = calculate_theta(data, DAYS_TO_EXPIRY)
-    data = generate_implied_volatility(data)
     data = calculate_indicators(data)
 
     # Execute trades

@@ -25,3 +25,17 @@
 2025-02-05 11:06:35,770 - DEBUG - Buy Signal: Time: 2024-10-15T13:05:00+05:30, Price: 25012.60, Beta: 1.07, Volatility: 0.0011, Volume Ratio: 1.97
 2025-02-05 11:06:35,771 - INFO - Total Profit: 0.00
 2025-02-05 11:06:35,772 - INFO - Summary displayed successfully.
+2025-02-06 13:14:40,906 - INFO - CSV file read successfully. Total records: 300
+2025-02-06 13:14:40,927 - INFO - Indicators calculated successfully using TA-Lib.
+2025-02-06 13:14:40,932 - DEBUG - Sell Signal: Time: 2024-10-15T10:55:00+05:30, Price: 25071.50, Beta: 0.95, Volatility: 0.0012, Volume Ratio: 1.57
+2025-02-06 13:14:40,933 - DEBUG - Buy Signal: Time: 2024-10-15T13:02:00+05:30, Price: 25028.95, Beta: 0.89, Volatility: 0.0010, Volume Ratio: 1.64
+2025-02-06 13:14:40,934 - DEBUG - Buy Signal: Time: 2024-10-15T13:05:00+05:30, Price: 25012.60, Beta: 0.99, Volatility: 0.0011, Volume Ratio: 1.97
+2025-02-06 13:14:40,935 - INFO - Total Profit: 0.00
+2025-02-06 13:14:40,936 - INFO - Summary displayed successfully.
+2025-02-06 13:18:24,659 - INFO - CSV file read successfully. Total records: 300
+2025-02-06 13:18:24,664 - INFO - Indicators calculated successfully using TA-Lib.
+2025-02-06 13:18:24,664 - DEBUG - Sell Signal: Time: 2024-10-15T10:55:00+05:30, Price: 25071.50, Beta: -0.56, Volatility: 0.0012, Volume Ratio: 1.57
+2025-02-06 13:18:24,664 - DEBUG - Buy Signal: Time: 2024-10-15T13:02:00+05:30, Price: 25028.95, Beta: -2.48, Volatility: 0.0010, Volume Ratio: 1.64
+2025-02-06 13:18:24,664 - DEBUG - Buy Signal: Time: 2024-10-15T13:05:00+05:30, Price: 25012.60, Beta: -3.98, Volatility: 0.0011, Volume Ratio: 1.97
+2025-02-06 13:18:24,665 - INFO - Total Profit: 0.00
+2025-02-06 13:18:24,665 - INFO - Summary displayed successfully.

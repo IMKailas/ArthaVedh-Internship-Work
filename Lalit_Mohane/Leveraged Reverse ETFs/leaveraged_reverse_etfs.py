@@ -1,7 +1,6 @@
 # Import necessary libraries
 import csv
 import logging
-import random
 import talib
 import numpy as np
 from datetime import datetime
@@ -51,25 +50,25 @@ def calculate_indicators(data):
     # Calculate Volume Moving Average
     volume_ma = talib.SMA(volumes, timeperiod=14)
 
+    # Calculate Beta using Linear Regression Slope
+    beta = talib.LINEARREG_SLOPE(closes, timeperiod=14)
+
     # Add indicators to the data rows
     for i, row in enumerate(data):
         row["RSI"] = rsi[i] if not np.isnan(rsi[i]) else 0
         row["upper_band"] = upper_band[i] if not np.isnan(upper_band[i]) else 0
         row["lower_band"] = lower_band[i] if not np.isnan(lower_band[i]) else 0
         row["volume_MA"] = volume_ma[i] if not np.isnan(volume_ma[i]) else 0
+        row["beta"] = beta[i] if not np.isnan(beta[i]) else 0
 
     logging.info("Indicators calculated successfully using TA-Lib.")
     return data
-
-# Function to calculate Beta (simulated for this example)
-def calculate_beta():
-    return round(random.uniform(0.8, 1.5), 2)  # Simulating Beta between 0.8 and 1.5
 
 # Function to apply the leveraged ETF strategy
 def leveraged_reverse_etfs_strategy(data):
     trades = []
     for row in data:
-        beta = calculate_beta()  # Simulate Beta value
+        beta = row["beta"]  # Use the beta calculated by TA-Lib
         volatility = (row["high"] - row["low"]) / row["low"]  # Calculate intraday volatility
         volume_ratio = row["volume"] / row["volume_MA"] if row["volume_MA"] > 0 else 0  # Calculate volume ratio
 
