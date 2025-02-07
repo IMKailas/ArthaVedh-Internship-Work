@@ -1,8 +1,6 @@
 import pandas as pd
-import numpy as np
 import logging
 import talib
-from datetime import datetime
 import config
 
 # Set up logging

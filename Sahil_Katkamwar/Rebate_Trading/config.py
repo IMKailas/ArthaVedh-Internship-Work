@@ -35,7 +35,7 @@ SHORT_EXIT = {
 LOG_CONFIG = {
     'filename': 'rebate_trading_strategy.log',
     'level': 'DEBUG',
-    'format': '%(asctime)s - %(levelname)s - %(message)s'
+    'format': '%(levelname)s - %(message)s'
 }
 
 # Data Settings

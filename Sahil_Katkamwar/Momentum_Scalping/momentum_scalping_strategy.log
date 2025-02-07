@@ -1,0 +1,21 @@
+INFO - Starting Momentum Strategy with initial balance: Rs.100,000.00
+INFO - Calculating technical indicators...
+INFO - Technical indicators calculated successfully.
+INFO - INFO - SHORT Entry - Price: 25064.95, Balance: 100000.00, Reason: Price Below MA | High Volume | Negative Momentum | Below VWAP | RSI:30.3
+INFO - INFO - SHORT Exit - Price: 25065.29, PnL: -0.34, Balance: 99999.66, Reason: Time Exit
+INFO - INFO - SHORT Entry - Price: 25048.13, Balance: 99999.66, Reason: Price Below MA | High Volume | Negative Momentum | Below VWAP | RSI:42.1
+INFO - INFO - SHORT Exit - Price: 25046.49, PnL: 1.64, Balance: 100001.30, Reason: Time Exit
+INFO - INFO - SHORT Entry - Price: 25046.87, Balance: 100001.30, Reason: Price Below MA | High Volume | Negative Momentum | Below VWAP | RSI:30.7
+INFO - INFO - SHORT Exit - Price: 25044.20, PnL: 2.67, Balance: 100003.98, Reason: Time Exit
+INFO - INFO - SHORT Entry - Price: 25041.81, Balance: 100003.98, Reason: Price Below MA | High Volume | Negative Momentum | Below VWAP | RSI:30.1
+INFO - INFO - SHORT Exit - Price: 25043.18, PnL: -1.37, Balance: 100002.60, Reason: Stop Loss
+INFO - 
+    Final Results:
+    Initial Balance: Rs.100,000.00
+    Final Balance: Rs.100,002.60
+    Total Profit/Loss: Rs.2.60
+    Return: 0.00%
+    Total Trades: 4
+    Win Rate: 50.00%
+    Max Drawdown: Rs.1.37
+    

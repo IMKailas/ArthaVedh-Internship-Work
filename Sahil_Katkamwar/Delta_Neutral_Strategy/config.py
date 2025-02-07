@@ -36,7 +36,7 @@ TRADING_DAYS = 252  # Number of trading days in a year
 
 # Logging Configuration
 LOG_FILE = 'delta_neutral_strategy.log'
-LOG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
+LOG_FORMAT = '%(levelname)s - %(message)s'
 
 # Data File
 DATA_FILE = './NSE_NIFTY_Intraday.csv'

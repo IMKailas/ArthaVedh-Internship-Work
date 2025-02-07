@@ -136,6 +136,8 @@ def delta_neutral_strategy(data, params):
     for i in range(1, len(data)):
         current_row = data.iloc[i]
         prev_row = data.iloc[i - 1]
+        # print(data['RSI'])
+        # print(current_row['RSI'])
 
         if pd.isna(current_row['RSI']) or pd.isna(current_row['MACD']):
             continue

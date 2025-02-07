@@ -1,8 +1,8 @@
 # config_swing.py
 
 # File Settings
-DATA_FILE_PATH = './NSE_NIFTY, 1D.csv'
-LOG_FILE_PATH = 'swing_trade.log'
+DATA_FILE_PATH = './NSE_NIFTY_1D.csv'
+LOG_FILE_PATH = 'swing_trading_strategy.log'
 
 # Account Settings
 INITIAL_BALANCE = 10000

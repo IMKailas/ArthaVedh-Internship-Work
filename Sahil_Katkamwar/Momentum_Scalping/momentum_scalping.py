@@ -12,6 +12,7 @@ logging.basicConfig(
     format=config.LOG_FORMAT
 )
 
+
 def calculate_indicators(df):
     """Calculate technical indicators using TA-Lib"""
     logging.info("Calculating technical indicators...")
@@ -46,6 +47,36 @@ def calculate_indicators(df):
     logging.info("Technical indicators calculated successfully.")
     return df
 
+
+def get_entry_reason(df, i):
+    """Generate detailed entry reason based on indicator conditions"""
+    current = df.iloc[i]
+
+    reasons = []
+    if current['Plot'] > current['Price_MA']:
+        reasons.append("Price Above MA")
+    elif current['Plot'] < current['Price_MA']:
+        reasons.append("Price Below MA")
+
+    if current['Volume_Ratio'] > config.MIN_VOLUME_RATIO:
+        reasons.append("High Volume")
+
+    if current['Price_Momentum'] > 0:
+        reasons.append("Positive Momentum")
+    elif current['Price_Momentum'] < 0:
+        reasons.append("Negative Momentum")
+
+    if current['Plot'] > current['VWAP']:
+        reasons.append("Above VWAP")
+    else:
+        reasons.append("Below VWAP")
+
+    if config.RSI_OVERSOLD < current['RSI'] < config.RSI_OVERBOUGHT:
+        reasons.append(f"RSI:{current['RSI']:.1f}")
+
+    return " | ".join(reasons)
+
+
 def check_entry_signal(df, i):
     """Identify entry signals based on momentum and volume"""
     current = df.iloc[i]
@@ -70,6 +101,7 @@ def check_entry_signal(df, i):
 
     return "LONG" if long_signal else "SHORT" if short_signal else None
 
+
 def calculate_exit_points(entry_price, position_type, atr):
     """Calculate stop loss and take profit levels"""
     atr_multiple = atr * config.ATR_MULTIPLIER
@@ -82,6 +114,7 @@ def calculate_exit_points(entry_price, position_type, atr):
         take_profit = entry_price - (atr_multiple * config.TAKE_PROFIT_RATIO)
 
     return stop_loss, take_profit
+
 
 def check_exit_signals(df, i, position_type, entry_price, stop_loss, take_profit, entry_time):
     """Check exit conditions for positions"""
@@ -115,6 +148,7 @@ def check_exit_signals(df, i, position_type, entry_price, stop_loss, take_profit
             exit_reason = "Time Exit"
 
     return bool(exit_reason), exit_reason
+
 
 def run_momentum_strategy(data_path, initial_balance=None):
     """Execute momentum scalping strategy"""
@@ -159,14 +193,9 @@ def run_momentum_strategy(data_path, initial_balance=None):
                 )
                 daily_trades += 1
 
-                logging.info(f"""
-                Entry:
-                Time: {entry_time}
-                Position: {position}
-                Price: {entry_price:.2f}
-                Stop Loss: {stop_loss:.2f}
-                Take Profit: {take_profit:.2f}
-                """)
+                entry_reason = get_entry_reason(df, i)
+                logging.info(
+                    f"INFO - {position} Entry - Price: {entry_price:.2f}, Balance: {balance:.2f}, Reason: {entry_reason}")
 
         else:  # Managing existing position
             should_exit, exit_reason = check_exit_signals(
@@ -177,6 +206,9 @@ def run_momentum_strategy(data_path, initial_balance=None):
                 profit = (current_price - entry_price) if position == "LONG" else (entry_price - current_price)
                 balance += profit
 
+                logging.info(
+                    f"INFO - {position} Exit - Price: {current_price:.2f}, PnL: {profit:.2f}, Balance: {balance:.2f}, Reason: {exit_reason}")
+
                 trades.append({
                     'entry_time': entry_time,
                     'exit_time': df.index[i],
@@ -186,16 +218,6 @@ def run_momentum_strategy(data_path, initial_balance=None):
                     'profit': profit,
                     'exit_reason': exit_reason
                 })
-
-                logging.info(f"""
-                Exit:
-                Time: {df.index[i]}
-                Position: {position}
-                Exit Price: {current_price:.2f}
-                Profit/Loss: Rs.{profit:.2f}
-                Reason: {exit_reason}
-                New Balance: Rs.{balance:.2f}
-                """)
 
                 position = None
 
@@ -237,6 +259,7 @@ def run_momentum_strategy(data_path, initial_balance=None):
         'return_pct': ((balance - initial_balance) / initial_balance) * 100,
         'trades': trades
     }
+
 
 if __name__ == "__main__":
     try:

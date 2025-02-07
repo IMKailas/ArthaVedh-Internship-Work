@@ -1,16 +1,16 @@
-2025-02-03 19:59:25,012 - INFO - Market data loaded from ./NSE_NIFTY_Intraday.csv
-2025-02-03 19:59:25,031 - INFO - Short Entry - Price: 25041.15, Size: 0.40, Balance: 10000.00, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:59:25,031 - INFO - Short Exit - Price: 25043.65, PnL: -9.98, Balance: 9990.02, Reason: Liquidation or Stop loss
-2025-02-03 19:59:25,045 - INFO - Short Entry - Price: 25066.10, Size: 0.40, Balance: 9990.02, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:59:25,045 - INFO - Short Exit - Price: 25070.05, PnL: -15.74, Balance: 9974.27, Reason: Liquidation or Stop loss
-2025-02-03 19:59:25,057 - INFO - Short Entry - Price: 25055.70, Size: 0.40, Balance: 9974.27, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:59:25,058 - INFO - Short Exit - Price: 25058.40, PnL: -10.75, Balance: 9963.53, Reason: Liquidation or Stop loss
-2025-02-03 19:59:25,074 - INFO - Strategy results:
-2025-02-03 19:59:25,074 - INFO - Initial Balance: Rs.10000.00
-2025-02-03 19:59:25,074 - INFO - Final Balance: Rs.9963.53
-2025-02-03 19:59:25,075 - INFO - Total Profit/Loss: Rs.-36.47
-2025-02-03 19:59:25,075 - INFO - Return: -0.36%
-2025-02-03 19:59:25,075 - INFO - Total Trades: 3
-2025-02-03 19:59:25,075 - INFO - Profitable Trades: 0
-2025-02-03 19:59:25,075 - INFO - Win Rate: 0.00%
-2025-02-03 19:59:25,075 - INFO - Max Drawdown: Rs.36.47
+INFO - Market data loaded from ./NSE_NIFTY_Intraday.csv
+INFO - Short Entry - Price: 25041.15, Size: 0.40, Balance: 10000.00, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25043.65, PnL: -9.98, Balance: 9990.02, Reason: Liquidation or Stop loss
+INFO - Short Entry - Price: 25066.10, Size: 0.40, Balance: 9990.02, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25070.05, PnL: -15.74, Balance: 9974.27, Reason: Liquidation or Stop loss
+INFO - Short Entry - Price: 25055.70, Size: 0.40, Balance: 9974.27, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25058.40, PnL: -10.75, Balance: 9963.53, Reason: Liquidation or Stop loss
+INFO - Strategy results:
+INFO - Initial Balance: Rs.10000.00
+INFO - Final Balance: Rs.9963.53
+INFO - Total Profit/Loss: Rs.-36.47
+INFO - Return: -0.36%
+INFO - Total Trades: 3
+INFO - Profitable Trades: 0
+INFO - Win Rate: 0.00%
+INFO - Max Drawdown: Rs.36.47

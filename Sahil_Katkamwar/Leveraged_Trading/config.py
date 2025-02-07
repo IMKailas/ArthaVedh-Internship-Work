@@ -19,7 +19,7 @@ VOLUME_MA_PERIOD = 20
 
 # Logging Configuration
 LOG_FILE = 'leveraged_trading_strategy.log'
-LOG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
+LOG_FORMAT = '%(levelname)s - %(message)s'
 LOG_LEVEL = logging.DEBUG
 
 # Data File

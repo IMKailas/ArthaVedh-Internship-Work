@@ -1,90 +1,89 @@
-2025-02-03 19:41:32,480 - INFO - Market data loaded from ./NSE_NIFTY_Intraday.csv
-2025-02-03 19:41:32,985 - INFO - Short Entry - Price: 25046.10, Size: 0.00, Balance: 10000.00, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:32,986 - INFO - Short Exit - Price: 25048.75, PnL: 0.10, Balance: 10000.10, Reason: Theta Decay
-2025-02-03 19:41:32,987 - INFO - Short Entry - Price: 25056.15, Size: 0.00, Balance: 10000.10, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:32,987 - INFO - Short Exit - Price: 25052.40, PnL: -0.13, Balance: 9999.96, Reason: Theta Decay
-2025-02-03 19:41:32,989 - INFO - Short Entry - Price: 25052.10, Size: 0.00, Balance: 9999.96, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:32,990 - INFO - Short Exit - Price: 25054.35, PnL: 0.09, Balance: 10000.05, Reason: Theta Decay
-2025-02-03 19:41:32,990 - INFO - Short Entry - Price: 25049.60, Size: 0.00, Balance: 10000.05, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:32,990 - INFO - Short Exit - Price: 25041.15, PnL: -0.32, Balance: 9999.73, Reason: Theta Decay
-2025-02-03 19:41:32,991 - INFO - Short Entry - Price: 25043.65, Size: 0.00, Balance: 9999.73, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:32,991 - INFO - Short Exit - Price: 25046.35, PnL: 0.10, Balance: 9999.83, Reason: Theta Decay
-2025-02-03 19:41:32,993 - INFO - Short Entry - Price: 25048.25, Size: 0.00, Balance: 9999.83, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:32,993 - INFO - Short Exit - Price: 25053.25, PnL: 0.18, Balance: 10000.01, Reason: Theta Decay
-2025-02-03 19:41:32,995 - INFO - Short Entry - Price: 25068.80, Size: 0.00, Balance: 10000.01, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:32,995 - INFO - Short Exit - Price: 25068.55, PnL: -0.01, Balance: 10000.01, Reason: Theta Decay
-2025-02-03 19:41:33,007 - INFO - Short Entry - Price: 25058.10, Size: 0.00, Balance: 10000.01, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,008 - INFO - Short Exit - Price: 25061.05, PnL: 0.11, Balance: 10000.12, Reason: Theta Decay
-2025-02-03 19:41:33,009 - INFO - Short Entry - Price: 25060.25, Size: 0.00, Balance: 10000.12, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,009 - INFO - Short Exit - Price: 25061.85, PnL: 0.06, Balance: 10000.18, Reason: Theta Decay
-2025-02-03 19:41:33,017 - INFO - Short Entry - Price: 25056.60, Size: 0.00, Balance: 10000.18, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,017 - INFO - Short Exit - Price: 25059.60, PnL: 0.11, Balance: 10000.30, Reason: Theta Decay
-2025-02-03 19:41:33,019 - INFO - Short Entry - Price: 25046.70, Size: 0.00, Balance: 10000.30, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,019 - INFO - Short Exit - Price: 25052.05, PnL: 0.20, Balance: 10000.49, Reason: Theta Decay
-2025-02-03 19:41:33,019 - INFO - Short Entry - Price: 25028.95, Size: 0.00, Balance: 10000.49, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,020 - INFO - Short Exit - Price: 25031.80, PnL: 0.10, Balance: 10000.59, Reason: Theta Decay
-2025-02-03 19:41:33,022 - INFO - Short Entry - Price: 25012.60, Size: 0.00, Balance: 10000.59, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,022 - INFO - Short Exit - Price: 25024.35, PnL: 0.40, Balance: 10000.99, Reason: Theta Decay
-2025-02-03 19:41:33,023 - INFO - Short Entry - Price: 25018.50, Size: 0.01, Balance: 10000.99, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,024 - INFO - Short Exit - Price: 25019.45, PnL: 0.03, Balance: 10001.02, Reason: Theta Decay
-2025-02-03 19:41:33,025 - INFO - Short Entry - Price: 25028.40, Size: 0.01, Balance: 10001.02, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,026 - INFO - Short Exit - Price: 25030.00, PnL: 0.05, Balance: 10001.06, Reason: Theta Decay
-2025-02-03 19:41:33,028 - INFO - Short Entry - Price: 25025.95, Size: 0.01, Balance: 10001.06, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,029 - INFO - Short Exit - Price: 25026.30, PnL: 0.01, Balance: 10001.07, Reason: Theta Decay
-2025-02-03 19:41:33,040 - INFO - Short Entry - Price: 25055.70, Size: 0.00, Balance: 10001.07, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,040 - INFO - Short Exit - Price: 25050.35, PnL: -0.20, Balance: 10000.88, Reason: Theta Decay
-2025-02-03 19:41:33,041 - INFO - Short Entry - Price: 25043.90, Size: 0.00, Balance: 10000.88, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,042 - INFO - Short Exit - Price: 25051.85, PnL: 0.31, Balance: 10001.19, Reason: Theta Decay
-2025-02-03 19:41:33,043 - INFO - Short Entry - Price: 25039.30, Size: 0.00, Balance: 10001.19, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,043 - INFO - Short Exit - Price: 25042.45, PnL: 0.11, Balance: 10001.31, Reason: Theta Decay
-2025-02-03 19:41:33,044 - INFO - Short Entry - Price: 25041.35, Size: 0.00, Balance: 10001.31, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,045 - INFO - Short Exit - Price: 25042.20, PnL: 0.03, Balance: 10001.34, Reason: Theta Decay
-2025-02-03 19:41:33,046 - INFO - Short Entry - Price: 25046.65, Size: 0.00, Balance: 10001.34, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,046 - INFO - Short Exit - Price: 25047.25, PnL: 0.02, Balance: 10001.36, Reason: Theta Decay
-2025-02-03 19:41:33,047 - INFO - Short Entry - Price: 25043.35, Size: 0.00, Balance: 10001.36, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,047 - INFO - Short Exit - Price: 25042.35, PnL: -0.04, Balance: 10001.32, Reason: Theta Decay
-2025-02-03 19:41:33,056 - INFO - Short Entry - Price: 25043.75, Size: 0.00, Balance: 10001.32, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,057 - INFO - Short Exit - Price: 25035.00, PnL: -0.35, Balance: 10000.97, Reason: Theta Decay
-2025-02-03 19:41:33,057 - INFO - Short Entry - Price: 25034.20, Size: 0.00, Balance: 10000.97, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,057 - INFO - Short Exit - Price: 25042.00, PnL: 0.31, Balance: 10001.28, Reason: Theta Decay
-2025-02-03 19:41:33,059 - INFO - Short Entry - Price: 25029.85, Size: 0.00, Balance: 10001.28, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,059 - INFO - Short Exit - Price: 25031.50, PnL: 0.06, Balance: 10001.34, Reason: Theta Decay
-2025-02-03 19:41:33,060 - INFO - Short Entry - Price: 25035.95, Size: 0.00, Balance: 10001.34, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,060 - INFO - Short Exit - Price: 25041.50, PnL: 0.20, Balance: 10001.55, Reason: Theta Decay
-2025-02-03 19:41:33,061 - INFO - Short Entry - Price: 25041.15, Size: 0.00, Balance: 10001.55, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,062 - INFO - Short Exit - Price: 25044.00, PnL: 0.11, Balance: 10001.66, Reason: Theta Decay
-2025-02-03 19:41:33,062 - INFO - Short Entry - Price: 25041.95, Size: 0.00, Balance: 10001.66, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,063 - INFO - Short Exit - Price: 25042.50, PnL: 0.02, Balance: 10001.68, Reason: Theta Decay
-2025-02-03 19:41:33,063 - INFO - Short Entry - Price: 25046.00, Size: 0.00, Balance: 10001.68, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,064 - INFO - Short Exit - Price: 25050.10, PnL: 0.15, Balance: 10001.83, Reason: Theta Decay
-2025-02-03 19:41:33,065 - INFO - Short Entry - Price: 25047.05, Size: 0.00, Balance: 10001.83, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,065 - INFO - Short Exit - Price: 25038.00, PnL: -0.33, Balance: 10001.49, Reason: Theta Decay
-2025-02-03 19:41:33,066 - INFO - Short Entry - Price: 25030.30, Size: 0.00, Balance: 10001.49, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,066 - INFO - Short Exit - Price: 25031.40, PnL: 0.04, Balance: 10001.54, Reason: Theta Decay
-2025-02-03 19:41:33,067 - INFO - Short Entry - Price: 25050.05, Size: 0.00, Balance: 10001.54, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,067 - INFO - Short Exit - Price: 25044.05, PnL: -0.21, Balance: 10001.33, Reason: Theta Decay
-2025-02-03 19:41:33,068 - INFO - Short Entry - Price: 25056.20, Size: 0.00, Balance: 10001.33, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,069 - INFO - Short Exit - Price: 25050.20, PnL: -0.19, Balance: 10001.14, Reason: Theta Decay
-2025-02-03 19:41:33,070 - INFO - Short Entry - Price: 25043.70, Size: 0.00, Balance: 10001.14, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,070 - INFO - Short Exit - Price: 25043.95, PnL: 0.01, Balance: 10001.15, Reason: Theta Decay
-2025-02-03 19:41:33,071 - INFO - Short Entry - Price: 25048.40, Size: 0.00, Balance: 10001.15, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,071 - INFO - Short Exit - Price: 25050.85, PnL: 0.08, Balance: 10001.23, Reason: Theta Decay
-2025-02-03 19:41:33,071 - INFO - Short Entry - Price: 25057.65, Size: 0.00, Balance: 10001.23, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,072 - INFO - Short Exit - Price: 25057.45, PnL: -0.01, Balance: 10001.22, Reason: Theta Decay
-2025-02-03 19:41:33,072 - INFO - Short Entry - Price: 25064.30, Size: 0.00, Balance: 10001.22, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,073 - INFO - Short Exit - Price: 25061.95, PnL: -0.08, Balance: 10001.14, Reason: Theta Decay
-2025-02-03 19:41:33,073 - INFO - Short Entry - Price: 25056.60, Size: 0.00, Balance: 10001.14, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,073 - INFO - Short Exit - Price: 25052.65, PnL: -0.12, Balance: 10001.01, Reason: Theta Decay
-2025-02-03 19:41:33,074 - INFO - Short Entry - Price: 25050.65, Size: 0.00, Balance: 10001.01, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,074 - INFO - Short Exit - Price: 25059.95, PnL: 0.32, Balance: 10001.33, Reason: Theta Decay
-2025-02-03 19:41:33,074 - INFO - Short Entry - Price: 25057.15, Size: 0.00, Balance: 10001.33, Reason: RSI overbought or MACD crossunder
-2025-02-03 19:41:33,075 - INFO - Short Exit - Price: 25054.00, PnL: -0.10, Balance: 10001.23, Reason: Theta Decay
-2025-02-03 19:41:33,078 - INFO - Strategy results:
-2025-02-03 19:41:33,078 - INFO - Initial Balance: Rs.10000.00
-2025-02-03 19:41:33,078 - INFO - Final Balance: Rs.10001.23
-2025-02-03 19:41:33,079 - INFO - Total Profit/Loss: Rs.1.23
-2025-02-03 19:41:33,079 - INFO - Return: 0.01%
-2025-02-03 19:41:33,079 - INFO - Total Trades: 40
-2025-02-03 19:41:33,079 - INFO - Profitable Trades: 27
-2025-02-03 19:41:33,079 - INFO - Win Rate: 67.50%
-2025-02-03 19:41:33,079 - INFO - Max Drawdown: Rs.0.27
+INFO - Short Entry - Price: 25046.10, Size: 0.00, Balance: 10000.00, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25048.75, PnL: 0.10, Balance: 10000.10, Reason: Theta Decay
+INFO - Short Entry - Price: 25056.15, Size: 0.00, Balance: 10000.10, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25052.40, PnL: -0.13, Balance: 9999.96, Reason: Theta Decay
+INFO - Short Entry - Price: 25052.10, Size: 0.00, Balance: 9999.96, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25054.35, PnL: 0.09, Balance: 10000.05, Reason: Theta Decay
+INFO - Short Entry - Price: 25049.60, Size: 0.00, Balance: 10000.05, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25041.15, PnL: -0.32, Balance: 9999.73, Reason: Theta Decay
+INFO - Short Entry - Price: 25043.65, Size: 0.00, Balance: 9999.73, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25046.35, PnL: 0.10, Balance: 9999.83, Reason: Theta Decay
+INFO - Short Entry - Price: 25048.25, Size: 0.00, Balance: 9999.83, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25053.25, PnL: 0.18, Balance: 10000.01, Reason: Theta Decay
+INFO - Short Entry - Price: 25068.80, Size: 0.00, Balance: 10000.01, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25068.55, PnL: -0.01, Balance: 10000.01, Reason: Theta Decay
+INFO - Short Entry - Price: 25058.10, Size: 0.00, Balance: 10000.01, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25061.05, PnL: 0.11, Balance: 10000.12, Reason: Theta Decay
+INFO - Short Entry - Price: 25060.25, Size: 0.00, Balance: 10000.12, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25061.85, PnL: 0.06, Balance: 10000.18, Reason: Theta Decay
+INFO - Short Entry - Price: 25056.60, Size: 0.00, Balance: 10000.18, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25059.60, PnL: 0.11, Balance: 10000.30, Reason: Theta Decay
+INFO - Short Entry - Price: 25046.70, Size: 0.00, Balance: 10000.30, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25052.05, PnL: 0.20, Balance: 10000.49, Reason: Theta Decay
+INFO - Short Entry - Price: 25028.95, Size: 0.00, Balance: 10000.49, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25031.80, PnL: 0.10, Balance: 10000.59, Reason: Theta Decay
+INFO - Short Entry - Price: 25012.60, Size: 0.00, Balance: 10000.59, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25024.35, PnL: 0.40, Balance: 10000.99, Reason: Theta Decay
+INFO - Short Entry - Price: 25018.50, Size: 0.01, Balance: 10000.99, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25019.45, PnL: 0.03, Balance: 10001.02, Reason: Theta Decay
+INFO - Short Entry - Price: 25028.40, Size: 0.01, Balance: 10001.02, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25030.00, PnL: 0.05, Balance: 10001.06, Reason: Theta Decay
+INFO - Short Entry - Price: 25025.95, Size: 0.01, Balance: 10001.06, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25026.30, PnL: 0.01, Balance: 10001.07, Reason: Theta Decay
+INFO - Short Entry - Price: 25055.70, Size: 0.00, Balance: 10001.07, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25050.35, PnL: -0.20, Balance: 10000.88, Reason: Theta Decay
+INFO - Short Entry - Price: 25043.90, Size: 0.00, Balance: 10000.88, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25051.85, PnL: 0.31, Balance: 10001.19, Reason: Theta Decay
+INFO - Short Entry - Price: 25039.30, Size: 0.00, Balance: 10001.19, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25042.45, PnL: 0.11, Balance: 10001.31, Reason: Theta Decay
+INFO - Short Entry - Price: 25041.35, Size: 0.00, Balance: 10001.31, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25042.20, PnL: 0.03, Balance: 10001.34, Reason: Theta Decay
+INFO - Short Entry - Price: 25046.65, Size: 0.00, Balance: 10001.34, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25047.25, PnL: 0.02, Balance: 10001.36, Reason: Theta Decay
+INFO - Short Entry - Price: 25043.35, Size: 0.00, Balance: 10001.36, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25042.35, PnL: -0.04, Balance: 10001.32, Reason: Theta Decay
+INFO - Short Entry - Price: 25043.75, Size: 0.00, Balance: 10001.32, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25035.00, PnL: -0.35, Balance: 10000.97, Reason: Theta Decay
+INFO - Short Entry - Price: 25034.20, Size: 0.00, Balance: 10000.97, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25042.00, PnL: 0.31, Balance: 10001.28, Reason: Theta Decay
+INFO - Short Entry - Price: 25029.85, Size: 0.00, Balance: 10001.28, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25031.50, PnL: 0.06, Balance: 10001.34, Reason: Theta Decay
+INFO - Short Entry - Price: 25035.95, Size: 0.00, Balance: 10001.34, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25041.50, PnL: 0.20, Balance: 10001.55, Reason: Theta Decay
+INFO - Short Entry - Price: 25041.15, Size: 0.00, Balance: 10001.55, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25044.00, PnL: 0.11, Balance: 10001.66, Reason: Theta Decay
+INFO - Short Entry - Price: 25041.95, Size: 0.00, Balance: 10001.66, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25042.50, PnL: 0.02, Balance: 10001.68, Reason: Theta Decay
+INFO - Short Entry - Price: 25046.00, Size: 0.00, Balance: 10001.68, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25050.10, PnL: 0.15, Balance: 10001.83, Reason: Theta Decay
+INFO - Short Entry - Price: 25047.05, Size: 0.00, Balance: 10001.83, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25038.00, PnL: -0.33, Balance: 10001.49, Reason: Theta Decay
+INFO - Short Entry - Price: 25030.30, Size: 0.00, Balance: 10001.49, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25031.40, PnL: 0.04, Balance: 10001.54, Reason: Theta Decay
+INFO - Short Entry - Price: 25050.05, Size: 0.00, Balance: 10001.54, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25044.05, PnL: -0.21, Balance: 10001.33, Reason: Theta Decay
+INFO - Short Entry - Price: 25056.20, Size: 0.00, Balance: 10001.33, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25050.20, PnL: -0.19, Balance: 10001.14, Reason: Theta Decay
+INFO - Short Entry - Price: 25043.70, Size: 0.00, Balance: 10001.14, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25043.95, PnL: 0.01, Balance: 10001.15, Reason: Theta Decay
+INFO - Short Entry - Price: 25048.40, Size: 0.00, Balance: 10001.15, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25050.85, PnL: 0.08, Balance: 10001.23, Reason: Theta Decay
+INFO - Short Entry - Price: 25057.65, Size: 0.00, Balance: 10001.23, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25057.45, PnL: -0.01, Balance: 10001.22, Reason: Theta Decay
+INFO - Short Entry - Price: 25064.30, Size: 0.00, Balance: 10001.22, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25061.95, PnL: -0.08, Balance: 10001.14, Reason: Theta Decay
+INFO - Short Entry - Price: 25056.60, Size: 0.00, Balance: 10001.14, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25052.65, PnL: -0.12, Balance: 10001.01, Reason: Theta Decay
+INFO - Short Entry - Price: 25050.65, Size: 0.00, Balance: 10001.01, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25059.95, PnL: 0.32, Balance: 10001.33, Reason: Theta Decay
+INFO - Short Entry - Price: 25057.15, Size: 0.00, Balance: 10001.33, Reason: RSI overbought or MACD crossunder
+INFO - Short Exit - Price: 25054.00, PnL: -0.10, Balance: 10001.23, Reason: Theta Decay
+INFO - Strategy results:
+INFO - Initial Balance: Rs.10000.00
+INFO - Final Balance: Rs.10001.23
+INFO - Total Profit/Loss: Rs.1.23
+INFO - Return: 0.01%
+INFO - Total Trades: 40
+INFO - Profitable Trades: 27
+INFO - Win Rate: 67.50%
+INFO - Max Drawdown: Rs.0.27

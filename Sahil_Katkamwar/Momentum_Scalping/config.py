@@ -1,6 +1,6 @@
 # File and Logging Configuration
-LOG_FILE = 'momentum_strategy.log'
-LOG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
+LOG_FILE = 'momentum_scalping_strategy.log'
+LOG_FORMAT = '%(levelname)s - %(message)s'
 LOG_LEVEL = 'DEBUG'
 DATA_FILE = "./NSE_NIFTY, 1 Intraday.csv"
 
