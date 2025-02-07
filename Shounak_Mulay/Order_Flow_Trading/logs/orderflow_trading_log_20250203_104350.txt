@@ -1,0 +1,73 @@
+===========================================
+  Order Flow Trading Strategy Started
+===========================================
+Initial Balance: 10000.00
+Stop Loss Percentage: 0.1%
+Target Profit Percentage: 1%
+
+Opened Buy position at 25091.70
+Entry Reasoning: Volume Trend: Strong | MFI: 51.89 (Bullish) | OBV Trend: Up | Chaikin Signal: Positive
+Stop Loss: 25066.61, Target Profit: 25342.62
+Entry Time: 2024-10-15 10:52:00+05:30
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Reasoning: Volume Trend: Strong | MFI: 51.89 (Bullish) | OBV Trend: Up | Chaikin Signal: Positive
+Entry Price: 25091.70, Exit Price: 25064.50
+Technical Indicators at Exit:
+MFI: 34.68
+OBV: 3582486.00
+ADOSC: -65726.99
+Profit/Loss: -27.20
+New Balance: 9972.80
+===========================================
+
+Opened Buy position at 25073.20
+Entry Reasoning: Volume Trend: Strong | MFI: 58.66 (Bullish) | OBV Trend: Up | Chaikin Signal: Positive
+Stop Loss: 25048.13, Target Profit: 25323.93
+Entry Time: 2024-10-15 11:20:00+05:30
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Reasoning: Volume Trend: Strong | MFI: 58.66 (Bullish) | OBV Trend: Up | Chaikin Signal: Positive
+Entry Price: 25073.20, Exit Price: 25047.90
+Technical Indicators at Exit:
+MFI: 39.97
+OBV: 2514627.00
+ADOSC: -345437.36
+Profit/Loss: -25.30
+New Balance: 9947.50
+===========================================
+
+Opened Buy position at 25052.10
+Entry Reasoning: Volume Trend: Strong | MFI: 53.18 (Bullish) | OBV Trend: Up | Chaikin Signal: Positive
+Stop Loss: 25027.05, Target Profit: 25302.62
+Entry Time: 2024-10-15 11:38:00+05:30
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Reasoning: Volume Trend: Strong | MFI: 53.18 (Bullish) | OBV Trend: Up | Chaikin Signal: Positive
+Entry Price: 25052.10, Exit Price: 25012.60
+Technical Indicators at Exit:
+MFI: 27.60
+OBV: 1855411.00
+ADOSC: -695665.34
+Profit/Loss: -39.50
+New Balance: 9908.00
+===========================================
+
+Opened Buy position at 25046.20
+Entry Reasoning: Volume Trend: Strong | MFI: 60.67 (Bullish) | OBV Trend: Up | Chaikin Signal: Positive
+Stop Loss: 25021.15, Target Profit: 25296.66
+Entry Time: 2024-10-15 13:35:00+05:30
+
+===========================================
+  Trading Summary
+===========================================
+Initial Balance: 10000.00
+Final Balance: 9908.00
+Total Profit/Loss: -92.00
+Total Trades: 3
+
+Win Rate: 0.00%
+Average Loss per Losing Trade: -30.67

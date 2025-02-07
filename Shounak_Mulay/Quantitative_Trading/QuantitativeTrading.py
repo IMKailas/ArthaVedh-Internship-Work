@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from datetime import datetime
 import config_QuantitativeTrading as config
+import talib
 
 def create_log_directory():
     log_dir = os.path.join(os.getcwd(), './Quantitative_Trading/logs')
@@ -14,6 +15,13 @@ def load_market_data(file_path):
         data = pd.read_csv(file_path)
         if config.ENABLE_DEBUG_LOGGING:
             print(f"Data loaded successfully from {file_path}")
+        
+        # Calculate indicators using TA-Lib
+        data['RSI'] = talib.RSI(data['close'], timeperiod=14)  # 14-period RSI
+        data['MACD'], data['Signal'], _ = talib.MACD(data['close'], fastperiod=12, slowperiod=26, signalperiod=9)  # MACD
+        data['Upper Bollinger Band'], data['Middle Bollinger Band'], data['Lower Bollinger Band'] = talib.BBANDS(data['close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=0)  # Bollinger Bands
+        data['Volume_MA'] = talib.SMA(data['Volume'], timeperiod=14)  # Volume Moving Average
+        
         return data
     except FileNotFoundError:
         log_error(f"Error: File not found at {file_path}")
@@ -62,7 +70,7 @@ def quantitative_decision(row, rsi_overbought, rsi_oversold, volume_ma):
     # Combine reasoning
     full_reasoning = " | ".join(reasoning)
 
-    if rsi < rsi_oversold and macd > signal and price < lower_band and volume > volume_ma:
+    if rsi < rsi_oversold and volume > volume_ma:
         return "Buy", full_reasoning
     return "Hold", full_reasoning
 

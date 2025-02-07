@@ -1,0 +1,94 @@
+===========================================
+  Leveraged ETF Trading Strategy  
+===========================================
+Initial Balance: 10000.00
+Leverage: 3x
+Stop Loss Percentage: 0.1%
+Target Profit Percentage: 0.1%
+High Volatility Threshold: 1.0
+
+Opened Buy position at 25085.80
+Entry Reasoning: ATR (Volatility): 6.95 | ADX (Trend Strength): 26.04 | Momentum: 17.25 | RSI: 66.66 | Price: 25085.80 | BB Upper: 25095.38 | BB Lower: 25043.59 | Position: No Position | No Prior Entry
+Stop Loss: 25060.71, Target: 25110.89
+Entry Time: 2024-10-15 12:04:00+05:30
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Reasoning: ATR (Volatility): 6.95 | ADX (Trend Strength): 26.04 | Momentum: 17.25 | RSI: 66.66 | Price: 25085.80 | BB Upper: 25095.38 | BB Lower: 25043.59 | Position: No Position | No Prior Entry
+Entry Price: 25085.80, Exit Price: 25059.65
+Profit/Loss: -78.45
+New Balance: 9921.55
+Exit Time: 2024-10-15 12:18:00+05:30
+===========================================
+
+Opened Buy position at 25036.35
+Entry Reasoning: ATR (Volatility): 8.08 | ADX (Trend Strength): 38.67 | Momentum: 12.00 | RSI: 48.25 | Price: 25036.35 | BB Upper: 25060.91 | BB Lower: 25004.71 | Position: No Position | No Prior Entry
+Stop Loss: 25011.31, Target: 25061.39
+Entry Time: 2024-10-15 13:16:00+05:30
+
+===========================================
+Closed Buy position: Target Profit
+Entry Reasoning: ATR (Volatility): 8.08 | ADX (Trend Strength): 38.67 | Momentum: 12.00 | RSI: 48.25 | Price: 25036.35 | BB Upper: 25060.91 | BB Lower: 25004.71 | Position: No Position | No Prior Entry
+Entry Price: 25036.35, Exit Price: 25062.15
+Profit/Loss: 77.40
+New Balance: 9998.95
+Exit Time: 2024-10-15 13:40:00+05:30
+===========================================
+
+Opened Buy position at 25059.90
+Entry Reasoning: ATR (Volatility): 7.36 | ADX (Trend Strength): 26.54 | Momentum: 9.05 | RSI: 63.45 | Price: 25059.90 | BB Upper: 25063.87 | BB Lower: 25029.66 | Position: No Position | No Prior Entry
+Stop Loss: 25034.84, Target: 25084.96
+Entry Time: 2024-10-15 13:41:00+05:30
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Reasoning: ATR (Volatility): 7.36 | ADX (Trend Strength): 26.54 | Momentum: 9.05 | RSI: 63.45 | Price: 25059.90 | BB Upper: 25063.87 | BB Lower: 25029.66 | Position: No Position | No Prior Entry
+Entry Price: 25059.90, Exit Price: 25034.20
+Profit/Loss: -77.10
+New Balance: 9921.85
+Exit Time: 2024-10-15 14:38:00+05:30
+===========================================
+
+===========================================
+  Trading Summary
+===========================================
+Initial Balance: 10000.00
+Final Balance: 9921.85
+Total Profit/Loss: -78.15
+Total Trades Executed: 3
+
+Detailed Trade Analysis:
+
+Trade #1:
+Entry Time: 2024-10-15 12:04:00+05:30
+Exit Time: 2024-10-15 12:18:00+05:30
+Entry Price: 25085.80
+Exit Price: 25059.65
+Status: Stop Loss
+Profit/Loss: -78.45
+Entry Reasoning: ATR (Volatility): 6.95 | ADX (Trend Strength): 26.04 | Momentum: 17.25 | RSI: 66.66 | Price: 25085.80 | BB Upper: 25095.38 | BB Lower: 25043.59 | Position: No Position | No Prior Entry
+
+Trade #2:
+Entry Time: 2024-10-15 13:16:00+05:30
+Exit Time: 2024-10-15 13:40:00+05:30
+Entry Price: 25036.35
+Exit Price: 25062.15
+Status: Target Profit
+Profit/Loss: 77.40
+Entry Reasoning: ATR (Volatility): 8.08 | ADX (Trend Strength): 38.67 | Momentum: 12.00 | RSI: 48.25 | Price: 25036.35 | BB Upper: 25060.91 | BB Lower: 25004.71 | Position: No Position | No Prior Entry
+
+Trade #3:
+Entry Time: 2024-10-15 13:41:00+05:30
+Exit Time: 2024-10-15 14:38:00+05:30
+Entry Price: 25059.90
+Exit Price: 25034.20
+Status: Stop Loss
+Profit/Loss: -77.10
+Entry Reasoning: ATR (Volatility): 7.36 | ADX (Trend Strength): 26.54 | Momentum: 9.05 | RSI: 63.45 | Price: 25059.90 | BB Upper: 25063.87 | BB Lower: 25029.66 | Position: No Position | No Prior Entry
+
+Profit/Loss Statistics:
+Profitable Trades: 1
+Loss-making Trades: 2
+Average Profit per winning trade: 77.40
+Average Loss per losing trade: -77.77
+Win Rate: 33.33%

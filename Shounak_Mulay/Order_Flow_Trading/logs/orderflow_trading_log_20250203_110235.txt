@@ -1,0 +1,114 @@
+===========================================
+  Order Flow Trading Strategy Started
+===========================================
+Initial Balance: 10000.00
+Stop Loss Percentage: 0.1%
+Target Profit Percentage: 1%
+
+Opened Buy position at 25090.55
+Entry Reasoning: Volume: 546,862 vs MA: 541,186.5 (Above MA) | OBV: 4,129,538.0 (Positive)
+Stop Loss: 25065.46, Target Profit: 25341.46
+Entry Time: 2024-10-15 10:47:00+05:30
+OBV: 4,129,538.0, Volume: 546,862
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Reasoning: Volume: 546,862 vs MA: 541,186.5 (Above MA) | OBV: 4,129,538.0 (Positive)
+Entry Price: 25090.55, Exit Price: 25064.50
+OBV at Entry: 3,582,486.0
+Volume at Entry: 255,398
+Profit/Loss: -26.05
+New Balance: 9973.95
+Exit Time: 2024-10-15 11:11:00+05:30
+===========================================
+
+Opened Buy position at 25066.15
+Entry Reasoning: Volume: 411,008 vs MA: 379,040.0 (Above MA) | OBV: 3,515,845.0 (Positive)
+Stop Loss: 25041.08, Target Profit: 25316.81
+Entry Time: 2024-10-15 11:15:00+05:30
+OBV: 3,515,845.0, Volume: 411,008
+
+===========================================
+Closed Buy position: Stop Loss
+Entry Reasoning: Volume: 411,008 vs MA: 379,040.0 (Above MA) | OBV: 3,515,845.0 (Positive)
+Entry Price: 25066.15, Exit Price: 25028.95
+OBV at Entry: 1,951,943.0
+Volume at Entry: 757,077
+Profit/Loss: -37.20
+New Balance: 9936.75
+Exit Time: 2024-10-15 13:02:00+05:30
+===========================================
+
+Opened Buy position at 25031.80
+Entry Reasoning: Volume: 537,961 vs MA: 465,765.9285714286 (Above MA) | OBV: 2,489,904.0 (Positive)
+Stop Loss: 25006.77, Target Profit: 25282.12
+Entry Time: 2024-10-15 13:03:00+05:30
+OBV: 2,489,904.0, Volume: 537,961
+
+===========================================
+Closed remaining position at market close
+Entry Reasoning: Volume: 537,961 vs MA: 465,765.9285714286 (Above MA) | OBV: 2,489,904.0 (Positive)
+Entry Price: 25031.80, Exit Price: 25057.35
+OBV at Entry: 7,168,939.0
+Volume at Entry: 0
+Profit/Loss: 25.55
+Final Balance: 9962.30
+===========================================
+
+===========================================
+  Trading Summary
+===========================================
+Initial Balance: 10000.00
+Final Balance: 9962.30
+Total Profit/Loss: -37.70
+Total Trades Executed: 3
+
+Detailed Trade Analysis:
+
+Trade #1:
+Entry Time: 2024-10-15 10:47:00+05:30
+Exit Time: 2024-10-15 11:11:00+05:30
+Entry Price: 25090.55
+Exit Price: 25064.50
+OBV at Entry: 3,582,486.0
+Volume at Entry: 255,398
+Status: Stop Loss
+Profit/Loss: -26.05
+Entry Reasoning: Volume: 546,862 vs MA: 541,186.5 (Above MA) | OBV: 4,129,538.0 (Positive)
+
+Trade #2:
+Entry Time: 2024-10-15 11:15:00+05:30
+Exit Time: 2024-10-15 13:02:00+05:30
+Entry Price: 25066.15
+Exit Price: 25028.95
+OBV at Entry: 1,951,943.0
+Volume at Entry: 757,077
+Status: Stop Loss
+Profit/Loss: -37.20
+Entry Reasoning: Volume: 411,008 vs MA: 379,040.0 (Above MA) | OBV: 3,515,845.0 (Positive)
+
+Trade #3:
+Entry Time: 2024-10-15 13:03:00+05:30
+Exit Time: 2024-10-15 15:32:00+05:30
+Entry Price: 25031.80
+Exit Price: 25057.35
+OBV at Entry: 7,168,939.0
+Volume at Entry: 0
+Status: Market Close
+Profit/Loss: 25.55
+Entry Reasoning: Volume: 537,961 vs MA: 465,765.9285714286 (Above MA) | OBV: 2,489,904.0 (Positive)
+
+Profit/Loss Statistics:
+Profitable Trades: 1
+Loss-making Trades: 2
+Average Profit per Winning Trade: 25.55
+Average Loss per Losing Trade: -31.62
+Win Rate: 33.33%
+
+Order Flow-specific Metrics:
+Average OBV at Entry: 4234456.00
+Average Volume at Entry: 337491.67
+Maximum Single Trade Profit: 25.55
+Maximum Single Trade Loss: -37.20
+
+===========================================

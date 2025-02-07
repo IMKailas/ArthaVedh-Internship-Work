@@ -1,5 +1,3 @@
-# Config file for theta decay trading strategy
-
 # Logging configuration
 LOG_FILE = "theta_decay_strategy.log"
 

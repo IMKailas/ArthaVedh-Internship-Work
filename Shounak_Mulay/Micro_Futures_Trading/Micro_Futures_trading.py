@@ -3,6 +3,7 @@ import time
 import os
 from datetime import datetime
 import config_MicroFuturesTrading
+import talib 
 
 def create_log_directory():
     log_dir = os.path.join(os.getcwd(), './Micro_Futures_Trading/logs')
@@ -215,6 +216,8 @@ if __name__ == "__main__":
     csv_file = os.path.join(os.getcwd(), './Momentum_Trading/NSE_NIFTY, 1 Intraday.csv')
     
     try:
+        data = load_market_data(csv_file)
+        data['RSI'] = talib.RSI(data['close'])
         initial_balance = config_MicroFuturesTrading.initial_balance
         leverage = config_MicroFuturesTrading.leverage
         stop_loss_pct = config_MicroFuturesTrading.stop_loss_pct

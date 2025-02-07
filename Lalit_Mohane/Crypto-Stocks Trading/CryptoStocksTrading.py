@@ -1,105 +1,92 @@
+# Save this as `trading_strategy.py`
 import pandas as pd
+import numpy as np
+import talib
 import logging
-from config import config  # Import configurations
+import os
+from config import CONFIG
 
-# Setup logging using configurations from config.py
-logging.basicConfig(
-    filename=config["log_file"],
-    level=getattr(logging, config["logging"]["level"]),
-    format=config["logging"]["format"],
-    datefmt=config["logging"]["datefmt"]
-)
-
-def load_market_data(csv_file):
-    """
-    Load market data from a CSV file.
-    """
-    return pd.read_csv(csv_file)
-
-def generate_signals(market_data, config):
-    """
-    Generate Buy/Sell/Hold signals based on price movement and volume.
-    """
-    signals = []
-    for i in range(1, len(market_data)):
-        price_movement = (market_data.loc[i, 'close'] - market_data.loc[i - 1, 'close']) / market_data.loc[i - 1, 'close']
-        volume = market_data.loc[i, 'Volume']
-        volume_ma = market_data.loc[i, 'Volume MA']
+class TradingStrategy:
+    def __init__(self, config):
+        self.config = config
+        self.position = None
+        self.balance = config["initial_balance"]
+        self.trade_log = []
         
-        if price_movement > config["price_movement_threshold"] and volume > config["volume_multiplier"] * volume_ma:
-            signals.append("Buy")
-        elif price_movement < -config["price_movement_threshold"] and volume > config["volume_multiplier"] * volume_ma:
-            signals.append("Sell")
-        else:
-            signals.append("Hold")
-    signals.insert(0, "Hold")  # First row has no prior data
-    return signals
+        os.makedirs(os.path.dirname(config["log_file"]), exist_ok=True)
+        logging.basicConfig(
+            filename=config["log_file"],
+            level=getattr(logging, config["logging"]["level"]),
+            format=config["logging"]["format"],
+            datefmt=config["logging"]["datefmt"]
+        )
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.INFO)
+        formatter = logging.Formatter(config["logging"]["format"])
+        console_handler.setFormatter(formatter)
+        logging.getLogger('').addHandler(console_handler)
+    
+    def load_data(self):
+        if not os.path.exists(self.config["csv_file"]):
+            raise FileNotFoundError("CSV file not found.")
+        df = pd.read_csv(self.config["csv_file"])
+        required_columns = ['open', 'high', 'low', 'close', 'Volume']
+        missing = [col for col in required_columns if col not in df.columns]
+        if missing:
+            raise ValueError(f"Missing columns: {missing}")
+        return df
 
-def execute_trades(market_data, signals, config):
-    """
-    Execute trades based on generated signals and calculate profit and statistics.
-    """
-    balance = config["initial_balance"]
-    total_trades = 0
-    successful_trades = 0
-    profit = 0
-    trade_log = []
-    position = None
+    def calculate_indicators(self, df):
+        df['RSI'] = talib.RSI(df['close'], timeperiod=self.config["indicators"]["rsi"]["period"])
+        macd, signal, hist = talib.MACD(df['close'], 
+                                        fastperiod=self.config["indicators"]["macd"]["fast_period"],
+                                        slowperiod=self.config["indicators"]["macd"]["slow_period"],
+                                        signalperiod=self.config["indicators"]["macd"]["signal_period"])
+        df['MACD'] = macd
+        df['MACD_Signal'] = signal
+        upper, middle, lower = talib.BBANDS(df['close'], 
+                                            timeperiod=self.config["indicators"]["bollinger"]["period"], 
+                                            nbdevup=self.config["indicators"]["bollinger"]["std_dev"],
+                                            nbdevdn=self.config["indicators"]["bollinger"]["std_dev"])
+        df['BB_Upper'] = upper
+        df['BB_Middle'] = middle
+        df['BB_Lower'] = lower
+        return df
 
-    for i in range(len(signals)):
-        if signals[i] == "Buy" and position is None:
-            # Open a position
-            position = market_data.loc[i, 'close']
-            trade_log.append(f"Buy at {position} on {market_data.loc[i, 'time']}")
-            total_trades += 1
+    def generate_signals(self, df):
+        df['Signal'] = 0
+        df.loc[(df['RSI'] < 30) & (df['MACD'] > df['MACD_Signal']), 'Signal'] = 1
+        df.loc[(df['RSI'] > 70) & (df['MACD'] < df['MACD_Signal']), 'Signal'] = -1
+        return df['Signal']
 
-        elif signals[i] == "Sell" and position is not None:
-            # Close the position
-            sell_price = market_data.loc[i, 'close']
-            trade_profit = sell_price - position
-            profit += trade_profit
-            balance += trade_profit
-            if trade_profit > 0:
-                successful_trades += 1
-            trade_log.append(f"Sell at {sell_price} on {market_data.loc[i, 'time']}, Profit: {trade_profit:.2f}")
-            position = None
+    def execute_trades(self, df, signals):
+        total_trades = 0
+        successful_trades = 0
 
-    # Calculate statistics
-    win_rate = (successful_trades / total_trades * 100) if total_trades > 0 else 0
-    logging.info(f"Total Trades: {total_trades}")
-    logging.info(f"Successful Trades: {successful_trades}")
-    logging.info(f"Win Rate: {win_rate:.2f}%")
-    logging.info(f"Final Balance: {balance:.2f}")
-    logging.info(f"Profit: {profit:.2f}")
-    return total_trades, successful_trades, win_rate, profit, balance, trade_log
+        for i, signal in enumerate(signals):
+            if signal == 1:  # Buy
+                self.position = df['close'][i]
+            elif signal == -1 and self.position:  # Sell
+                profit = df['close'][i] - self.position
+                self.balance += profit
+                self.trade_log.append({'buy': self.position, 'sell': df['close'][i], 'profit': profit})
+                self.position = None
+                total_trades += 1
+                if profit > 0:
+                    successful_trades += 1
+        return total_trades, successful_trades
 
-def run_crypto_stock_strategy(config):
-    """
-    Run the crypto-stock trading strategy.
-    """
-    # Step 1: Load data
-    market_data = load_market_data(config["csv_file"])
+    def run_strategy(self):
+        df = self.load_data()
+        df = self.calculate_indicators(df)
+        signals = self.generate_signals(df)
+        total_trades, successful_trades = self.execute_trades(df, signals)
+        return {
+            "total_trades": total_trades,
+            "successful_trades": successful_trades,
+            "balance": self.balance
+        }
 
-    # Step 2: Generate signals
-    signals = generate_signals(market_data, config)
-
-    # Step 3: Execute trades
-    total_trades, successful_trades, win_rate, profit, final_balance, trade_log = execute_trades(market_data, signals, config)
-
-    # Print results to the terminal
-    print("=== Trading Strategy Summary ===")
-    print(f"Total Trades Executed: {total_trades}")
-    print(f"Successful Trades: {successful_trades}")
-    print(f"Win Rate: {win_rate:.2f}%")
-    print(f"Profit: {profit:.2f}")
-    print(f"Final Balance: {final_balance:.2f}")
-
-    # Save the trade log to a file
-    with open(config["log_file"], 'w') as f:
-        f.write("=== Trade Log ===\n")
-        for entry in trade_log:
-            f.write(entry + '\n')
-
-# Run the strategy
 if __name__ == "__main__":
-    run_crypto_stock_strategy(config)
+    strategy = TradingStrategy(CONFIG)
+    print(strategy.run_strategy())

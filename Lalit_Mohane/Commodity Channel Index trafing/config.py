@@ -5,8 +5,8 @@ class Config:
         self.take_profit_pct = 0.05  # Take-profit as a percentage (5%)
 
         # Indicator Calculation Parameters
-        self.sma_window = 14  # Simple Moving Average window
-        self.cci_window = 14  # Commodity Channel Index window
+        self.sma_window = 20  # Simple Moving Average window
+        self.cci_window = 20  # CCI window
         self.rsi_window = 14  # Relative Strength Index window
         self.volume_ma_window = 14  # Volume Moving Average window
 
@@ -15,3 +15,7 @@ class Config:
 
         # Logging Configuration
         self.log_file = "trades.log"  # Log file for storing trades and signals
+        self.log_details = True  # Enable detailed logging
+
+        # Initial Balance
+        self.initial_balance = 10000  # Starting balance for trading

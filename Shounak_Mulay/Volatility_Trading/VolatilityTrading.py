@@ -1,6 +1,7 @@
 import pandas as pd
+import numpy as np
 import os
-import random
+import talib
 from datetime import datetime
 import config_VolatilityTrading as config
 
@@ -18,54 +19,98 @@ def load_market_data(file_path):
         return data
     except FileNotFoundError:
         print(f"Error: File not found at {file_path}")
-        log_error(f"Error: File not found at {file_path}")
+        # log_error(f"Error: File not found at {file_path}")
         raise
 
-def log_error(message):
-    log_dir = create_log_directory()
-    log_filename = os.path.join(log_dir, "error_log.txt")
-    with open(log_filename, 'a') as f:
-        f.write(f"{message}\n")
+def calculate_technical_indicators(data):
+    """Calculate various technical indicators using TALib"""
+    high = data['high'].values
+    low = data['low'].values
+    close = data['close'].values
+    volume = data['Volume'].values
+    
+    # Volatility Indicators
+    data['ATR'] = talib.ATR(high, low, close, timeperiod=14)
+    data['NATR'] = talib.NATR(high, low, close, timeperiod=14)
+    data['TRANGE'] = talib.TRANGE(high, low, close)
+    
+    # Momentum and Trend Indicators
+    data['ADX'] = talib.ADX(high, low, close, timeperiod=14)
+    data['RSI'] = talib.RSI(close, timeperiod=14)
+    
+    # Bollinger Bands for Volatility
+    upper, middle, lower = talib.BBANDS(close, timeperiod=20, nbdevup=2, nbdevdn=2)
+    data['BB_UPPER'] = upper
+    data['BB_MIDDLE'] = middle
+    data['BB_LOWER'] = lower
+    data['BB_WIDTH'] = (upper - lower) / middle
+    
+    # Custom Volatility Score
+    data['VOL_SCORE'] = (data['NATR'] + data['BB_WIDTH']) / 2
+    
+    return data
 
-def simulate_vix():
-    return round(random.uniform(20, 40), 2)
+def calculate_implied_volatility(data):
+    """
+    Calculate a synthetic implied volatility measure
+    Note: This is a simplified approximation since real implied volatility 
+    requires options data
+    """
+    close = data['close'].values
+    high = data['high'].values
+    low = data['low'].values
+    
+    # Calculate historical volatility using log returns
+    log_returns = np.log(close[1:] / close[:-1])
+    hist_vol = np.std(log_returns) * np.sqrt(252)  # Annualized
+    
+    # Calculate Parkinson volatility estimator
+    parkinsons_vol = np.sqrt(1 / (4 * np.log(2)) * np.mean(np.log(high/low)**2)) * np.sqrt(252)
+    
+    # Synthetic IV (combination of historical and Parkinson's volatility)
+    synthetic_iv = (hist_vol + parkinsons_vol) / 2
+    
+    return synthetic_iv
 
-def volume_price_decision(row, previous_row, vix):
-    volume = row['Volume']
-    price = row['close']
-    previous_price = previous_row['close'] if previous_row is not None else price
+def volatility_decision(row, previous_row, synthetic_iv):
+    """Enhanced decision making using technical indicators and volatility measures"""
+    
+    # Define thresholds
+    vol_score_threshold = config.VOL_SCORE_THRESHOLD
+    atr_threshold = config.ATR_THRESHOLD
+    adx_threshold = config.ADX_THRESHOLD
+    rsi_oversold = config.RSI_OVERSOLD
+    
+    # Volatility conditions
+    high_volatility = (row['VOL_SCORE'] > vol_score_threshold and 
+                      row['ATR'] > atr_threshold)
+    
+    # Trend strength
+    strong_trend = row['ADX'] > adx_threshold
+    
+    # RSI conditions
+    oversold = row['RSI'] < rsi_oversold
 
-    volume_threshold = config.VOLUME_THRESHOLD
-    price_increase_threshold = config.PRICE_INCREASE_THRESHOLD
-    high_vix_threshold = config.HIGH_VIX_THRESHOLD
-
-    price_change_percentage = ((price - previous_price) / previous_price) * 100 if previous_price != 0 else 0
-
-    if config.ENABLE_DEBUG_LOGGING:
-        print(f"\nAnalyzing conditions:")
-        print(f"Volume: {volume}")
-        print(f"Price Change %: {price_change_percentage:.2f}")
-        print(f"VIX: {vix}")
-
-    if vix > high_vix_threshold and volume > volume_threshold and price_change_percentage > price_increase_threshold:
+    if (high_volatility and strong_trend and oversold):
         return "Buy"
+    
     return "Hold"
 
-def simulate_price_change(entry_price, current_price):
-    price_fluctuation = current_price - entry_price
-    return round(current_price + price_fluctuation, 2)
-
 def run_volatility_strategy(data, initial_balance, stop_loss_pct, target_profit_pct):
+    # Calculate technical indicators
+    data = calculate_technical_indicators(data)
+    synthetic_iv = calculate_implied_volatility(data)
+    
     # Create log directory and file
     log_dir = create_log_directory()
     log_filename = os.path.join(log_dir, f"volatility_trading_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt")
-
+    
     def log_trade(message):
         with open(log_filename, 'a') as f:
             f.write(f"{message}\n")
         if config.ENABLE_DEBUG_LOGGING:
             print(message)
-
+    
     balance = initial_balance
     position = None
     trade_price = None
@@ -73,24 +118,26 @@ def run_volatility_strategy(data, initial_balance, stop_loss_pct, target_profit_
     target_profit = None
     trade_entry_time = None
     trades = []
-
+    
     # Initialize logging
     log_trade(f"===========================================")
-    log_trade(f"  Volatility Trading Strategy Started")
+    log_trade(f"  Enhanced Volatility Trading Strategy Started")
     log_trade(f"===========================================")
     log_trade(f"Initial Balance: {balance:.2f}")
     log_trade(f"Stop Loss Percentage: {stop_loss_pct}%")
     log_trade(f"Target Profit Percentage: {target_profit_pct}%")
-
+    
     previous_row = None
     for index, row in data.iterrows():
+        if index < 20:  # Skip initial periods to allow for indicator calculation
+            previous_row = row
+            continue
+            
         current_price = row['close']
-        volume = row['Volume']
-        vix = simulate_vix()
         timestamp = pd.Timestamp(row['time']) if 'time' in row else pd.Timestamp.now()
-
+        
         if position is None:
-            decision = volume_price_decision(row, previous_row, vix)
+            decision = volatility_decision(row, previous_row, synthetic_iv)
             if decision == "Buy":
                 position = "Buy"
                 trade_price = current_price
@@ -101,11 +148,11 @@ def run_volatility_strategy(data, initial_balance, stop_loss_pct, target_profit_
                 log_trade(f"\nOpened {position} position at {trade_price:.2f}")
                 log_trade(f"Stop Loss: {stop_loss:.2f}, Target Profit: {target_profit:.2f}")
                 log_trade(f"Entry Time: {trade_entry_time}")
-                log_trade(f"Current VIX: {vix}")
-
+                log_trade(f"Current VOL_SCORE: {row['VOL_SCORE']:.2f}")
+                log_trade(f"Current ATR: {row['ATR']:.2f}")
+                log_trade(f"Current Synthetic IV: {synthetic_iv:.2f}")
+        
         if position == "Buy":
-            current_price = simulate_price_change(trade_price, current_price)
-
             if current_price <= stop_loss or current_price >= target_profit:
                 profit = current_price - trade_price
                 balance += profit
@@ -120,10 +167,11 @@ def run_volatility_strategy(data, initial_balance, stop_loss_pct, target_profit_
                     'exit_price': current_price,
                     'status': exit_reason,
                     'profit': profit,
-                    'vix_at_entry': vix
+                    'vol_score_at_entry': row['VOL_SCORE'],
+                    'synthetic_iv_at_entry': synthetic_iv
                 }
                 trades.append(trade_info)
-
+                
                 log_trade(f"\n===========================================")
                 log_trade(f"Closed {position} position: {exit_reason}")
                 log_trade(f"Entry Price: {trade_price:.2f}, Exit Price: {current_price:.2f}")
@@ -137,73 +185,37 @@ def run_volatility_strategy(data, initial_balance, stop_loss_pct, target_profit_
                 stop_loss = None
                 target_profit = None
                 trade_entry_time = None
-
+        
         if balance <= initial_balance * 0.7:
             log_trade(f"Balance dropped below 70% of initial value. Stopping strategy.")
             break
-
+        
         previous_row = row
-
-    # Close any remaining position
-    if position is not None:
-        final_price = data.iloc[-1]['close']
-        profit = final_price - trade_price
-        balance += profit
-        trades.append({
-            'entry_time': trade_entry_time,
-            'exit_time': timestamp,
-            'type': position,
-            'entry_price': trade_price,
-            'exit_price': final_price,
-            'status': 'Market Close',
-            'profit': profit,
-            'vix_at_entry': vix
-        })
-
-        log_trade(f"\n===========================================")
-        log_trade(f"Closed remaining position at market close.")
-        log_trade(f"Entry Price: {trade_price:.2f}, Exit Price: {final_price:.2f}")
-        log_trade(f"Profit/Loss: {profit:.2f}")
-        log_trade(f"New Balance: {balance:.2f}")
-        log_trade(f"===========================================")
-
-    # Trading Summary
+    
+    # Trading Summary and Analysis
     log_trade("\n===========================================")
     log_trade(f"  Trading Summary")
     log_trade(f"===========================================")
     log_trade(f"Initial Balance: {initial_balance:.2f}")
     log_trade(f"Final Balance: {balance:.2f}")
     log_trade(f"Total Profit/Loss: {balance - initial_balance:.2f}")
-    log_trade(f"Total Trades Executed: {len(trades)}")
-
+    log_trade(f"Total Trades: {len(trades)}")
+    
     if len(trades) > 0:
         trades_df = pd.DataFrame(trades)
         trades_df['profit'] = trades_df['profit'].astype(float)
-        profit_trades = trades_df[trades_df['profit'] > 0]
-        loss_trades = trades_df[trades_df['profit'] < 0]
-
-        log_trade(f"Profitable Trades: {len(profit_trades)}")
-        log_trade(f"Loss-making Trades: {len(loss_trades)}")
-        if len(profit_trades) > 0:
-            log_trade(f"Average Profit per Winning Trade: {profit_trades['profit'].mean():.2f}")
-            log_trade(f"Highest Profit Trade: {profit_trades['profit'].max():.2f}")
-        if len(loss_trades) > 0:
-            log_trade(f"Average Loss per Losing Trade: {loss_trades['profit'].mean():.2f}")
-            log_trade(f"Largest Loss Trade: {loss_trades['profit'].min():.2f}")
-
-        win_rate = len(profit_trades) / len(trades) * 100
-        log_trade(f"Win Rate: {win_rate:.2f}%")
         
-        # Additional VIX analysis
-        log_trade(f"\nVIX Analysis:")
-        log_trade(f"Average VIX at Entry: {trades_df['vix_at_entry'].mean():.2f}")
-        profit_trades_vix = trades_df[trades_df['profit'] > 0]['vix_at_entry'].mean()
-        loss_trades_vix = trades_df[trades_df['profit'] < 0]['vix_at_entry'].mean()
-        log_trade(f"Average VIX on Profitable Trades: {profit_trades_vix:.2f}")
-        log_trade(f"Average VIX on Loss Trades: {loss_trades_vix:.2f}")
+        # Analyze trade performance
+        profitable_trades = trades_df[trades_df['profit'] > 0]
+        losing_trades = trades_df[trades_df['profit'] < 0]
+        
+        log_trade(f"\nTrade Analysis:")
+        log_trade(f"Win Rate: {(len(profitable_trades)/len(trades))*100:.2f}%")
+        log_trade(f"Average Profit (winning trades): {profitable_trades['profit'].mean():.2f}")
+        log_trade(f"Average Loss (losing trades): {losing_trades['profit'].mean():.2f}")
+        log_trade(f"Average Volatility Score at Entry: {trades_df['vol_score_at_entry'].mean():.2f}")
+        log_trade(f"Average Synthetic IV at Entry: {trades_df['synthetic_iv_at_entry'].mean():.2f}")
     
-    log_trade("\n===========================================")
-
     return balance, trades
 
 if __name__ == "__main__":
@@ -218,4 +230,3 @@ if __name__ == "__main__":
         )
     except FileNotFoundError:
         print(f"File not found: {file_path}")
-        log_error(f"File not found: {file_path}")

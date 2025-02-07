@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from datetime import datetime
 from config_SmartRouting import *
+import talib
 
 def create_log_directory():
     log_dir = os.path.join(os.getcwd(), './Smart_Routing/logs')
@@ -25,32 +26,35 @@ def log_error(message):
     with open(log_filename, 'a') as f:
         f.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - {message}\n")
 
+def calculate_indicators(data):
+    # Calculate On-Balance Volume (OBV) for order flow
+    data['OBV'] = talib.OBV(data['close'], data['Volume'])
+    
+    # Calculate Simple Moving Average (SMA) for volume
+    data['Volume_MA'] = talib.SMA(data['Volume'], timeperiod=14)
+    
+    return data
+
 def routing_decision(row, volume_ma):
     volume = row['Volume']
-    vwap = row['VWAP']
-    price = row['close']
+    obv = row['OBV']
     
     # Build reasoning components
     reasoning = []
     
     # Volume analysis
-    volume_status = "High" if volume > volume_ma else "Low"
+    volume_status = "Above MA" if volume > volume_ma else "Below MA"
     reasoning.append(f"Volume: {volume:,} vs MA: {volume_ma:,} ({volume_status})")
     
-    # VWAP analysis
-    vwap_diff = ((price - vwap) / vwap) * 100
-    price_status = "Below VWAP" if price < vwap else "Above VWAP"
-    reasoning.append(f"Price: {price:.2f} vs VWAP: {vwap:.2f} ({price_status}, {vwap_diff:.2f}% diff)")
-
-    # Market Impact Analysis
-    liquidity_status = "High" if volume > volume_ma * 1.5 else "Moderate" if volume > volume_ma else "Low"
-    reasoning.append(f"Liquidity Status: {liquidity_status}")
+    # Order flow (OBV) analysis
+    obv_status = "Positive" if obv > 0 else "Negative"
+    reasoning.append(f"OBV: {obv:,} ({obv_status})")
 
     # Combine reasoning
     full_reasoning = " | ".join(reasoning)
 
-    if volume > volume_ma and price < vwap:
-        return "Buy_Route", full_reasoning
+    if volume > volume_ma and obv > 0:
+        return "Buy", full_reasoning
     return "Hold", full_reasoning
 
 def run_smart_order_routing(data, initial_balance, volume_ma, stop_loss_pct, target_pct):
@@ -86,6 +90,9 @@ def run_smart_order_routing(data, initial_balance, volume_ma, stop_loss_pct, tar
     for index, row in data.iterrows():
         current_price = row['close']
         timestamp = pd.Timestamp(row['time']) if 'time' in row else pd.Timestamp.now()
+        obv = row['OBV']
+        volume_ma_value = row['Volume_MA']
+        volume = row['Volume']
 
         if ENABLE_DEBUG_LOGGING:
             log_trade(f"\nAnalyzing Minute {index + 1}:")
@@ -95,7 +102,7 @@ def run_smart_order_routing(data, initial_balance, volume_ma, stop_loss_pct, tar
 
         if position is None:
             routing_decision_result, reasoning = routing_decision(row, volume_ma)
-            if routing_decision_result == "Buy_Route":
+            if routing_decision_result == "Buy":
                 position = "Buy"
                 trade_price = current_price
                 trade_entry_time = timestamp
@@ -213,7 +220,10 @@ if __name__ == "__main__":
     file_path = os.path.join(os.getcwd(), file_path)
     
     try:
+        # Load and process data
         data = load_market_data(file_path)
+        data = calculate_indicators(data)  # Add this line to calculate indicators
+        
         final_balance, trades = run_smart_order_routing(
             data,
             initial_balance=initial_balance,

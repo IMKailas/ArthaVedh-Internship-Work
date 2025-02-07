@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from datetime import datetime
 import config_OrderFlow
+import talib
 
 # Function to create log directory if it doesn't exist
 def create_log_directory():
@@ -29,11 +30,21 @@ def log_error(message):
     with open(log_filename, 'a') as f:
         f.write(f"{message}\n")
 
+# Calculate TA-Lib indicators
+def calculate_indicators(data):
+    # Calculate On-Balance Volume (OBV) for order flow
+    data['OBV'] = talib.OBV(data['close'], data['Volume'])
+    
+    # Calculate Simple Moving Average (SMA) for volume
+    data['Volume_MA'] = talib.SMA(data['Volume'], timeperiod=14)
+    
+    return data
+
 # Enhanced order flow decision logic with reasoning
 def order_flow_decision(row, volume_ma):
     volume = row['Volume']
     price = row['close']
-    vwap = row['VWAP']
+    obv = row['OBV']
 
     # Build reasoning components
     reasoning = []
@@ -42,18 +53,18 @@ def order_flow_decision(row, volume_ma):
     volume_status = "Above MA" if volume > volume_ma else "Below MA"
     reasoning.append(f"Volume: {volume:,} vs MA: {volume_ma:,} ({volume_status})")
     
-    # Price vs VWAP analysis
-    price_status = "Below VWAP" if price < vwap else "Above VWAP"
-    reasoning.append(f"Price: {price:.2f} vs VWAP: {vwap:.2f} ({price_status})")
+    # Order flow (OBV) analysis
+    obv_status = "Positive" if obv > 0 else "Negative"
+    reasoning.append(f"OBV: {obv:,} ({obv_status})")
 
     # Combine reasoning
     full_reasoning = " | ".join(reasoning)
 
-    if volume > volume_ma and price < vwap:
+    if volume > volume_ma and obv > 0:
         return "Buy", full_reasoning
     return "Hold", full_reasoning
 
-def run_order_flow_strategy(data, initial_balance, stop_loss_pct, target_profit_pct, volume_ma):
+def run_order_flow_strategy(data, initial_balance, stop_loss_pct, target_profit_pct):
     # Create log directory and file
     log_dir = create_log_directory()
     log_filename = os.path.join(log_dir, f"orderflow_trading_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt")
@@ -79,16 +90,17 @@ def run_order_flow_strategy(data, initial_balance, stop_loss_pct, target_profit_
     log_trade(f"Initial Balance: {balance:.2f}")
     log_trade(f"Stop Loss Percentage: {stop_loss_pct}%")
     log_trade(f"Target Profit Percentage: {target_profit_pct}%")
-    log_trade(f"Volume MA Threshold: {volume_ma}")
+    data = calculate_indicators(data)
 
     for index, row in data.iterrows():
         current_price = row['close']
         volume = row['Volume']
-        vwap = row['VWAP']
+        obv = row['OBV']
+        volume_ma_value = row['Volume_MA']
         timestamp = pd.Timestamp(row['time'])
 
         if position is None:
-            decision, reasoning = order_flow_decision(row, volume_ma)
+            decision, reasoning = order_flow_decision(row, volume_ma_value)
 
             if decision == "Buy":
                 position = "Buy"
@@ -102,7 +114,7 @@ def run_order_flow_strategy(data, initial_balance, stop_loss_pct, target_profit_
                 log_trade(f"Entry Reasoning: {trade_entry_reason}")
                 log_trade(f"Stop Loss: {stop_loss:.2f}, Target Profit: {target_profit:.2f}")
                 log_trade(f"Entry Time: {trade_entry_time}")
-                log_trade(f"VWAP: {vwap:.2f}, Volume: {volume:,}")
+                log_trade(f"OBV: {obv:,}, Volume: {volume:,}")
 
         if position == "Buy":
             if current_price <= stop_loss or current_price >= target_profit:
@@ -122,7 +134,7 @@ def run_order_flow_strategy(data, initial_balance, stop_loss_pct, target_profit_
                     'exit_price': current_price,
                     'status': exit_reason,
                     'profit': profit,
-                    'entry_vwap': vwap,
+                    'entry_obv': obv,
                     'entry_volume': volume,
                     'entry_reasoning': trade_entry_reason
                 }
@@ -132,7 +144,7 @@ def run_order_flow_strategy(data, initial_balance, stop_loss_pct, target_profit_
                 log_trade(f"Closed {position} position: {exit_reason}")
                 log_trade(f"Entry Reasoning: {trade_entry_reason}")
                 log_trade(f"Entry Price: {trade_price:.2f}, Exit Price: {current_price:.2f}")
-                log_trade(f"VWAP at Entry: {vwap:.2f}")
+                log_trade(f"OBV at Entry: {obv:,}")
                 log_trade(f"Volume at Entry: {volume:,}")
                 log_trade(f"Profit/Loss: {profit:.2f}")
                 log_trade(f"New Balance: {balance:.2f}")
@@ -164,7 +176,7 @@ def run_order_flow_strategy(data, initial_balance, stop_loss_pct, target_profit_
             'exit_price': final_price,
             'status': 'Market Close',
             'profit': profit,
-            'entry_vwap': vwap,
+            'entry_obv': obv,
             'entry_volume': volume,
             'entry_reasoning': trade_entry_reason
         })
@@ -173,7 +185,7 @@ def run_order_flow_strategy(data, initial_balance, stop_loss_pct, target_profit_
         log_trade(f"Closed remaining position at market close")
         log_trade(f"Entry Reasoning: {trade_entry_reason}")
         log_trade(f"Entry Price: {trade_price:.2f}, Exit Price: {final_price:.2f}")
-        log_trade(f"VWAP at Entry: {vwap:.2f}")
+        log_trade(f"OBV at Entry: {obv:,}")
         log_trade(f"Volume at Entry: {volume:,}")
         log_trade(f"Profit/Loss: {profit:.2f}")
         log_trade(f"Final Balance: {balance:.2f}")
@@ -202,7 +214,7 @@ def run_order_flow_strategy(data, initial_balance, stop_loss_pct, target_profit_
             log_trade(f"Exit Time: {trade['exit_time']}")
             log_trade(f"Entry Price: {trade['entry_price']:.2f}")
             log_trade(f"Exit Price: {trade['exit_price']:.2f}")
-            log_trade(f"VWAP at Entry: {trade['entry_vwap']:.2f}")
+            log_trade(f"OBV at Entry: {trade['entry_obv']:,}")
             log_trade(f"Volume at Entry: {trade['entry_volume']:,}")
             log_trade(f"Status: {trade['status']}")
             log_trade(f"Profit/Loss: {trade['profit']:.2f}")
@@ -222,7 +234,7 @@ def run_order_flow_strategy(data, initial_balance, stop_loss_pct, target_profit_
 
         # Order Flow-specific metrics
         log_trade(f"\nOrder Flow-specific Metrics:")
-        log_trade(f"Average VWAP Deviation at Entry: {(trades_df['entry_price'] - trades_df['entry_vwap']).mean():.2f}")
+        log_trade(f"Average OBV at Entry: {trades_df['entry_obv'].mean():.2f}")
         log_trade(f"Average Volume at Entry: {trades_df['entry_volume'].mean():.2f}")
         log_trade(f"Maximum Single Trade Profit: {trades_df['profit'].max():.2f}")
         log_trade(f"Maximum Single Trade Loss: {trades_df['profit'].min():.2f}")
@@ -239,7 +251,6 @@ if __name__ == "__main__":
             'initial_balance': config_OrderFlow.initial_balance,
             'stop_loss_pct': config_OrderFlow.stop_loss_pct,
             'target_profit_pct': config_OrderFlow.target_profit_pct,
-            'volume_ma': config_OrderFlow.volume_ma
         }
         
         final_balance, trades = run_order_flow_strategy(
@@ -247,7 +258,6 @@ if __name__ == "__main__":
             initial_balance=params['initial_balance'],
             stop_loss_pct=params['stop_loss_pct'],
             target_profit_pct=params['target_profit_pct'],
-            volume_ma=params['volume_ma']
         )
     except FileNotFoundError:
         print(f"File not found: {file_path}")

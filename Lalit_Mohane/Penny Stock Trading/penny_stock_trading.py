@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+import talib
 import logging
 from config import Config
 
@@ -17,10 +17,21 @@ def read_csv(file_path):
     logger.info(f"Reading CSV file: {file_path}")
     return pd.read_csv(file_path)
 
-def calculate_volume_ma(df, window):
-    """Function to calculate Volume Moving Average."""
-    logger.info(f"Calculating Volume Moving Average with window: {window}")
-    df['Volume_MA'] = df['Volume'].rolling(window=window).mean()
+def calculate_indicators(df):
+    """Function to calculate indicators using TA-Lib."""
+    logger.info("Calculating indicators using TA-Lib")
+
+    # Calculate Volume Moving Average
+    df['Volume_MA'] = talib.SMA(df['Volume'], timeperiod=Config.VOLUME_MA_WINDOW)
+
+    # Calculate RSI
+    df['RSI'] = talib.RSI(df['close'], timeperiod=Config.RSI_PERIOD)
+
+    # Calculate Bollinger Bands
+    df['Upper_BB'], df['Middle_BB'], df['Lower_BB'] = talib.BBANDS(
+        df['close'], timeperiod=Config.BB_WINDOW, nbdevup=2, nbdevdn=2, matype=0
+    )
+
     return df
 
 def calculate_summary(trades):
@@ -91,8 +102,11 @@ def main():
     # Read dataset from CSV
     df = read_csv(Config.FILE_PATH)
 
-    # Calculate Volume Moving Average
-    df = calculate_volume_ma(df, Config.VOLUME_MA_WINDOW)
+    # Filter only necessary columns
+    df = df[['time', 'open', 'high', 'low', 'close', 'Volume']]
+
+    # Calculate indicators
+    df = calculate_indicators(df)
 
     # Apply the trading strategy
     trades = penny_stock_trading_strategy(df, Config)
